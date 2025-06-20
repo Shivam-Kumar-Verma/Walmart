@@ -1,81 +1,75 @@
 /** @format */
 
 function navbar() {
-  return `<div id="full">
-  <div class="B">
-    <div class="E">
-      <div id="iop" class="C" style="display: flex">
+  return `
+  <div id="full">
+    <div class="top-bar">
+      <div class="pickup-delivery">
+        <span class="material-symbols-outlined">local_shipping</span>
         <div>
-        <a href="index.html">
-        <img class="logo" src="logo-removebg-preview.png" alt="logo"/>
-    </a>
+          Pickup or delivery?
+          <div class="location-info">
+            Sacramento, 95829 &nbsp;•&nbsp; Sacramento Supercenter
+          </div>
+          <span class="material-symbols-outlined arrow-down">expand_more</span>
         </div>
       </div>
-      <!-- <div><span class="material-symbols-outlined"> window </span></div> -->
-      <div id="iop" class="C" style="width: 150px">
-        <p id="bold">
-          <span class="material-symbols-outlined"> window </span>Departments
-        </p>
+      <div class="search-bar">
+        <input
+          type="text"
+          placeholder="Search everything at Walmart online and in store"
+          aria-label="Search"
+        />
+        <button class="search-button">
+          <span class="material-symbols-outlined">search</span>
+        </button>
       </div>
-      <div id="iop" class="C">
-        <p id="bold">
-          <span class="material-symbols-outlined"> scatter_plot </span
-          >Services
-        </p>
-      </div>
-    </div>
-    <div id="e">
-      <input
-      id="asddd"
-        type="text"
-        placeholder="Search everything in Walmart online and in store" />
-      <div class="se">
-        <span class="material-symbols-outlined" id="Ll"> search </span>
-      </div>
-    </div>
-    <div class="E" style="width: 24%">
-      <div id="iop" class="C" class="opilp">
-        Reorder
-        <p class="yui" id="bold">My Items</p>
-      </div>
-      <div id="iop" class="C" class="opilp">
-        <a href="signup.html">
-          <div id="us">Sign In</div>
-          <p class="yui" id="bold">Account</p></a
-        >
-      </div>
-      <div id="iop" class="C" style="width: 40px" class="opilp">
-        <a href="CheckoutDetailing/cart.html"
-          ><span class="material-symbols-outlined"> shopping_cart </span></a
-        >
+      <div class="right-menu">
+        <div class="wishlist">
+          <span class="material-symbols-outlined">favorite_border</span>
+          <span>Reorder My Items</span>
+        </div>
+        <div class="account">
+          <span class="material-symbols-outlined">person_outline</span>
+          <a href="signup.html">Sign In Account</a>
+        </div>
+        <div class="cart">
+          <a href="CheckoutDetailing/cart.html">
+            <span class="material-symbols-outlined">shopping_cart</span>
+            <span class="cart-badge">0</span>
+            <span class="cart-total">$0.00</span>
+          </a>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-<div id="llss">
-  <div class="G">
-    <div>how do you want items?</div>
-    <div style="display: flex" class="op">
-      <div>
-        <span class="material-symbols-outlined"> location_on </span>
+    <div class="bottom-bar">
+      <div class="menu-item departments">
+        <span class="material-symbols-outlined">apps</span>
+        <span>Departments</span>
+        <span class="material-symbols-outlined arrow-down">expand_more</span>
       </div>
-      <div>Sacramento,96829 &nbsp&nbsp</div>
-      <div>
-        <span class="material-symbols-outlined"> house_siding </span>
+      <div class="menu-item services">
+        <span class="material-symbols-outlined">miscellaneous_services</span>
+        <span>Services</span>
+        <span class="material-symbols-outlined arrow-down">expand_more</span>
       </div>
-      <div>Sacramento Supercenter</div>
+      <div class="menu-item">Get it Fast</div>
+      <div class="menu-item">My Items</div>
+      <div class="menu-item">Pharmacy Delivery</div>
+      <div class="menu-item">Dinner Solutions</div>
+      <div class="menu-item">4th of July</div>
+      <div class="menu-item">Trending</div>
+      <div class="menu-item">Swim Shop</div>
+      <div class="menu-item">Walmart+</div>
+      <div class="menu-item more">
+        More
+        <span class="material-symbols-outlined arrow-down">expand_more</span>
+      </div>
     </div>
   </div>
-  <div class="G">
-    <div class="y">Grocery & essentials</div>
-    <div class="y">Up to $300 off loptops</div>
-    <div class="y">Apparel</div>
-    <div class="y">Home</div>
-    <div class="y">Top Toys,Low Price</div>
-    <div class="y">Character Shop</div>
-  </div>
-</div>`;
+  `;
 }
+
 let user = JSON.parse(localStorage.getItem('user_data')) || [];
 function hjjk() {
   console.log('dssd');

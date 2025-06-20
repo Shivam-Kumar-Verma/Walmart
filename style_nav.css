@@ -1,142 +1,196 @@
 /** @format */
-/* body {
-  color: white;
-} */
+
+/* Reset and base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
 
 #full {
-  display: flex;
-  height: 100px;
-  background-color: rgb(1, 112, 220);
-  /* border: solid black; */
-  border-bottom: white solid;
-  align-content: center;
-  align-content: center;
-  align-items: center;
-}
-.B {
-  display: flex;
-  height: 60px;
   width: 100%;
-  justify-content: space-around;
-  align-items: center;
-  /* background-color: rgb(1, 112, 220); */
-  /* border: solid black; */
-  /* align-content: center;
-  align-content: center;
-  align-items: center; */
+  background-color: #0071ce; /* Walmart blue */
+  color: white;
+  font-size: 14px;
+  user-select: none;
 }
 
-#e {
+/* Top bar styles */
+.top-bar {
   display: flex;
-  height: 25px;
-  width: 40%;
-  border-radius: 30px;
-  /* border: solid black; */
-  padding: 10px;
-  background-color: white;
-}
-.C {
-  display: flex;
-  height: 100%;
-  /* border: solid black; */
-  justify-content: center;
-  align-content: center;
-  padding: 10px;
-  border-radius: 30px;
-}
-.E {
-  width: 33%;
-  height: 40px;
-  /* border: solid black; */
-  display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  height: 60px;
+  padding: 0 20px;
 }
-#llss {
+
+/* Pickup or delivery section */
+.pickup-delivery {
   display: flex;
-  /* border: solid black; */
-  height: 40px;
-  background-color: rgb(1, 112, 220);
   align-items: center;
+  gap: 10px;
+  font-weight: 600;
 }
-input {
-  width: 95%;
-  height: 100%;
-  border-top-left-radius: 30px;
-  outline: none;
-  border-bottom-left-radius: 30px;
+
+.pickup-delivery .material-symbols-outlined {
+  font-size: 28px;
+}
+
+.location-info {
+  font-weight: 400;
+  font-size: 12px;
+  margin-top: 2px;
+  color: #cce4f7;
+}
+
+.arrow-down {
+  font-size: 18px;
+  vertical-align: middle;
+  cursor: pointer;
+  margin-left: 4px;
+}
+
+/* Search bar styles */
+.search-bar {
+  flex-grow: 1;
+  max-width: 600px;
+  margin: 0 20px;
+  position: relative;
+}
+
+.search-bar input {
+  width: 100%;
+  height: 36px;
+  border-radius: 18px;
   border: none;
+  padding: 0 50px 0 20px;
+  font-size: 14px;
+  outline: none;
 }
-#Ll {
-  padding: 7px;
-  background-color: rgb(255, 194, 30);
-  height: 22px;
-  width: 22px;
-  border-radius: 50%;
-  color: black;
-}
-.se {
-  display: flex;
-  align-self: center;
-}
-.C:hover {
-  background-color: rgb(2, 79, 155);
-}
-#iop {
-  display: grid;
-  grid-template-columns: 1fr;
-  width: 120px;
-  padding: 0px;
-  justify-items: center;
-  align-items: center;
-  /* border: black solid; */
-  /* padding-bottom: -10px; */
-}
-/* #iopp{
 
-} */
-.yui {
-  margin: 0%;
-  margin-left: 20px;
-}
-.G {
+.search-button {
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #ffc720; /* Walmart yellow */
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
   display: flex;
-  justify-content: space-around;
-  background-color: rgb(1, 112, 220);
+  justify-content: center;
   align-items: center;
-  /* border: solid black; */
-  height: 30px;
-  width: 50%;
 }
-.y:hover {
-  text-decoration: underline;
+
+.search-button .material-symbols-outlined {
+  color: black;
+  font-size: 20px;
+}
+
+/* Right menu styles */
+.right-menu {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.right-menu .wishlist,
+.right-menu .account,
+.right-menu .cart {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   cursor: pointer;
 }
-#bold {
-  display: flex;
-  font-size: 20px;
-  align-items: center;
-}
-.op {
-  /* border: solid black; */
-  align-items: center;
-}
-a {
-  text-decoration: none;
+
+.right-menu .account a {
   color: white;
+  text-decoration: none;
 }
-.logo {
-  width: 150px;
-  height: 80px;
+
+.right-menu .cart a {
+  position: relative;
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
-@media all and (max-width: 1024px) and (min-width: 8px) {
-  #iop {
-    display: none;
+
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: 10px;
+  background-color: #ffc720;
+  color: black;
+  font-weight: 700;
+  font-size: 12px;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Cart total price */
+.cart-total {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* Bottom bar styles */
+.bottom-bar {
+  display: flex;
+  align-items: center;
+  background-color: #f3f6f9; /* Light blue/gray */
+  color: #1d3c6a; /* Dark blue text */
+  height: 40px;
+  padding: 0 20px;
+  font-weight: 600;
+  font-size: 14px;
+  gap: 20px;
+  user-select: none;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.menu-item .material-symbols-outlined {
+  font-size: 18px;
+  color: #1d3c6a;
+}
+
+.menu-item.more {
+  margin-left: auto;
+}
+
+.menu-item:hover {
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .search-bar {
+    max-width: 300px;
   }
-  .G {
-    display: none;
+  .right-menu {
+    gap: 15px;
+    font-size: 12px;
   }
-  .logo {
-    display: none;
+  .bottom-bar {
+    font-size: 12px;
+    gap: 10px;
+    padding: 0 10px;
   }
 }
