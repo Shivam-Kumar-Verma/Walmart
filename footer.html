@@ -1,54 +1,955 @@
-<!-- @format -->
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="css/main.css" />
-  </head>
-  <body>
-    <!-- <h1>Footer</h1> -->
-    <!-- <div id="Box">
-<h4 id="h4tag">We’d love to hear what you think!</h4>
-<button>Give feedback</button>
-    </div> -->
+    <title>Walmart Footer</title>
+    
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <div id="parentBo">
-      <div class="footer">
-        <h5 class="ptag">All Departments</h5>
-        <h5>Store Directory</h5>
-        <h5>Careers</h5>
-        <h5>Our Company</h5>
-        <h5>Sell on Walmart.com</h5>
-        <h5>Help</h5>
-        <h5>COVID-19 Vaccine Scheduler</h5>
-        <h5>Product Recalls</h5>
-        <h5>Accessibility</h5>
-        <h5 class="p1tag">Tax Exempt Program</h5>
-      </div>
+        :root {
+            --walmart-blue: #0071ce;
+            --walmart-dark-blue: #004c91;
+            --walmart-yellow: #ffc220;
+            --walmart-orange: #ff6900;
+            --walmart-light-gray: #f8f9fa;
+            --walmart-gray: #74767c;
+            --walmart-dark-gray: #46474a;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666;
+            --border-color: #e5e5e5;
+            --shadow-light: 0 2px 8px rgba(0,0,0,0.1);
+            --shadow-medium: 0 4px 16px rgba(0,0,0,0.15);
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+        }
 
-      <div class="footer">
-        <h5 class="ptag">Get the Walmart App</h5>
-        <h5>Sign-up for Email</h5>
-        <h5>Safety Data Sheet</h5>
-        <h5>Terms of Use</h5>
-        <h5>Privacy & Security</h5>
-        <h5>CA Privacy Rights</h5>
-        <h5>California Supply Chain Act</h5>
-        <h5 class="p1tag">Do Not Sell My Personal Information</h5>
-      </div>
-      <div id="change">
-        <div class="footer">
-          <h5 class="tag">Request My Personal Information</h5>
-          <h5 class="tag1">#IYWYK</h5>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: #fff;
+        }
+
+        /* Feedback Section */
+        .feedback-section {
+            background: linear-gradient(135deg, var(--walmart-blue), var(--walmart-dark-blue));
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feedback-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateX(-50px) translateY(-50px); }
+            100% { transform: translateX(50px) translateY(50px); }
+        }
+
+        .feedback-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .feedback-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .feedback-subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .feedback-btn {
+            background: white;
+            color: var(--walmart-blue);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .feedback-btn:hover {
+            background: var(--walmart-yellow);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* Main Footer */
+        .footer {
+            background: var(--walmart-dark-gray);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .footer-main {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: white;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background: var(--walmart-yellow);
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .footer-link {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            padding: 0.25rem 0;
+        }
+
+        .footer-link:hover {
+            color: var(--walmart-yellow);
+            padding-left: 0.5rem;
+        }
+
+        /* App Download Section */
+        .app-section {
+            background: var(--walmart-light-gray);
+            padding: 2rem 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .app-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .app-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .app-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .app-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .app-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .app-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--text-primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            transition: var(--transition);
+            min-width: 150px;
+        }
+
+        .app-btn:hover {
+            background: var(--walmart-blue);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .app-btn i {
+            font-size: 1.5rem;
+        }
+
+        .app-btn-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-btn-small {
+            font-size: 0.7rem;
+            opacity: 0.8;
+        }
+
+        .app-btn-large {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .app-qr {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .qr-code {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        .qr-text {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        /* Social Media Section */
+        .social-section {
+            background: var(--walmart-blue);
+            padding: 2rem 0;
+            color: white;
+        }
+
+        .social-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .social-info {
+            flex: 1;
+        }
+
+        .social-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .social-description {
+            opacity: 0.9;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: white;
+            color: var(--walmart-blue);
+            transform: translateY(-3px);
+        }
+
+        /* Newsletter Section */
+        .newsletter-section {
+            background: white;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .newsletter-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .newsletter-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .newsletter-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .newsletter-description {
+            color: var(--text-secondary);
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            border-color: var(--walmart-blue);
+            box-shadow: 0 0 0 3px rgba(0, 113, 206, 0.1);
+        }
+
+        .newsletter-btn {
+            background: var(--walmart-blue);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .newsletter-btn:hover {
+            background: var(--walmart-dark-blue);
+        }
+
+        /* Bottom Footer */
+        .footer-bottom {
+            background: var(--text-primary);
+            color: white;
+            padding: 2rem 0;
+        }
+
+        .footer-bottom-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .footer-bottom-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-logo {
+            height: 40px;
+            width: auto;
+            filter: brightness(0) invert(1);
+        }
+
+        .footer-tagline {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .footer-legal-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-legal-link {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .footer-legal-link:hover {
+            color: var(--walmart-yellow);
+        }
+
+        .footer-copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .feedback-title {
+                font-size: 1.5rem;
+            }
+
+            .footer-main {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .app-content,
+            .social-content,
+            .newsletter-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .app-buttons {
+                justify-content: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .footer-bottom-main {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-legal-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .feedback-section {
+                padding: 2rem 0;
+            }
+
+            .feedback-title {
+                font-size: 1.25rem;
+            }
+
+            .footer {
+                padding: 2rem 0 1rem;
+            }
+
+            .app-section,
+            .social-section,
+            .newsletter-section {
+                padding: 1.5rem 0;
+            }
+
+            .app-btn {
+                min-width: 120px;
+                padding: 0.5rem 1rem;
+            }
+
+            .qr-code {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        /* Accessibility improvements */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* High contrast mode */
+        @media (prefers-contrast: high) {
+            .footer-link:hover {
+                background: rgba(255, 255, 255, 0.1);
+                padding: 0.5rem;
+                border-radius: 4px;
+            }
+        }
+
+        /* Focus styles */
+        button:focus,
+        a:focus,
+        input:focus {
+            outline: 3px solid var(--walmart-yellow);
+            outline-offset: 2px;
+        }
+
+        /* Print styles */
+        @media print {
+            .feedback-section,
+            .app-section,
+            .social-section,
+            .newsletter-section {
+                display: none;
+            }
+            
+            .footer {
+                background: white;
+                color: black;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Feedback Section -->
+    <section class="feedback-section">
+        <div class="feedback-content">
+            <h2 class="feedback-title">We'd love to hear what you think!</h2>
+            <p class="feedback-subtitle">Your feedback helps us improve your shopping experience</p>
+            <button class="feedback-btn" onclick="openFeedbackModal()">Give Feedback</button>
         </div>
-        <div class="footer">
-          <h5 id="h5tag">© 2022 Walmart. All Rights Reserved.</h5>
+    </section>
+
+    <!-- App Download Section -->
+    <section class="app-section">
+        <div class="app-content">
+            <div class="app-info">
+                <h3 class="app-title">Get the Walmart App</h3>
+                <p class="app-description">Shop faster, get exclusive deals, and manage your orders on the go with our mobile app.</p>
+                <div class="app-buttons">
+                    <a href="#" class="app-btn" onclick="downloadApp('ios')">
+                        <i class="fab fa-apple"></i>
+                        <div class="app-btn-text">
+                            <span class="app-btn-small">Download on the</span>
+                            <span class="app-btn-large">App Store</span>
+                        </div>
+                    </a>
+                    <a href="#" class="app-btn" onclick="downloadApp('android')">
+                        <i class="fab fa-google-play"></i>
+                        <div class="app-btn-text">
+                            <span class="app-btn-small">Get it on</span>
+                            <span class="app-btn-large">Google Play</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="app-qr">
+                <div class="qr-code">
+                    <i class="fas fa-qrcode" style="font-size: 3rem; color: var(--walmart-blue);"></i>
+                </div>
+                <p class="qr-text">Scan to download</p>
+            </div>
         </div>
-      </div>
-    </div>
-  </body>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="newsletter-content">
+            <div class="newsletter-info">
+                <h3 class="newsletter-title">Stay in the loop</h3>
+                <p class="newsletter-description">Get the latest deals, new arrivals, and exclusive offers delivered to your inbox.</p>
+            </div>
+            <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+                <input type="email" class="newsletter-input" placeholder="Enter your email address" required>
+                <button type="submit" class="newsletter-btn">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Social Media Section -->
+    <section class="social-section">
+        <div class="social-content">
+            <div class="social-info">
+                <h3 class="social-title">Follow us for more</h3>
+                <p class="social-description">Stay connected and get the latest updates on social media</p>
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link" aria-label="Facebook" onclick="openSocial('facebook')">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="Twitter" onclick="openSocial('twitter')">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="Instagram" onclick="openSocial('instagram')">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="YouTube" onclick="openSocial('youtube')">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="LinkedIn" onclick="openSocial('linkedin')">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-main">
+                <!-- Company Info -->
+                <div class="footer-section">
+                    <h4 class="footer-title">Company</h4>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">All Departments</a>
+                        <a href="#" class="footer-link">Store Directory</a>
+                        <a href="#" class="footer-link">Careers</a>
+                        <a href="#" class="footer-link">Our Company</a>
+                        <a href="#" class="footer-link">Sell on Walmart.com</a>
+                        <a href="#" class="footer-link">Supplier Portal</a>
+                    </div>
+                </div>
+
+                <!-- Customer Service -->
+                <div class="footer-section">
+                    <h4 class="footer-title">Customer Service</h4>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">Help Center</a>
+                        <a href="#" class="footer-link">Track Your Order</a>
+                        <a href="#" class="footer-link">Returns & Exchanges</a>
+                        <a href="#" class="footer-link">Shipping Info</a>
+                        <a href="#" class="footer-link">Contact Us</a>
+                        <a href="#" class="footer-link">Product Recalls</a>
+                    </div>
+                </div>
+
+                <!-- Services -->
+                <div class="footer-section">
+                    <h4 class="footer-title">Services</h4>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">Pharmacy</a>
+                        <a href="#" class="footer-link">Auto Care Center</a>
+                        <a href="#" class="footer-link">Photo Center</a>
+                        <a href="#" class="footer-link">Money Services</a>
+                        <a href="#" class="footer-link">COVID-19 Vaccine</a>
+                        <a href="#" class="footer-link">Gift Cards</a>
+                    </div>
+                </div>
+
+                <!-- Legal & Privacy -->
+                <div class="footer-section">
+                    <h4 class="footer-title">Legal & Privacy</h4>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">Terms of Use</a>
+                        <a href="#" class="footer-link">Privacy & Security</a>
+                        <a href="#" class="footer-link">CA Privacy Rights</a>
+                        <a href="#" class="footer-link">Accessibility</a>
+                        <a href="#" class="footer-link">Tax Exempt Program</a>
+                        <a href="#" class="footer-link">Do Not Sell My Info</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bottom Footer -->
+    <section class="footer-bottom">
+        <div class="footer-bottom-content">
+            <div class="footer-bottom-main">
+                <div class="footer-logo-section">
+                    <img src="https://i5.walmartimages.com/dfw/4ff9c6c9-991c/k2-_03d329be-5936-4ef6-ad29-95e392df014d.v1.png" 
+                         alt="Walmart" class="footer-logo">
+                    <span class="footer-tagline">Save Money. Live Better.</span>
+                </div>
+                <div class="footer-legal-links">
+                    <a href="#" class="footer-legal-link">California Supply Chain Act</a>
+                    <a href="#" class="footer-legal-link">Request My Personal Information</a>
+                    <a href="#" class="footer-legal-link">#IYWYK</a>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <p>© 2024 Walmart Inc. All Rights Reserved.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Feedback functionality
+        function openFeedbackModal() {
+            // In a real application, this would open a feedback modal
+            alert('Feedback modal would open here. Thank you for wanting to share your thoughts!');
+            console.log('Opening feedback modal...');
+        }
+
+        // App download functionality
+        function downloadApp(platform) {
+            const urls = {
+                ios: 'https://apps.apple.com/us/app/walmart/id338137227',
+                android: 'https://play.google.com/store/apps/details?id=com.walmart.android'
+            };
+            
+            console.log(`Redirecting to ${platform} app store...`);
+            // In a real application, you would redirect to the actual app store
+            // window.open(urls[platform], '_blank');
+            
+            showNotification(`Redirecting to ${platform === 'ios' ? 'App Store' : 'Google Play'}...`);
+        }
+
+        // Newsletter subscription
+        function subscribeNewsletter(event) {
+            event.preventDefault();
+            const email = event.target.querySelector('input[type="email"]').value;
+            
+            // Simulate API call
+            console.log(`Subscribing email: ${email}`);
+            
+            // Show success message
+            showNotification('Successfully subscribed to newsletter!', 'success');
+            
+            // Reset form
+            event.target.reset();
+        }
+
+        // Social media links
+        function openSocial(platform) {
+            const urls = {
+                facebook: 'https://www.facebook.com/walmart',
+                twitter: 'https://twitter.com/walmart',
+                instagram: 'https://www.instagram.com/walmart',
+                youtube: 'https://www.youtube.com/user/walmart',
+                linkedin: 'https://www.linkedin.com/company/walmart'
+            };
+            
+            console.log(`Opening ${platform} page...`);
+            // In a real application, you would redirect to the actual social media page
+            // window.open(urls[platform], '_blank');
+            
+            showNotification(`Opening ${platform.charAt(0).toUpperCase() + platform.slice(1)} page...`);
+        }
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            // Remove existing notifications
+            const existingNotification = document.querySelector('.notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <i class="notification-icon ${getNotificationIcon(type)}"></i>
+                    <span class="notification-message">${message}</span>
+                    <button class="notification-close" onclick="this.parentElement.parentElement.remove()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+
+            // Add styles
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: white;
+                border-radius: 8px;
+                box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+                z-index: 10000;
+                min-width: 300px;
+                animation: slideInRight 0.3s ease;
+                padding: 1rem;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+            `;
+
+            document.body.appendChild(notification);
+
+            // Auto remove after 4 seconds
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.style.animation = 'slideOutRight 0.3s ease';
+                    setTimeout(() => {
+                        if (notification.parentElement) {
+                            notification.remove();
+                        }
+                    }, 300);
+                }
+            }, 4000);
+        }
+
+        function getNotificationIcon(type) {
+            const icons = {
+                success: 'fas fa-check-circle',
+                error: 'fas fa-exclamation-circle',
+                warning: 'fas fa-exclamation-triangle',
+                info: 'fas fa-info-circle'
+            };
+            return icons[type] || icons.info;
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Analytics tracking
+        function trackFooterInteraction(action, details = {}) {
+            console.log('Footer interaction:', action, details);
+            // In production, send to analytics service
+            // analytics.track('footer_interaction', { action, ...details });
+        }
+
+        // Add click tracking to footer links
+        document.querySelectorAll('.footer-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                trackFooterInteraction('link_click', {
+                    link_text: this.textContent,
+                    link_url: this.href
+                });
+            });
+        });
+
+        // Accessibility improvements
+        function setupAccessibility() {
+            // Add keyboard navigation for interactive elements
+            const interactiveElements = document.querySelectorAll('button, a, input');
+            
+            interactiveElements.forEach(element => {
+                element.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        if (this.tagName === 'BUTTON' || this.tagName === 'A') {
+                            e.preventDefault();
+                            this.click();
+                        }
+                    }
+                });
+            });
+        }
+
+        // Initialize accessibility features
+        setupAccessibility();
+
+        // Performance monitoring
+        window.addEventListener('load', function() {
+            const loadTime = performance.now();
+            console.log(`Footer loaded in ${loadTime.toFixed(2)}ms`);
+        });
+
+        // Add animation keyframes via JavaScript (for better browser support)
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes slideOutRight {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
 </html>

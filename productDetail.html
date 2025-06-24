@@ -4,194 +4,1609 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="css/productDetail.css">
-    <link rel="stylesheet" href="css/main.css">
-    <!-- <link rel="stylesheet" href="product_style.css" /> -->
-    <link rel="stylesheet" href="style_nav.css" />
-    <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,200,0,0" />
+    <title>Coca-Cola Soda Soft Drink - Walmart</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="https://www.walmart.com/favicon.ico" type="image/x-icon" />
+    
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Swiper CSS for image gallery -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --walmart-blue: #0071ce;
+            --walmart-dark-blue: #004c91;
+            --walmart-yellow: #ffc220;
+            --walmart-orange: #ff6900;
+            --walmart-light-gray: #f8f9fa;
+            --walmart-gray: #74767c;
+            --walmart-dark-gray: #46474a;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666;
+            --border-color: #e5e5e5;
+            --shadow-light: 0 2px 8px rgba(0,0,0,0.1);
+            --shadow-medium: 0 4px 16px rgba(0,0,0,0.15);
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: #fff;
+        }
+
+        /* Skip Link for Accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--walmart-blue);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 4px;
+            z-index: 1000;
+        }
+
+        .skip-link:focus {
+            top: 6px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background: var(--walmart-light-gray);
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .breadcrumb-list {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb-item {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .breadcrumb-item:hover {
+            color: var(--walmart-blue);
+        }
+
+        .breadcrumb-separator {
+            color: var(--text-secondary);
+        }
+
+        .breadcrumb-current {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* Main Product Section */
+        .product-main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Image Gallery */
+        .product-gallery {
+            position: relative;
+        }
+
+        .gallery-main {
+            position: relative;
+            margin-bottom: 1rem;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+        }
+
+        .main-image {
+            width: 100%;
+            height: 500px;
+            object-fit: contain;
+            background: white;
+            cursor: zoom-in;
+        }
+
+        .zoom-overlay {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .gallery-thumbnails {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            padding: 0.5rem 0;
+        }
+
+        .thumbnail {
+            flex-shrink: 0;
+            width: 80px;
+            height: 80px;
+            border: 2px solid transparent;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .thumbnail.active {
+            border-color: var(--walmart-blue);
+        }
+
+        .thumbnail:hover {
+            border-color: var(--walmart-gray);
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: white;
+        }
+
+        /* Product Info */
+        .product-info {
+            padding: 1rem 0;
+        }
+
+        .product-badges {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-rollback {
+            background: var(--walmart-orange);
+            color: white;
+        }
+
+        .badge-bestseller {
+            background: var(--walmart-yellow);
+            color: var(--text-primary);
+        }
+
+        .product-brand {
+            color: var(--walmart-blue);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stars {
+            display: flex;
+            gap: 0.1rem;
+        }
+
+        .star {
+            color: var(--walmart-yellow);
+            font-size: 1rem;
+        }
+
+        .star.empty {
+            color: var(--border-color);
+        }
+
+        .rating-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .rating-link {
+            color: var(--walmart-blue);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .rating-link:hover {
+            text-decoration: underline;
+        }
+
+        .product-price {
+            margin-bottom: 2rem;
+        }
+
+        .current-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .price-note {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: var(--text-secondary);
+            margin-left: 0.5rem;
+        }
+
+        .savings {
+            color: var(--success-color);
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        /* Add to Cart Section */
+        .add-to-cart {
+            background: var(--walmart-light-gray);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .quantity-label {
+            font-weight: 500;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .quantity-btn {
+            background: white;
+            border: none;
+            padding: 0.5rem 0.75rem;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .quantity-btn:hover {
+            background: var(--walmart-light-gray);
+        }
+
+        .quantity-input {
+            border: none;
+            padding: 0.5rem;
+            width: 60px;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .cart-btn {
+            background: var(--walmart-blue);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .cart-btn:hover {
+            background: var(--walmart-dark-blue);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .cart-btn:disabled {
+            background: var(--walmart-gray);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Delivery Options */
+        .delivery-options {
+            margin-bottom: 2rem;
+        }
+
+        .delivery-option {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            margin-bottom: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .delivery-option:hover {
+            border-color: var(--walmart-blue);
+            background: var(--walmart-light-gray);
+        }
+
+        .delivery-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--walmart-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .delivery-info h4 {
+            margin-bottom: 0.25rem;
+            font-size: 1rem;
+        }
+
+        .delivery-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: none;
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .action-btn:hover {
+            border-color: var(--walmart-blue);
+            color: var(--walmart-blue);
+        }
+
+        .action-btn i {
+            font-size: 1.1rem;
+        }
+
+        /* EBT Badge */
+        .ebt-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--success-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Product Details Section */
+        .product-details {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .details-main {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-light);
+            overflow: hidden;
+        }
+
+        .details-header {
+            background: var(--walmart-light-gray);
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .details-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .accordion {
+            border: none;
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            background: white;
+        }
+
+        .accordion-header:hover {
+            background: var(--walmart-light-gray);
+        }
+
+        .accordion-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .accordion-icon {
+            transition: var(--transition);
+            color: var(--walmart-blue);
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 1000px;
+        }
+
+        .accordion-body {
+            padding: 1.5rem;
+            background: var(--walmart-light-gray);
+        }
+
+        .nutrition-facts {
+            background: white;
+            border: 2px solid black;
+            padding: 1rem;
+            font-family: Arial, sans-serif;
+        }
+
+        .nutrition-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .serving-info {
+            border-bottom: 10px solid black;
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .calories {
+            border-bottom: 5px solid black;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .calories-amount {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        /* Sidebar */
+        .product-sidebar {
+            position: sticky;
+            top: 2rem;
+            height: fit-content;
+        }
+
+        .sponsored-product {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-light);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .sponsored-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .sponsored-badge {
+            background: var(--walmart-orange);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .sponsored-text {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        .sponsored-product-info {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .sponsored-image {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            border-radius: var(--border-radius);
+            background: var(--walmart-light-gray);
+        }
+
+        .sponsored-details h4 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .sponsored-price {
+            color: var(--walmart-blue);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .sponsored-options {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .option-btn {
+            padding: 0.25rem 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            background: white;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .option-btn:hover,
+        .option-btn.active {
+            border-color: var(--walmart-blue);
+            background: var(--walmart-blue);
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .product-main {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .product-details {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .product-sidebar {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 0.5rem;
+            }
+
+            .product-title {
+                font-size: 1.5rem;
+            }
+
+            .current-price {
+                font-size: 1.75rem;
+            }
+
+            .main-image {
+                height: 300px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .action-btn {
+                justify-content: center;
+            }
+
+            .breadcrumb-list {
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-thumbnails {
+                justify-content: center;
+            }
+
+            .thumbnail {
+                width: 60px;
+                height: 60px;
+            }
+
+            .add-to-cart {
+                padding: 1rem;
+            }
+
+            .quantity-selector {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+
+        /* Loading States */
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid var(--walmart-blue);
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Focus Styles */
+        button:focus,
+        a:focus,
+        .accordion-header:focus {
+            outline: 3px solid var(--walmart-blue);
+            outline-offset: 2px;
+        }
+
+        /* High Contrast Mode */
+        @media (prefers-contrast: high) {
+            :root {
+                --shadow-light: 0 2px 8px rgba(0,0,0,0.3);
+                --shadow-medium: 0 4px 16px rgba(0,0,0,0.4);
+            }
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .product-sidebar,
+            .action-buttons,
+            .cart-btn {
+                display: none;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <!-- <div id="detailPage"></div>
-    <div id="Page2"></div> -->
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation (placeholder for your existing navbar) -->
     <div class="nav" style="color: white;"></div>
 
-    <div id="MainDetails">
-        <div id="div1">
-            <img  id="image1" >
-            <img id="image2" >
-            <img  id="image3" >
-            <img id="image4" >
-            <img id="image5" src="https://i5.walmartimages.com/asr/c05ebd56-e4b1-4f43-b2d7-36f9c61ddf19.e9bc5ec3bc419b8a1f24a533499e3310.jpeg?odnHeight=160&odnWidth=160&odnBg=FFFFFF">
-        </div>
-
-        <div id="div2">
-            <div id="2ndDiv">
-                <img id="cocImg" src="https://i5.walmartimages.com/asr/3e59ef41-fe9e-461a-9c06-176b056db393.6399bcde10eebb9c62c9547e368be4d4.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-list">
+                <a href="/" class="breadcrumb-item">Home</a>
+                <span class="breadcrumb-separator">/</span>
+                <a href="/grocery" class="breadcrumb-item">Grocery</a>
+                <span class="breadcrumb-separator">/</span>
+                <a href="/beverages" class="breadcrumb-item">Beverages</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">Coca-Cola Soda Soft Drink</span>
             </div>
         </div>
+    </nav>
 
-        <div id="div3">
-            <div id="rollback">
-                <div>
-                <button id="btn1">Rollback</button>
-                <button id="btn2">Best Seller</button>
-                <img id="hrtImg"src="https://www.iconpacks.net/icons/2/free-heart-icon-3510-thumb.png">
-            </div>
-
-            <div>
-                <p id="coca">Coca-cola</p>
-                <h3 id="brandName">Coca-Cola Soda Soft Drink, 16.9 fl oz, 6 Pack</h3>
-                <p id="rating">reviews</p>
-                <h1 id="Price1">3.28</h1>
-                <p id="price">Price when purchased online</p>
-                <button id="bt3">Add to cart</button>
-                <hr>
-
-            </div>
-            </div>
-
-            <div id="parentDiv">
-                <div id="carDiv">
-                    <img id="carImg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-U0CMdMOjxJLklQEWNIShAZe3Karfz1Y-_kCq8J1J-2l_Bxxs5ol4TZMsp5BdOG9q-Ag&usqp=CAU">
-                    <p id="addTag">Pickup, tomorrow at Sacramento Supercenter</p>
+    <!-- Main Content -->
+    <main id="main-content" class="container">
+        <!-- Product Main Section -->
+        <section class="product-main">
+            <!-- Image Gallery -->
+            <div class="product-gallery">
+                <div class="gallery-main">
+                    <img id="mainImage" class="main-image" 
+                         src="https://i5.walmartimages.com/asr/3e59ef41-fe9e-461a-9c06-176b056db393.6399bcde10eebb9c62c9547e368be4d4.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF" 
+                         alt="Coca-Cola Soda Soft Drink, 16.9 fl oz, 6 Pack" 
+                         onclick="openImageModal(this.src)">
+                    <div class="zoom-overlay">
+                        <i class="fas fa-search-plus"></i>
+                        <span>Click to zoom</span>
+                    </div>
                 </div>
-
-                <div  id="locDiv">
-                    <img  id="locImg" src="https://media.istockphoto.com/id/1193451471/vector/map-pin-vector-glyph-icon.jpg?s=612x612&w=0&k=20&c=wuWVeHuthNAXzjOO5_VY9SUOd-6cxwpVH8VVfh6Y7Lc=">
-                    <p id="locTag">Aisle A22</p>
-                </div>
-
-                <div id="storeDiv">
-                    <img id="deliImg"src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAhFBMVEX///8zMzP5+fkrKyskJCTW1tYvLy8aGhrZ2dkcHBwfHx8nJyf09PTf398qKiolJSWEhITo6OjDw8MVFRXMzMySkpJhYWE3Nzfs7OxRUVGenp6tra3CwsJZWVlAQEBxcXGWlpZFRUWHh4e3t7d8fHxnZ2ekpKRwcHAPDw9dXV1KSkqysrLQKU5XAAAF9ElEQVR4nO2d6VLjOhBG8SbHcpx9h4QECJMJ7/9+F9ztwFyWSEFfJFf1+TFVZIyqG0u927m5EQRBEARBEARBEARBEARBEARBEARBEARBEARBEARBaC/DbDIajbKhbzkgxJPtUheaKI7TUexbIrd0BqooVXRClUX5NPEtlTtGs6KMPtEr1ne+JXNDNdPJZ/3qO6nXHd/SOWCVf6NfreNh6lu+39Kd6f/ppP79Wa/bbVmrTe/DwdP5eL7bzfOx/vBpMs98S/kLst7pjiU6GjxW9PHwbjB/P5sqb69R7aSNgkrvR//+32SfnnQs2qriImoU1OsvdMhmxelsVteXzgXrpNmGz19fcHvgP4HatTLCeUhZ/OhbU3IyROX9NSVzxCRnE7P5wR0slqziuIXhzYZ2oJr/6O+6zWWb7rUEc8Uze/ryjBEZ8nXp9ipiuSNmM5k/nrtyxBZVLa4hlztuycwk+/OXDijvSFd4qVyypOOlDYLOReP48VI5JKOtVxplDqs+RTaj85eGw5R2XmKUN3RpR/ee0FK55Fhv0sTQjw/IKSqsTE4ZjukUGrpxDg7SFiX8j+TklKkXJ7OU3kKFcsq2PoZqaXr9fdK2g7hPzC3pG2RN1V+kTG7Z1dsuPRvPNNzVu1od25NDkYPTxg6uQ6amRdE3mdLCuMQ0JA3n7QlNScPc2PovOMEIWsNu9k4n4l1KP31PxWTz+hd2pw+qKrQNO5nlefEOh9K6/iE/T/ML79eOx8sX30p9ZPtT5f5CVLEP5z6uivMCX0BpHDGgycYQBV8d6sC3asxRnRf2MvIwKsWwWxhMpEphc1T/qy4i+YRqmlMheMiYfJmanbvue7qfiDn/0sahLZCMZMkddwGplFU+uF31Il7qKovaOM4LqNJzdmdcg4dalMS1TRhRQhVCU+qpNgrm2a4hHS4pBxDX/KmNaPpNi/BiKrLQRQAaziifdx0ncyV8HMCkxlpBzHqXnJB5jgkjJrNuXrEwXZcaiwEMMXSp6mResTCF1jUtKgPpbsgiOI+Rl5jzbQ9bhNS5hn8VxEbbs6AYuedcQ/JCff99U+7DK+dWnSOJret1rYGVOika7PlP86lcDRgWWVG863+UaFKAImSadQggueAc4Oh8YcqBzTt0MFiQtfOF6U8XzZ0vbAtvJvetvwlp2HO+sC3PpKHBZJAlPLAydr6wLWzy/jhfuCI3dPCe5FM9BVDYXJCGY+/1RHbM7mtiMTchvZe9QWWaVw4RJi2z5R4WIFMpSntPgfeU5ACGfaiM4T8FBpVpbpqWlv+6/hFTprk5pcDeR8GoYIQ4LXTC/SeICmYPaCbTf2+GoscUYNO3qFjCjvgAKkQ1Ea/JLDyULkUeJaD4zlmL+7zMDp4GLgHR4yMqt7aDM4AeIAPgkUzfKTBncQlgaaoAeU/yORNHjNnz0GnkuYMI3Ep8xH0/DwU0B2ym3fcL7ACa9JjSp77nHuktqhB1esBPe06BgbX3eAcL6m1A9k+WQXSBcWUa2JSHJcg+JpeAPHeBZ8BEfADcH+Yg5wnC6JHugOWiLWYm0BJkyY+eaPOdAtMkBmZyKYwucB9Yeoc1X22ISUNM+2QSwlOJC4qOMTOSGWrMw4YhawgRouIk32uCWJGGB8jiQzoCZq8tQMGPImjI4gt+iN2rhsAyzauGc6AZM4XN3QayOGw41wbYRNQbqAFrK7BOGdd9NQdYprlBdtDNwY5IhjAmPIWmcMgSiSnYNPwhgC7wE7TXHkIXGHtSuAvsfirQghn0oYgX1OyqBWtoSXMUwCD0EuqTm5jQZwqMLbxnwWho/rokO0K4h7avvLLjue+/FMXPlIOmCciO+S163/HQ17STOafDb4zUXiPvmF/w1EsB8PcpIOatLBh88bUObul5frZrgXm90Ae076e5b3OsgsXWs4Kv+xR6F7Xv4cs3VvrjN8i4RJU6jC/4qKbL6PNrgn5PdHzwfQbf+eEFQr/At1aCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCECD/AbIKUAbvKc+3AAAAAElFTkSuQmCC">
-                    <p id="deliTag">Delievery from store check eligibility</p>
-                    
-                </div>
-            </div>
-            <hr>
-
-            <div id="giftDiv">
-                <img id="giftImg"src="https://www.iconpacks.net/icons/2/free-heart-icon-3510-thumb.png">
-                <p id="giftTag"><u>Add to list</u></p>
-                <img id="giftImg1"src="https://static.vecteezy.com/system/resources/previews/002/205/948/original/gift-box-icon-free-vector.jpg">
-                <p id="giftTag1"><u>Add to registery</u></p>
                 
+                <div class="gallery-thumbnails">
+                    <div class="thumbnail active" onclick="changeMainImage(this)">
+                        <img src="https://i5.walmartimages.com/asr/3e59ef41-fe9e-461a-9c06-176b056db393.6399bcde10eebb9c62c9547e368be4d4.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF" alt="Main view">
+                    </div>
+                    <div class="thumbnail" onclick="changeMainImage(this)">
+                        <img src="https://i5.walmartimages.com/asr/c05ebd56-e4b1-4f43-b2d7-36f9c61ddf19.e9bc5ec3bc419b8a1f24a533499e3310.jpeg?odnHeight=160&odnWidth=160&odnBg=FFFFFF" alt="Side view">
+                    </div>
+                    <div class="thumbnail" onclick="changeMainImage(this)">
+                        <img src="https://i5.walmartimages.com/asr/be34d31b-246f-42ef-80a3-673c9f8a1734.ee039280c5c203b294bc07f360d41fbb.jpeg?odnHeight=160&odnWidth=160&odnBg=FFFFFF" alt="Pack view">
+                    </div>
+                    <div class="thumbnail" onclick="changeMainImage(this)">
+                        <img src="https://i5.walmartimages.com/asr/3e59ef41-fe9e-461a-9c06-176b056db393.6399bcde10eebb9c62c9547e368be4d4.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF" alt="Label view">
+                    </div>
+                </div>
             </div>
-            <hr>
 
-            <div id="ebtDiv">
+            <!-- Product Info -->
+            <div class="product-info">
+                <div class="product-badges">
+                    <span class="badge badge-rollback">Rollback</span>
+                    <span class="badge badge-bestseller">Best Seller</span>
+                </div>
+
+                <div class="product-brand">Coca-Cola</div>
                 
-                <button id="ebit">Ebit</button>
-                <p>EBT eligibile</p>
-                <p></p>
-            </div>
-        </div>
-    </div>
+                <h1 class="product-title">Coca-Cola Soda Soft Drink, 16.9 fl oz, 6 Pack</h1>
 
-    <div id="specificationBox">
-        <div id="specification">
-            <h2>About this item</h2>
-            <hr>
-            <div>
-                <div class="dropDown">
-                    <h4 class="nTag">Nutrition information</h4>
-                    <img id="dr1" class="dropImg"src="https://cdn-icons-png.flaticon.com/128/130/130907.png" >
+                <div class="product-rating">
+                    <div class="stars">
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star empty"></i>
+                    </div>
+                    <span class="rating-text">(4.2)</span>
+                    <a href="#reviews" class="rating-link">1,234 reviews</a>
                 </div>
-                <div id="cn1" class="containt">
-                    <div id="testdiv">
-                        <h2>Nutrition facts</h2>
-                        <p id="refer">Refer to the product label for full dietary information, which may be available as an alternative product image.</p>
-                    </div>
-                    <hr style="width: 96%; height: 2px; background-color: black;">
-                    <div id="testdiv">
-                        <h5>1 servings per container</h5>
-                        <h4 id="refer">Serving Size</h4>
-                    </div>
-                    <hr style="width: 96%; height: 10px; background-color: black;">
-                    <div id="testdiv">
-                        <h5>Amount per serving
-                        </h5>
-                        <h4 style="font-size:20px ;" id="refer">Calories</h4>
-                    </div>
-                    <hr style="width: 96%; height: 5px; background-color: black;">
+
+                <div class="product-price">
+                    <div class="current-price">$3.28</div>
+                    <div class="price-note">Price when purchased online</div>
                 </div>
-            </div>
-            
-           
-          
-            <hr>
-            <div>
-                <div class="dropDown">
-                    <h4 class="nTag">Product details</h4>
-                    <img id="dr2" class="dropImg"src="https://cdn-icons-png.flaticon.com/128/130/130907.png" >
-                </div>
-                <div id="cn2" class="containt">
-                    <h5>
-                        Get the boost you need to make it through your day with this Monster Energy Drink. It features a smooth, delightful flavor. This wicked mega hit delivers twice the buzz of a regular energy drink. It offers the ideal combo of the right ingredients in the right proportion for a vicious punch. Made with L-carnitine, taurine and B vitamins, this 16 oz drink is just what you need for a refreshing pick-me-up. Monster Original Green, 16 Fl Oz.
-                        UNLEASH THE BEAST: Tear into a can of the meanest energy drink on the planet, Monster Energy. Athletes, musicians, anarchists, co-ed’s, road warriors, metalheads, geeks, hipsters, and bikers dig it- you will too SMOOTH & EASY FLAVOR: Monster packs a powerful punch, but has a smooth easy drinking flavor. What does it taste like? It tastes like Monster BIG BAD BUZZ: With 160mg of Caffeine in a “Monster” 16 ounce can, Monster Energy offers more for less when compared with other 8.3 ounce energy drinks. Monster Original Green, 16 Fl Oz Can.
-                    </h5>
-                    <br>
-                    <p style="margin-left:0px; margin-top: 0px;">
-                        error:
-                        We aim to show you accurate product information. Manufacturers, suppliers and others provide what you see here, and we have not verified it.  See our disclaimer  
-                    </div>
-                    </p>
-                    
-            </div>
-            
-            <hr>
-   <div>
-    <div class="dropDown"> 
-        <h4 class="nTag">Specifications</h4>
-        <img  class="dropImg"src="https://cdn-icons-png.flaticon.com/128/130/130907.png" >  
-    </div>
-    <div class="containt">
-                       
-    </div>
-   </div>
-           
-            <hr>
-            <div class="dropDown"> 
-                <h4 class="nTag">Directions</h4>
-                <img class="dropImg"src="https://cdn-icons-png.flaticon.com/128/130/130907.png" >  
-            </div>
-            <hr>
-            <div class="dropDown"> 
-                <h4 class="nTag">Ingredients</h4>
-                <img class="dropImg"src="https://cdn-icons-png.flaticon.com/128/130/130907.png" >  
-            </div>
-           
 
-            
-
-        </div>
-        <div id="Box">
-            <div id="product">
-                <button id="roll">Rollback</button>
-                <p>sponsered</p>
-            </div>
-
-            <div id="productBox">
-                <img id="productImg" src="https://i5.walmartimages.com/asr/be34d31b-246f-42ef-80a3-673c9f8a1734.ee039280c5c203b294bc07f360d41fbb.jpeg?odnHeight=160&odnWidth=160&odnBg=FFFFFF">
-                <div id="pTag">
-                    <p>Now $3.28</p>
-                    <p>Coca-Cola Soda Soft Drink, 16.9 fl oz, 6 Pack</p>
-                    <div>
-                        <button>Pickup</button>
-                        <button>Delivery</button>
+                <!-- Add to Cart Section -->
+                <div class="add-to-cart">
+                    <div class="quantity-selector">
+                        <label class="quantity-label" for="quantity">Qty:</label>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn" onclick="decreaseQuantity()" aria-label="Decrease quantity">-</button>
+                            <input type="number" id="quantity" class="quantity-input" value="1" min="1" max="10">
+                            <button class="quantity-btn" onclick="increaseQuantity()" aria-label="Increase quantity">+</button>
+                        </div>
                     </div>
                     
+                    <button class="cart-btn" onclick="addToCart()">
+                        <i class="fas fa-cart-plus"></i>
+                        Add to cart
+                    </button>
+                </div>
+
+                <!-- Delivery Options -->
+                <div class="delivery-options">
+                    <div class="delivery-option">
+                        <div class="delivery-icon">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <div class="delivery-info">
+                            <h4>Pickup</h4>
+                            <p>Tomorrow at Sacramento Supercenter</p>
+                            <p><strong>Aisle A22</strong></p>
+                        </div>
+                    </div>
+                    
+                    <div class="delivery-option">
+                        <div class="delivery-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="delivery-info">
+                            <h4>Delivery</h4>
+                            <p>From store - check eligibility</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="action-btn" onclick="addToList()">
+                        <i class="far fa-heart"></i>
+                        Add to list
+                    </button>
+                    <button class="action-btn" onclick="addToRegistry()">
+                        <i class="fas fa-gift"></i>
+                        Add to registry
+                    </button>
+                    <button class="action-btn" onclick="shareProduct()">
+                        <i class="fas fa-share"></i>
+                        Share
+                    </button>
+                </div>
+
+                <!-- EBT Badge -->
+                <div class="ebt-badge">
+                    <i class="fas fa-credit-card"></i>
+                    EBT Eligible
                 </div>
             </div>
-            <button id="crtBtn">Add to cart</button>
+        </section>
 
+        <!-- Product Details Section -->
+        <section class="product-details">
+            <div class="details-main">
+                <div class="details-header">
+                    <h2 class="details-title">About this item</h2>
+                </div>
+
+                <div class="accordion">
+                    <!-- Nutrition Information -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <h3 class="accordion-title">Nutrition Information</h3>
+                            <i class="fas fa-chevron-down accordion-icon"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-body">
+                                <div class="nutrition-facts">
+                                    <div class="nutrition-title">Nutrition Facts</div>
+                                    <p style="font-size: 0.9rem; margin-bottom: 1rem;">
+                                        Refer to the product label for full dietary information, which may be available as an alternative product image.
+                                    </p>
+                                    <hr style="border: 2px solid black; margin: 0.5rem 0;">
+                                    <div class="serving-info">
+                                        <div style="font-weight: bold;">6 servings per container</div>
+                                        <div style="font-weight: bold;">Serving Size 1 bottle (16.9 fl oz)</div>
+                                    </div>
+                                    <div class="calories">
+                                        <div>Amount per serving</div>
+                                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                                            <span style="font-weight: bold; font-size: 1.2rem;">Calories</span>
+                                            <span class="calories-amount">140</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Details -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <h3 class="accordion-title">Product Details</h3>
+  <i class="fas fa-chevron-down accordion-icon"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-body">
+                                <p style="margin-bottom: 1rem;">
+                                    Enjoy the crisp, refreshing taste of Coca-Cola Original. This iconic soft drink has been bringing people together for over 130 years. Perfect for meals, parties, or any time you want to add a little happiness to your day.
+                                </p>
+                                <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                                    <li>Classic Coca-Cola taste</li>
+                                    <li>16.9 fl oz bottles, 6 pack</li>
+                                    <li>Perfect for sharing or on-the-go</li>
+                                    <li>Best served chilled</li>
+                                    <li>Contains caffeine</li>
+                                </ul>
+                                <p style="font-size: 0.9rem; color: var(--text-secondary); font-style: italic;">
+                                    <strong>Disclaimer:</strong> We aim to show you accurate product information. Manufacturers, suppliers and others provide what you see here, and we have not verified it.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Specifications -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <h3 class="accordion-title">Specifications</h3>
+                            <i class="fas fa-chevron-down accordion-icon"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-body">
+                                <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 1rem;">
+                                    <div style="display: grid; gap: 0.5rem;">
+                                        <strong>Brand:</strong>
+                                        <strong>Size:</strong>
+                                        <strong>Package Quantity:</strong>
+                                        <strong>Container Type:</strong>
+                                        <strong>Flavor:</strong>
+                                        <strong>Caffeine Content:</strong>
+                                        <strong>Calories per Serving:</strong>
+                                        <strong>Sugar Content:</strong>
+                                    </div>
+                                    <div style="display: grid; gap: 0.5rem;">
+                                        <span>Coca-Cola</span>
+                                        <span>16.9 fl oz</span>
+                                        <span>6 bottles</span>
+                                        <span>Plastic Bottle</span>
+                                        <span>Original Cola</span>
+                                        <span>34mg per 12 fl oz</span>
+                                        <span>140</span>
+                                        <span>39g</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Directions -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <h3 class="accordion-title">Directions</h3>
+                            <i class="fas fa-chevron-down accordion-icon"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-body">
+                                <h4 style="margin-bottom: 0.5rem;">Storage Instructions:</h4>
+                                <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                                    <li>Store in a cool, dry place</li>
+                                    <li>Refrigerate after opening</li>
+                                    <li>Best served chilled</li>
+                                    <li>Do not freeze</li>
+                                </ul>
+                                <h4 style="margin-bottom: 0.5rem;">Serving Suggestions:</h4>
+                                <ul style="margin-left: 1.5rem;">
+                                    <li>Serve over ice for best taste</li>
+                                    <li>Pairs well with meals and snacks</li>
+                                    <li>Great for parties and gatherings</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ingredients -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <h3 class="accordion-title">Ingredients</h3>
+                            <i class="fas fa-chevron-down accordion-icon"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-body">
+                                <p style="margin-bottom: 1rem;">
+                                    <strong>Ingredients:</strong> Carbonated water, high fructose corn syrup, caramel color, phosphoric acid, natural flavors, caffeine.
+                                </p>
+                                <div style="background: var(--walmart-light-gray); padding: 1rem; border-radius: var(--border-radius);">
+                                    <h4 style="margin-bottom: 0.5rem;">Allergen Information:</h4>
+                                    <p>This product does not contain any of the 8 major allergens.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reviews Section -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <h3 class="accordion-title">Customer Reviews (1,234)</h3>
+                            <i class="fas fa-chevron-down accordion-icon"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-body">
+                                <div style="margin-bottom: 2rem;">
+                                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                                        <div class="stars">
+                                            <i class="fas fa-star star"></i>
+                                            <i class="fas fa-star star"></i>
+                                            <i class="fas fa-star star"></i>
+                                            <i class="fas fa-star star"></i>
+                                            <i class="fas fa-star star empty"></i>
+                                        </div>
+                                        <span style="font-size: 1.2rem; font-weight: 600;">4.2 out of 5</span>
+                                    </div>
+                                    <button class="cart-btn" style="width: auto; padding: 0.75rem 1.5rem;" onclick="writeReview()">
+                                        Write a Review
+                                    </button>
+                                </div>
+                                
+                                <!-- Sample Reviews -->
+                                <div class="review-item" style="border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 1rem;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                        <div class="stars">
+                                            <i class="fas fa-star star"></i>
+                                            <i class="fas fa-star star"></i>
+                                            <i class="fas fa-star star"></i>
+                                            <i class="fas fa-star star"></i>
+                                            <i class="fas fa-star star"></i>
+                                        </div>
+                                        <span style="color: var(--text-secondary); font-size: 0.9rem;">2 days ago</span>
+                                    </div>
+                                    <h4 style="margin-bottom: 0.5rem;">Great taste, perfect size</h4>
+                                    <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">
+                                        Perfect size bottles for lunch boxes and on-the-go. Classic Coke taste that never gets old. Great value for a 6-pack.
+                                    </p>
+                                    <span style="font-weight: 500;">- Sarah M.</span>
+                                </div>
+
+                                <div class="review-item" style="border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 1rem;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                        <div class="stars">
+                                            <i class="fas fa-star star"></i>
+                                            <i class="fas fa-star star"></i>
+                                            <i class="fas fa-star star"></i>
+                                            <i class="fas fa-star star"></i>
+                                            <i class="fas fa-star star empty"></i>
+                                        </div>
+                                        <span style="color: var(--text-secondary); font-size: 0.9rem;">1 week ago</span>
+                                    </div>
+                                    <h4 style="margin-bottom: 0.5rem;">Always reliable</h4>
+                                    <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">
+                                        You can't go wrong with Coca-Cola. These bottles are perfect for parties and the price is reasonable.
+                                    </p>
+                                    <span style="font-weight: 500;">- Mike R.</span>
+                                </div>
+
+                                <button class="action-btn" onclick="loadMoreReviews()" style="margin-top: 1rem;">
+                                    <i class="fas fa-plus"></i>
+                                    Load More Reviews
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="product-sidebar">
+                <!-- Sponsored Product -->
+                <div class="sponsored-product">
+                    <div class="sponsored-header">
+                        <span class="sponsored-badge">Rollback</span>
+                        <span class="sponsored-text">Sponsored</span>
+                    </div>
+                    
+                    <div class="sponsored-product-info">
+                        <img class="sponsored-image" 
+                             src="https://i5.walmartimages.com/asr/be34d31b-246f-42ef-80a3-673c9f8a1734.ee039280c5c203b294bc07f360d41fbb.jpeg?odnHeight=160&odnWidth=160&odnBg=FFFFFF" 
+                             alt="Coca-Cola Soda Soft Drink">
+                        <div class="sponsored-details">
+                            <h4>Coca-Cola Soda Soft Drink, 16.9 fl oz, 6 Pack</h4>
+                            <div class="sponsored-price">Now $3.28</div>
+                        </div>
+                    </div>
+                    
+                    <div class="sponsored-options">
+                        <button class="option-btn active">Pickup</button>
+                        <button class="option-btn">Delivery</button>
+                    </div>
+                    
+                    <button class="cart-btn" onclick="addSponsoredToCart()">
+                        <i class="fas fa-cart-plus"></i>
+                        Add to cart
+                    </button>
+                </div>
+
+                <!-- Related Products -->
+                <div class="sponsored-product">
+                    <h3 style="margin-bottom: 1rem; font-size: 1.2rem;">You might also like</h3>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div class="sponsored-product-info" style="cursor: pointer;" onclick="viewRelatedProduct(1)">
+                            <img class="sponsored-image" 
+                                 src="https://i5.walmartimages.com/asr/c05ebd56-e4b1-4f43-b2d7-36f9c61ddf19.e9bc5ec3bc419b8a1f24a533499e3310.jpeg?odnHeight=160&odnWidth=160&odnBg=FFFFFF" 
+                                 alt="Pepsi Cola">
+                            <div class="sponsored-details">
+                                <h4 style="font-size: 0.9rem;">Pepsi Cola, 16.9 fl oz, 6 Pack</h4>
+                                <div class="sponsored-price">$3.48</div>
+                            </div>
+                        </div>
+
+                        <div class="sponsored-product-info" style="cursor: pointer;" onclick="viewRelatedProduct(2)">
+                            <img class="sponsored-image" 
+                                 src="https://i5.walmartimages.com/asr/be34d31b-246f-42ef-80a3-673c9f8a1734.ee039280c5c203b294bc07f360d41fbb.jpeg?odnHeight=160&odnWidth=160&odnBg=FFFFFF" 
+                                 alt="Sprite">
+                            <div class="sponsored-details">
+                                <h4 style="font-size: 0.9rem;">Sprite Lemon-Lime Soda, 16.9 fl oz, 6 Pack</h4>
+                                <div class="sponsored-price">$3.28</div>
+                            </div>
+                        </div>
+
+                        <div class="sponsored-product-info" style="cursor: pointer;" onclick="viewRelatedProduct(3)">
+                            <img class="sponsored-image" 
+                                 src="https://i5.walmartimages.com/asr/3e59ef41-fe9e-461a-9c06-176b056db393.6399bcde10eebb9c62c9547e368be4d4.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF" 
+                                 alt="Diet Coke">
+                            <div class="sponsored-details">
+                                <h4 style="font-size: 0.9rem;">Diet Coke, 16.9 fl oz, 6 Pack</h4>
+                                <div class="sponsored-price">$3.28</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal" style="display: none;" onclick="closeImageModal()">
+        <div class="modal-content" style="max-width: 90vw; max-height: 90vh; padding: 0; background: transparent; box-shadow: none;">
+            <img id="modalImage" style="width: 100%; height: 100%; object-fit: contain; border-radius: var(--border-radius);">
+            <button class="close-modal" onclick="closeImageModal()" style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.2rem;">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
-
     </div>
-    
-     <div class="footer"></div> 
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast" style="display: none;">
+        <div class="toast-content">
+            <i class="toast-icon"></i>
+            <span class="toast-message"></span>
+        </div>
+    </div>
+
+    <!-- Footer (placeholder for your existing footer) -->
+    <div class="footer"></div>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+    <script>
+        // Global variables
+        let currentQuantity = 1;
+        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeQuantityControls();
+            loadProductData();
+            setupImageGallery();
+            setupAccordion();
+        });
+
+        // Quantity controls
+        function initializeQuantityControls() {
+            const quantityInput = document.getElementById('quantity');
+            quantityInput.addEventListener('change', function() {
+                currentQuantity = parseInt(this.value) || 1;
+                if (currentQuantity < 1) {
+                    currentQuantity = 1;
+                    this.value = 1;
+                }
+                if (currentQuantity > 10) {
+                    currentQuantity = 10;
+                    this.value = 10;
+                }
+            });
+        }
+
+        function increaseQuantity() {
+            const quantityInput = document.getElementById('quantity');
+            if (currentQuantity < 10) {
+                currentQuantity++;
+                quantityInput.value = currentQuantity;
+            }
+        }
+
+        function decreaseQuantity() {
+            const quantityInput = document.getElementById('quantity');
+            if (currentQuantity > 1) {
+                currentQuantity--;
+                quantityInput.value = currentQuantity;
+            }
+        }
+
+        // Image gallery functions
+        function setupImageGallery() {
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            thumbnails.forEach(thumb => {
+                thumb.addEventListener('click', function() {
+                    changeMainImage(this);
+                });
+            });
+        }
+
+        function changeMainImage(thumbnail) {
+            const mainImage = document.getElementById('mainImage');
+            const newSrc = thumbnail.querySelector('img').src;
+            
+            // Remove active class from all thumbnails
+            document.querySelectorAll('.thumbnail').forEach(thumb => {
+                thumb.classList.remove('active');
+            });
+            
+            // Add active class to clicked thumbnail
+            thumbnail.classList.add('active');
+            
+            // Change main image with fade effect
+            mainImage.style.opacity = '0.5';
+            setTimeout(() => {
+                mainImage.src = newSrc;
+                mainImage.style.opacity = '1';
+            }, 150);
+        }
+
+        function openImageModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = imageSrc;
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeImageModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Accordion functionality
+        function setupAccordion() {
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    toggleAccordion(this);
+                });
+            });
+        }
+
+        function toggleAccordion(header) {
+            const accordionItem = header.parentElement;
+            const content = accordionItem.querySelector('.accordion-content');
+            const icon = header.querySelector('.accordion-icon');
+            
+            // Close other accordion items
+            document.querySelectorAll('.accordion-item').forEach(item => {
+                if (item !== accordionItem && item.classList.contains('active')) {
+                    item.classList.remove('active');
+                    item.querySelector('.accordion-content').style.maxHeight = '0';
+                }
+            });
+            
+            // Toggle current accordion item
+            accordionItem.classList.toggle('active');
+            
+            if (accordionItem.classList.contains('active')) {
+                content.style.maxHeight = content.scrollHeight + 'px';
+            } else {
+                content.style.maxHeight = '0';
+            }
+        }
+
+        // Cart functionality
+        function addToCart() {
+            const product = {
+                id: 'coca-cola-6pack',
+                name: 'Coca-Cola Soda Soft Drink, 16.9 fl oz, 6 Pack',
+                price: 3.28,
+                quantity: currentQuantity,
+                image: 'https://i5.walmartimages.com/asr/3e59ef41-fe9e-461a-9c06-176b056db393.6399bcde10eebb9c62c9547e368be4d4.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF',
+                brand: 'Coca-Cola'
+            };
+
+            // Check if item already exists in cart
+            const existingItemIndex = cartItems.findIndex(item => item.id === product.id);
+            
+            if (existingItemIndex > -1) {
+                cartItems[existingItemIndex].quantity += currentQuantity;
+            } else {
+                cartItems.push(product);
+            }
+
+            // Save to localStorage
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            
+            // Show success message
+            showToast('success', 'Added to cart successfully!');
+            
+            // Update cart count in navigation (if exists)
+            updateCartCount();
+            
+            // Add loading state to button
+            const cartBtn = document.querySelector('.cart-btn');
+            cartBtn.classList.add('loading');
+            cartBtn.disabled = true;
+            cartBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding...';
+            
+            setTimeout(() => {
+                cartBtn.classList.remove('loading');
+                cartBtn.disabled = false;
+                cartBtn.innerHTML = '<i class="fas fa-cart-plus"></i> Add to cart';
+            }, 1000);
+        }
+
+        function addSponsoredToCart() {
+            showToast('success', 'Sponsored product added to cart!');
+        }
+
+        // Wishlist functionality
+        function addToList() {
+            showToast('success', 'Added to your list!');
+        }
+
+        function addToRegistry() {
+            showToast('info', 'Added to registry!');
+        }
+
+        // Share functionality
+        function shareProduct() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Coca-Cola Soda Soft Drink, 16.9 fl oz, 6 Pack',
+                    text: 'Check out this product on Walmart',
+                    url: window.location.href
+                });
+            } else {
+                // Fallback - copy to clipboard
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    showToast('success', 'Product link copied to clipboard!');
+                });
+            }
+        }
+
+        // Review functionality
+        function writeReview() {
+            showToast('info', 'Review form would open here');
+        }
+
+        function loadMoreReviews() {
+            showToast('info', 'Loading more reviews...');
+        }
+
+        // Related products
+        function viewRelatedProduct(productId) {
+            showToast('info', `Viewing related product ${productId}`);
+        }
+
+        // Utility functions
+        function updateCartCount() {
+            const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+            const cartCountElement = document.querySelector('.cart-count');
+            if (cartCountElement) {
+                cartCountElement.textContent = totalItems;
+            }
+        }
+
+        function showToast(type, message) {
+            const toast = document.getElementById('toast');
+            const icon = toast.querySelector('.toast-icon');
+            const messageEl = toast.querySelector('.toast-message');
+            
+            // Set icon based on type
+            const icons = {
+                success: 'fas fa-check-circle',
+                error: 'fas fa-exclamation-circle',
+                info: 'fas fa-info-circle',
+                warning: 'fas fa-exclamation-triangle'
+            };
+            
+            icon.className = `toast-icon ${icons[type] || icons.info}`;
+            messageEl.textContent = message;
+            
+            // Show toast
+            toast.style.display = 'block';
+            toast.style.animation = 'slideInRight 0.3s ease';
+            
+            // Hide toast after 3 seconds
+            setTimeout(() => {
+                toast.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 300);
+            }, 3000);
+        }
+
+        function loadProductData() {
+            // Simulate loading product data from API
+            // This would typically fetch from your backend
+            console.log('Product data loaded');
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeImageModal();
+            }
+        });
+
+        // Lazy loading for images
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        if (img.dataset.src) {
+                            img.src = img.dataset.src;
+                            img.removeAttribute('data-src');
+                            observer.unobserve(img);
+                        }
+                    }
+                });
+            });
+
+            document.querySelectorAll('img[data-src]').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+
+        // Performance monitoring
+        window.addEventListener('load', function() {
+            console.log('Page loaded in:', performance.now(), 'ms');
+        });
+    </script>
+
+    <style>
+        /* Additional styles for new components */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .close-modal:hover {
+            background: rgba(0, 0, 0, 0.9) !important;
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-medium);
+            z-index: 10001;
+            min-width: 300px;
+        }
+
+        .toast-content {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+        }
+
+        .toast-icon {
+            font-size: 1.2rem;
+        }
+
+        .toast-icon.fa-check-circle {
+            color: var(--success-color);
+        }
+
+        .toast-icon.fa-exclamation-circle {
+            color: var(--danger-color);
+        }
+
+        .toast-icon.fa-info-circle {
+            color: var(--walmart-blue);
+        }
+
+        .toast-icon.fa-exclamation-triangle {
+            color: var(--warning-color);
+        }
+
+        .toast-message {
+            font-weight: 500;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        /* Mobile responsive adjustments */
+        @media (max-width: 768px) {
+            .toast {
+                right: 10px;
+                left: 10px;
+                min-width: auto;
+            }
+        }
+    </style>
 </body>
 </html>
-<script src="js/productDetail.js" type="module"></script>

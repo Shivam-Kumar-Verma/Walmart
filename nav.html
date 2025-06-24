@@ -1,99 +1,1509 @@
-<!-- @format -->
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>navbar</title>
-    <link rel="stylesheet" href="style_nav.css" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,1,200" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,100,0,0" />
-  </head>
-  <body>
-    <div id="full">
-      <div class="B">
-        <div class="E">
-          <div id="iop" class="C" style="display: flex">
-            <div>
-              <a href="index.html">
-                <img class="logo" src="logo-removebg-preview.png" alt="logo" />
-              </a>
-              <!-- <p id="bold">
-                walmart
-                <span id="pc" class="material-symbols-outlined">
-                  recommend
-                </span>
-              </p> -->
+    <title>Walmart Navigation</title>
+    
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --walmart-blue: #0071ce;
+            --walmart-dark-blue: #004c91;
+            --walmart-yellow: #ffc220;
+            --walmart-orange: #ff6900;
+            --walmart-light-gray: #f8f9fa;
+            --walmart-gray: #74767c;
+            --walmart-dark-gray: #46474a;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666;
+            --border-color: #e5e5e5;
+            --shadow-light: 0 2px 8px rgba(0,0,0,0.1);
+            --shadow-medium: 0 4px 16px rgba(0,0,0,0.15);
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+
+        /* Skip Link for Accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--walmart-blue);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 4px;
+            z-index: 1000;
+        }
+
+        .skip-link:focus {
+            top: 6px;
+        }
+
+        /* Main Navigation Container */
+        .navbar {
+            background: white;
+            box-shadow: var(--shadow-light);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* Top Navigation Bar */
+        .nav-top {
+            background: var(--walmart-blue);
+            padding: 0.5rem 0;
+        }
+
+        .nav-top-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: white;
+        }
+
+        .nav-top-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-top-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-top a {
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .nav-top a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Navigation */
+        .nav-main {
+            padding: 1rem 0;
+            background: white;
+        }
+
+        .nav-main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        /* Logo Section */
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            height: 40px;
+            width: auto;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-departments,
+        .nav-services {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            color: var(--text-primary);
+            text-decoration: none;
+            position: relative;
+        }
+
+        .nav-departments:hover,
+        .nav-services:hover {
+            background: var(--walmart-light-gray);
+            color: var(--walmart-blue);
+        }
+
+        .nav-departments i,
+        .nav-services i {
+            font-size: 1.2rem;
+        }
+
+        /* Search Section */
+        .nav-search {
+            position: relative;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .search-container {
+            display: flex;
+            border: 2px solid var(--border-color);
+            border-radius: 25px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .search-container:focus-within {
+            border-color: var(--walmart-blue);
+            box-shadow: 0 0 0 3px rgba(0, 113, 206, 0.1);
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.875rem 1rem;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            background: white;
+        }
+
+        .search-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .search-btn {
+            background: var(--walmart-blue);
+            border: none;
+            padding: 0.875rem 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            color: white;
+        }
+
+        .search-btn:hover {
+            background: var(--walmart-dark-blue);
+        }
+
+        .search-btn i {
+            font-size: 1.1rem;
+        }
+
+        /* Search Suggestions */
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-top: none;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            box-shadow: var(--shadow-medium);
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1001;
+            display: none;
+        }
+
+        .search-suggestions.show {
+            display: block;
+        }
+
+        .suggestion-item {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border-bottom: 1px solid var(--walmart-light-gray);
+        }
+
+        .suggestion-item:hover {
+            background: var(--walmart-light-gray);
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        /* User Actions Section */
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-action {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-primary);
+            padding: 0.5rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .nav-action:hover {
+            background: var(--walmart-light-gray);
+            color: var(--walmart-blue);
+        }
+
+        .nav-action i {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .nav-action-text {
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .nav-action-subtext {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+
+        /* Cart Badge */
+        .cart-container {
+            position: relative;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--walmart-orange);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        /* Secondary Navigation */
+        .nav-secondary {
+            background: var(--walmart-light-gray);
+            border-top: 1px solid var(--border-color);
+            padding: 0.75rem 0;
+        }
+
+        .nav-secondary-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .location-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .location-text {
+            color: var(--text-secondary);
+        }
+
+        .location-details {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .location-details i {
+            color: var(--walmart-blue);
+        }
+
+        /* Category Links */
+        .category-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .category-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .category-link:hover {
+            color: var(--walmart-blue);
+            text-decoration: underline;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-primary);
+            padding: 0.5rem;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 300px;
+            height: 100vh;
+            background: white;
+            box-shadow: var(--shadow-medium);
+            z-index: 1002;
+            transition: var(--transition);
+            overflow-y: auto;
+        }
+
+        .mobile-menu.open {
+            left: 0;
+        }
+
+        .mobile-menu-header {
+            background: var(--walmart-blue);
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mobile-menu-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .mobile-menu-content {
+            padding: 1rem;
+        }
+
+        .mobile-menu-section {
+            margin-bottom: 2rem;
+        }
+
+        .mobile-menu-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .mobile-menu-item {
+            display: block;
+            padding: 0.75rem 0;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: var(--transition);
+            border-bottom: 1px solid var(--walmart-light-gray);
+        }
+
+        .mobile-menu-item:hover {
+            color: var(--walmart-blue);
+            padding-left: 0.5rem;
+        }
+
+        .mobile-menu-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Mobile Overlay */
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .mobile-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-main-content {
+                grid-template-columns: auto 1fr;
+                gap: 1rem;
+            }
+
+            .nav-actions {
+                gap: 0.5rem;
+            }
+
+            .nav-action {
+                min-width: 50px;
+            }
+
+            .category-links {
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-top {
+                display: none;
+            }
+
+            .nav-main-content {
+                grid-template-columns: auto 1fr auto;
+                gap: 1rem;
+            }
+
+            .nav-logo {
+                gap: 0.5rem;
+            }
+
+            .nav-departments,
+            .nav-services {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .nav-actions {
+                gap: 0.25rem;
+            }
+
+            .nav-action-text,
+            .nav-action-subtext {
+                display: none;
+            }
+
+            .nav-secondary-content {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .category-links {
+                overflow-x: auto;
+                padding-bottom: 0.5rem;
+            }
+
+            .category-links::-webkit-scrollbar {
+                height: 4px;
+            }
+
+            .category-links::-webkit-scrollbar-track {
+                background: var(--walmart-light-gray);
+            }
+
+            .category-links::-webkit-scrollbar-thumb {
+                background: var(--walmart-blue);
+                border-radius: 2px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-main {
+                padding: 0.75rem 0;
+            }
+
+            .nav-main-content {
+                padding: 0 0.5rem;
+                gap: 0.5rem;
+            }
+
+            .logo {
+                height: 32px;
+            }
+
+            .search-input {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+
+            .search-btn {
+                padding: 0.75rem 1rem;
+            }
+
+            .nav-secondary {
+                padding: 0.5rem 0;
+            }
+
+            .nav-secondary-content {
+                padding: 0 0.5rem;
+            }
+
+            .location-info {
+                font-size: 0.8rem;
+            }
+
+            .category-links {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Focus Styles for Accessibility */
+        button:focus,
+        a:focus,
+        input:focus {
+            outline: 3px solid var(--walmart-blue);
+            outline-offset: 2px;
+        }
+
+        /* High Contrast Mode */
+        @media (prefers-contrast: high) {
+            .navbar {
+                border-bottom: 3px solid var(--text-primary);
+            }
+            
+            .search-container {
+                border-width: 3px;
+            }
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .navbar {
+                position: static;
+                box-shadow: none;
+            }
+            
+            .nav-top,
+            .nav-secondary,
+            .mobile-menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <!-- Top Navigation -->
+        <div class="nav-top">
+            <div class="nav-top-content">
+                <div class="nav-top-left">
+                    <span>Free shipping, arrives in 3+ days</span>
+                </div>
+                <div class="nav-top-right">
+                    <a href="#">Store Finder</a>
+                    <a href="#">Weekly Ad</a>
+                    <a href="#">Help</a>
+                </div>
             </div>
-          </div>
-          <!-- <div><span class="material-symbols-outlined"> window </span></div> -->
-          <div id="iop" class="C" style="width: 150px">
-            <p id="bold">
-              <span class="material-symbols-outlined"> window </span>Departments
-            </p>
-          </div>
-          <div id="iop" class="C">
-            <p id="bold">
-              <span class="material-symbols-outlined"> scatter_plot </span
-              >Services
-            </p>
-          </div>
         </div>
-        <div id="e">
-          <input
-            type="text"
-            placeholder="Search everything in Walmart online and in store" />
-          <div class="se">
-            <span class="material-symbols-outlined" id="Ll"> search </span>
-          </div>
+
+        <!-- Main Navigation -->
+        <div class="nav-main">
+            <div class="nav-main-content">
+                <!-- Logo and Menu Section -->
+                <div class="nav-logo">
+                    <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Open menu">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    
+                    <a href="index.html" aria-label="Walmart Home">
+                        <img class="logo" src="https://i5.walmartimages.com/dfw/4ff9c6c9-991c/k2-_03d329be-5936-4ef6-ad29-95e392df014d.v1.png" alt="Walmart" />
+                    </a>
+                    
+                    <a href="#" class="nav-departments" onclick="showDepartments()">
+                        <i class="fas fa-th-large"></i>
+                        <span>Departments</span>
+                    </a>
+                    
+                    <a href="#" class="nav-services" onclick="showServices()">
+                        <i class="fas fa-concierge-bell"></i>
+                        <span>Services</span>
+                    </a>
+                </div>
+
+                <!-- Search Section -->
+                <div class="nav-search">
+                    <div class="search-container">
+                        <input 
+                            type="text" 
+                            class="search-input" 
+                            placeholder="Search everything at Walmart online and in store"
+                            aria-label="Search products"
+                            onkeyup="handleSearch(this.value)"
+                            onfocus="showSearchSuggestions()"
+                            onblur="hideSearchSuggestions()" />
+                        <button class="search-btn" onclick="performSearch()" aria-label="Search">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Search Suggestions -->
+                    <div class="search-suggestions" id="searchSuggestions">
+                        <div class="suggestion-item" onclick="selectSuggestion('iPhone 15')">iPhone 15</div>
+                        <div class="suggestion-item" onclick="selectSuggestion('Samsung TV')">Samsung TV</div>
+                        <div class="suggestion-item" onclick="selectSuggestion('Nike shoes')">Nike shoes</div>
+                        <div class="suggestion-item" onclick="selectSuggestion('Grocery essentials')">Grocery essentials</div>
+                        <div class="suggestion-item" onclick="selectSuggestion('Home decor')">Home decor</div>
+                    </div>
+                </div>
+
+                <!-- User Actions Section -->
+                <div class="nav-actions">
+                    <a href="#" class="nav-action" onclick="showReorder()">
+                        <i class="fas fa-redo-alt"></i>
+                        <div class="nav-action-text">Reorder</div>
+                        <div class="nav-action-subtext">My Items</div>
+                    </a>
+                    
+                    <a href="login.html" class="nav-action" id="accountAction">
+                        <i class="fas fa-user"></i>
+                        <div class="nav-action-text">Sign In</div>
+                        <div class="nav-action-subtext">Account</div>
+                    </a>
+                    
+                    <a href="cart.html" class="nav-action cart-container">
+                        <i class="fas fa-shopping-cart"></i>
+                        <div class="nav-action-text">Cart</div>
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </a>
+                </div>
+            </div>
         </div>
-        <div class="E" style="width: 24%">
-          <div id="iop" class="C" class="opilp">
-            Reorder
-            <p class="yui" id="bold">My Items</p>
-          </div>
-          <div id="iop" class="C" class="opilp">
-            <a href="signup.html">
-              <div id="us">sign In</div>
-              <p class="yui" id="bold">Account</p></a
-            >
-          </div>
-          <div id="iop" class="C" style="width: 40px" class="opilp">
-            <a href="CheckoutDetailing/cart.html"
-              ><span class="material-symbols-outlined"> shopping_cart </span></a
-            >
-          </div>
+
+        <!-- Secondary Navigation -->
+        <div class="nav-secondary">
+            <div class="nav-secondary-content">
+                <div class="location-info">
+                    <span class="location-text">How do you want your items?</span>
+                    <div class="location-details">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Sacramento, 95829</span>
+                        <i class="fas fa-store"></i>
+                        <span>Sacramento Supercenter</span>
+                    </div>
+                </div>
+                
+                <div class="category-links">
+                    <a href="#" class="category-link">Grocery & essentials</a>
+                    <a href="#" class="category-link">Up to $300 off laptops</a>
+                    <a href="#" class="category-link">Apparel</a>
+                    <a href="#" class="category-link">Home</a>
+                    <a href="#" class="category-link">Top Toys, Low Prices</a>
+                    <a href="#" class="category-link">Character Shop</a>
+                </div>
+            </div>
         </div>
-      </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <h3>Menu</h3>
+            <button class="mobile-menu-close" onclick="toggleMobileMenu()" aria-label="Close menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="mobile-menu-content">
+            <div class="mobile-menu-section">
+                <h4 class="mobile-menu-title">Shop</h4>
+                <a href="#" class="mobile-menu-item">Departments</a>
+                <a href="#" class="mobile-menu-item">Services</a>
+                <a href="#" class="mobile-menu-item">Grocery & essentials</a>
+                <a href="#" class="mobile-menu-item">Electronics</a>
+                <a href="#" class="mobile-menu-item">Apparel</a>
+                <a href="#" class="mobile-menu-item">Home</a>
+                <a href="#" class="mobile-menu-item">Toys</a>
+            </div>
+            
+            <div class="mobile-menu-section">
+                <h4 class="mobile-menu-title">Account</h4>
+                <a href="login.html" class="mobile-menu-item">Sign In</a>
+                <a href="signup.html" class="mobile-menu-item">Create Account</a>
+                <a href="#" class="mobile-menu-item">My Items</a>
+                <a href="#" class="mobile-menu-item">Reorder</a>
+            </div>
+            
+            <div class="mobile-menu-section">
+                <h4 class="mobile-menu-title">Help</h4>
+                <a href="#" class="mobile-menu-item">Store Finder</a>
+                <a href="#" class="mobile-menu-item">Weekly Ad</a>
+                <a href="#" class="mobile-menu-item">Help Center</a>
+                <a href="#" class="mobile-menu-item">Contact Us</a>
+            </div>
+        </div>
     </div>
-    <div id="llss">
-      <div class="G">
-        <div>how do you want items?</div>
-        <div style="display: flex" class="op">
-          <div>
-            <span class="material-symbols-outlined"> location_on </span>
-          </div>
-          <div>Sacramento,96829 &nbsp&nbsp</div>
-          <div>
-            <span class="material-symbols-outlined"> house_siding </span>
-          </div>
-          <div>Sacramento Supercenter</div>
-        </div>
-      </div>
-      <div class="G">
-        <div class="y">Grocery & essentials</div>
-        <div class="y">Up to $300 off loptops</div>
-        <div class="y">Apparel</div>
-        <div class="y">Home</div>
-        <div class="y">Top Toys,Low Price</div>
-        <div class="y">Character Shop</div>
-      </div>
-    </div>
-  </body>
+
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay" onclick="toggleMobileMenu()"></div>
+
+    <script>
+        // Global variables
+        let searchTimeout;
+        let cartCount = 0;
+        let isLoggedIn = false;
+
+        // Initialize navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeNavigation();
+            checkUserSession();
+            updateCartCount();
+            setupEventListeners();
+        });
+
+        // Initialize navigation functionality
+        function initializeNavigation() {
+            // Load cart count from localStorage
+            const savedCartCount = localStorage.getItem('cartCount');
+            if (savedCartCount) {
+                cartCount = parseInt(savedCartCount);
+                updateCartBadge();
+            }
+
+            // Setup search functionality
+            setupSearchFunctionality();
+            
+            // Setup keyboard navigation
+            setupKeyboardNavigation();
+        }
+
+        // Check user session
+        function checkUserSession() {
+            const session = localStorage.getItem('walmart_session');
+            if (session) {
+                const sessionData = JSON.parse(session);
+                isLoggedIn = true;
+                updateAccountAction(sessionData.user);
+            }
+        }
+
+        // Update account action based on login status
+        function updateAccountAction(user = null) {
+            const accountAction = document.getElementById('accountAction');
+            if (user) {
+                accountAction.innerHTML = `
+                    <i class="fas fa-user"></i>
+                    <div class="nav-action-text">Hi, ${user.firstName || 'User'}</div>
+                    <div class="nav-action-subtext">Account</div>
+                `;
+                accountAction.href = '#';
+                accountAction.onclick = showAccountMenu;
+            } else {
+                accountAction.innerHTML = `
+                    <i class="fas fa-user"></i>
+                    <div class="nav-action-text">Sign In</div>
+                    <div class="nav-action-subtext">Account</div>
+                `;
+                accountAction.href = 'login.html';
+                accountAction.onclick = null;
+            }
+        }
+
+        // Mobile menu functionality
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileOverlay = document.getElementById('mobileOverlay');
+            
+            if (mobileMenu.classList.contains('open')) {
+                mobileMenu.classList.remove('open');
+                mobileOverlay.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            } else {
+                mobileMenu.classList.add('open');
+                mobileOverlay.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        // Search functionality
+        function setupSearchFunctionality() {
+            const searchInput = document.querySelector('.search-input');
+            const suggestions = document.getElementById('searchSuggestions');
+            
+            // Hide suggestions when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!searchInput.contains(e.target) && !suggestions.contains(e.target)) {
+                    suggestions.classList.remove('show');
+                }
+            });
+        }
+
+        function handleSearch(query) {
+            clearTimeout(searchTimeout);
+            
+            if (query.length > 2) {
+                searchTimeout = setTimeout(() => {
+                    // Simulate search suggestions
+                    updateSearchSuggestions(query);
+                }, 300);
+            } else {
+                hideSearchSuggestions();
+            }
+        }
+
+        function updateSearchSuggestions(query) {
+            const suggestions = document.getElementById('searchSuggestions');
+            const mockSuggestions = [
+                `${query} - Electronics`,
+                `${query} - Clothing`,
+                `${query} - Home & Garden`,
+                `${query} - Grocery`,
+                `${query} - Sports & Outdoors`
+            ];
+            
+            suggestions.innerHTML = mockSuggestions.map(suggestion => 
+                `<div class="suggestion-item" onclick="selectSuggestion('${suggestion}')">${suggestion}</div>`
+            ).join('');
+            
+            suggestions.classList.add('show');
+        }
+
+        function showSearchSuggestions() {
+            const suggestions = document.getElementById('searchSuggestions');
+            const searchInput = document.querySelector('.search-input');
+            
+            if (searchInput.value.length > 0) {
+                suggestions.classList.add('show');
+            }
+        }
+
+        function hideSearchSuggestions() {
+            setTimeout(() => {
+                const suggestions = document.getElementById('searchSuggestions');
+                suggestions.classList.remove('show');
+            }, 200);
+        }
+
+        function selectSuggestion(suggestion) {
+            const searchInput = document.querySelector('.search-input');
+            searchInput.value = suggestion;
+            hideSearchSuggestions();
+            performSearch();
+        }
+
+        function performSearch() {
+            const searchInput = document.querySelector('.search-input');
+            const query = searchInput.value.trim();
+            
+            if (query) {
+                console.log('Searching for:', query);
+                // In a real application, redirect to search results page
+                // window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+                showNotification(`Searching for "${query}"...`);
+            }
+        }
+
+        // Navigation actions
+        function showDepartments() {
+            showNotification('Departments menu would open here');
+        }
+
+        function showServices() {
+            showNotification('Services menu would open here');
+        }
+
+        function showReorder() {
+            if (isLoggedIn) {
+                showNotification('Reorder page would open here');
+            } else {
+                window.location.href = 'login.html';
+            }
+        }
+
+        function showAccountMenu() {
+            showNotification('Account menu would open here');
+        }
+
+        // Cart functionality
+        function updateCartCount() {
+            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+            updateCartBadge();
+        }
+
+        function updateCartBadge() {
+            const cartBadge = document.getElementById('cartBadge');
+            cartBadge.textContent = cartCount;
+            cartBadge.style.display = cartCount > 0 ? 'flex' : 'none';
+            localStorage.setItem('cartCount', cartCount.toString());
+        }
+
+        // Event listeners
+        function setupEventListeners() {
+            // Listen for storage changes (cart updates from other pages)
+            window.addEventListener('storage', function(e) {
+                if (e.key === 'cartItems') {
+                    updateCartCount();
+                }
+            });
+
+            // Listen for custom cart update events
+            window.addEventListener('cartUpdated', function() {
+                updateCartCount();
+            });
+
+            // Keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                // ESC key closes mobile menu
+                if (e.key === 'Escape') {
+                    const mobileMenu = document.getElementById('mobileMenu');
+                    if (mobileMenu.classList.contains('open')) {
+                        toggleMobileMenu();
+                    }
+                }
+                
+                // Ctrl/Cmd + K opens search
+                if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                    e.preventDefault();
+                    document.querySelector('.search-input').focus();
+                }
+            });
+
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                const mobileMenu = document.getElementById('mobileMenu');
+                const mobileOverlay = document.getElementById('mobileOverlay');
+                
+                if (window.innerWidth > 768 && mobileMenu.classList.contains('open')) {
+                    mobileMenu.classList.remove('open');
+                    mobileOverlay.classList.remove('show');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // Handle scroll for sticky navigation
+            let lastScrollTop = 0;
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                if (scrollTop > lastScrollTop && scrollTop > 100) {
+                    // Scrolling down
+                    navbar.style.transform = 'translateY(-100%)';
+                } else {
+                    // Scrolling up
+                    navbar.style.transform = 'translateY(0)';
+                }
+                
+                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+            });
+        }
+
+        // Keyboard navigation setup
+        function setupKeyboardNavigation() {
+            // Make navigation items keyboard accessible
+            const navItems = document.querySelectorAll('.nav-action, .nav-departments, .nav-services');
+            
+            navItems.forEach(item => {
+                item.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.click();
+                    }
+                });
+            });
+
+            // Search input keyboard navigation
+            const searchInput = document.querySelector('.search-input');
+            searchInput.addEventListener('keydown', function(e) {
+                const suggestions = document.getElementById('searchSuggestions');
+                const suggestionItems = suggestions.querySelectorAll('.suggestion-item');
+                
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    if (suggestionItems.length > 0) {
+                        suggestionItems[0].focus();
+                    }
+                } else if (e.key === 'Enter') {
+                    e.preventDefault();
+                    performSearch();
+                }
+            });
+
+            // Suggestion items keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                const activeElement = document.activeElement;
+                if (activeElement.classList.contains('suggestion-item')) {
+                    const suggestions = document.querySelectorAll('.suggestion-item');
+                    const currentIndex = Array.from(suggestions).indexOf(activeElement);
+                    
+                    if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        const nextIndex = (currentIndex + 1) % suggestions.length;
+                        suggestions[nextIndex].focus();
+                    } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        const prevIndex = currentIndex === 0 ? suggestions.length - 1 : currentIndex - 1;
+                        suggestions[prevIndex].focus();
+                    } else if (e.key === 'Enter') {
+                        e.preventDefault();
+                        activeElement.click();
+                    } else if (e.key === 'Escape') {
+                        e.preventDefault();
+                        document.querySelector('.search-input').focus();
+                        hideSearchSuggestions();
+                    }
+                }
+            });
+        }
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            // Remove existing notifications
+            const existingNotification = document.querySelector('.notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <i class="notification-icon ${getNotificationIcon(type)}"></i>
+                    <span class="notification-message">${message}</span>
+                    <button class="notification-close" onclick="this.parentElement.parentElement.remove()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+
+            // Add styles
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: white;
+                border-radius: 8px;
+                box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+                z-index: 10000;
+                min-width: 300px;
+                animation: slideInRight 0.3s ease;
+            `;
+
+            document.body.appendChild(notification);
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.style.animation = 'slideOutRight 0.3s ease';
+                    setTimeout(() => {
+                        if (notification.parentElement) {
+                            notification.remove();
+                        }
+                    }, 300);
+                }
+            }, 5000);
+        }
+
+        function getNotificationIcon(type) {
+            const icons = {
+                success: 'fas fa-check-circle',
+                error: 'fas fa-exclamation-circle',
+                warning: 'fas fa-exclamation-triangle',
+                info: 'fas fa-info-circle'
+            };
+            return icons[type] || icons.info;
+        }
+
+        // Location functionality
+        function changeLocation() {
+            showNotification('Location change functionality would be implemented here');
+        }
+
+        // Department and category functionality
+        function navigateToCategory(category) {
+            console.log(`Navigating to category: ${category}`);
+            showNotification(`Opening ${category} section...`);
+            // In a real application, you would navigate to the category page
+            // window.location.href = `category.html?cat=${encodeURIComponent(category)}`;
+        }
+
+        // User authentication helpers
+        function signOut() {
+            localStorage.removeItem('walmart_session');
+            localStorage.removeItem('walmart_remember');
+            isLoggedIn = false;
+            updateAccountAction();
+            showNotification('You have been signed out successfully', 'success');
+        }
+
+        // Analytics and tracking
+        function trackNavigation(action, details = {}) {
+            console.log('Navigation tracking:', action, details);
+            // In production, send to analytics service
+            // analytics.track('navigation_action', { action, ...details });
+        }
+
+        // Performance monitoring
+        function measureNavigationPerformance() {
+            // Measure navigation load time
+            window.addEventListener('load', function() {
+                const loadTime = performance.now();
+                console.log(`Navigation loaded in ${loadTime.toFixed(2)}ms`);
+            });
+
+            // Measure search response time
+            const originalPerformSearch = performSearch;
+            performSearch = function() {
+                const startTime = performance.now();
+                originalPerformSearch();
+                const endTime = performance.now();
+                console.log(`Search performed in ${(endTime - startTime).toFixed(2)}ms`);
+            };
+        }
+
+        // Initialize performance monitoring
+        measureNavigationPerformance();
+
+        // Accessibility improvements
+        function announceToScreenReader(message) {
+            const announcement = document.createElement('div');
+            announcement.setAttribute('aria-live', 'polite');
+            announcement.setAttribute('aria-atomic', 'true');
+            announcement.style.cssText = `
+                position: absolute;
+                left: -10000px;
+                width: 1px;
+                height: 1px;
+                overflow: hidden;
+            `;
+            announcement.textContent = message;
+            
+            document.body.appendChild(announcement);
+            
+            setTimeout(() => {
+                document.body.removeChild(announcement);
+            }, 1000);
+        }
+
+        // Enhanced search with voice recognition (if supported)
+        function initializeVoiceSearch() {
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                const recognition = new SpeechRecognition();
+                
+                recognition.continuous = false;
+                recognition.interimResults = false;
+                recognition.lang = 'en-US';
+
+                // Add voice search button
+                const voiceBtn = document.createElement('button');
+                voiceBtn.innerHTML = '<i class="fas fa-microphone"></i>';
+                voiceBtn.className = 'voice-search-btn';
+                voiceBtn.style.cssText = `
+                    background: none;
+                    border: none;
+                    padding: 0.875rem;
+                    cursor: pointer;
+                    color: var(--text-secondary);
+                    transition: var(--transition);
+                `;
+                voiceBtn.onclick = startVoiceSearch;
+                
+                const searchContainer = document.querySelector('.search-container');
+                searchContainer.insertBefore(voiceBtn, document.querySelector('.search-btn'));
+
+                function startVoiceSearch() {
+                    recognition.start();
+                    voiceBtn.style.color = 'var(--walmart-blue)';
+                    showNotification('Listening... Speak now', 'info');
+                }
+
+                recognition.onresult = function(event) {
+                    const transcript = event.results[0][0].transcript;
+                    document.querySelector('.search-input').value = transcript;
+                    performSearch();
+                    voiceBtn.style.color = 'var(--text-secondary)';
+                };
+
+                recognition.onerror = function(event) {
+                    console.error('Speech recognition error:', event.error);
+                    voiceBtn.style.color = 'var(--text-secondary)';
+                    showNotification('Voice search failed. Please try again.', 'error');
+                };
+
+                recognition.onend = function() {
+                    voiceBtn.style.color = 'var(--text-secondary)';
+                };
+            }
+        }
+
+        // Initialize voice search if supported
+        initializeVoiceSearch();
+
+        // Progressive Web App features
+        function initializePWAFeatures() {
+            // Add to home screen prompt
+            let deferredPrompt;
+            
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                
+                // Show install button in navigation
+                const installBtn = document.createElement('button');
+                installBtn.innerHTML = '<i class="fas fa-download"></i> Install App';
+                installBtn.className = 'install-app-btn';
+                installBtn.style.cssText = `
+                    background: var(--walmart-blue);
+                    color: white;
+                    border: none;
+                    padding: 0.5rem 1rem;
+                    border-radius: 20px;
+                    font-size: 0.8rem;
+                    cursor: pointer;
+                    margin-left: 1rem;
+                `;
+                
+                installBtn.onclick = async () => {
+                    if (deferredPrompt) {
+                        deferredPrompt.prompt();
+                        const { outcome } = await deferredPrompt.userChoice;
+                        console.log(`User response to install prompt: ${outcome}`);
+                        deferredPrompt = null;
+                        installBtn.remove();
+                    }
+                };
+                
+                document.querySelector('.nav-top-right').appendChild(installBtn);
+            });
+        }
+
+        // Initialize PWA features
+        initializePWAFeatures();
+
+        // Export functions for external use
+        window.WalmartNavigation = {
+            toggleMobileMenu,
+            performSearch,
+            updateCartCount,
+            showNotification,
+            signOut,
+            trackNavigation
+        };
+
+        // Service Worker registration (for PWA)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(function(registration) {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch(function(err) {
+                        console.log('ServiceWorker registration failed');
+                    });
+            });
+        }
+    </script>
+
+    <!-- Additional CSS for animations and enhancements -->
+    <style>
+        /* Notification styles */
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+        }
+
+        .notification-icon {
+            font-size: 1.2rem;
+            color: var(--walmart-blue);
+        }
+
+        .notification-message {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .notification-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-secondary);
+            padding: 0.25rem;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .notification-close:hover {
+            background: var(--walmart-light-gray);
+            color: var(--text-primary);
+        }
+
+        /* Animation keyframes */
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        /* Voice search button hover effect */
+        .voice-search-btn:hover {
+            color: var(--walmart-blue) !important;
+            background: var(--walmart-light-gray);
+            border-radius: 4px;
+        }
+
+        /* Install app button hover effect */
+        .install-app-btn:hover {
+            background: var(--walmart-dark-blue);
+            transform: translateY(-1px);
+        }
+
+        /* Enhanced focus styles for better accessibility */
+        .suggestion-item:focus {
+            background: var(--walmart-blue);
+            color: white;
+            outline: none;
+        }
+
+        /* Smooth navbar hide/show transition */
+        .navbar {
+            transition: transform 0.3s ease;
+        }
+
+        /* Loading state for search */
+        .search-container.loading .search-btn {
+            pointer-events: none;
+        }
+
+        .search-container.loading .search-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 16px;
+            height: 16px;
+            margin: -8px 0 0 -8px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Enhanced mobile menu animations */
+        .mobile-menu {
+            transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mobile-overlay {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        /* Improved suggestion item styling */
+        .suggestion-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .suggestion-item::before {
+            content: '\f002';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Category link active state */
+        .category-link.active {
+            color: var(--walmart-blue);
+            font-weight: 600;
+        }
+
+        /* Responsive navigation improvements */
+        @media (max-width: 480px) {
+            .notification {
+                left: 10px !important;
+                right: 10px !important;
+                min-width: auto !important;
+            }
+            
+            .mobile-menu {
+                width: 100% !important;
+            }
+        }
+    </style>
+</body>
 </html>

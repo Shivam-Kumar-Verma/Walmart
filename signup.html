@@ -6,360 +6,1619 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="https://www.walmart.com/favicon.ico" type="image/x-icon" />
-
-    <title>SignUp</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Create Account - Walmart</title>
+    
     <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --walmart-blue: #0071ce;
+            --walmart-dark-blue: #004c91;
+            --walmart-yellow: #ffc220;
+            --walmart-orange: #ff6900;
+            --walmart-light-gray: #f8f9fa;
+            --walmart-gray: #74767c;
+            --walmart-dark-gray: #46474a;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666;
+            --border-color: #e5e5e5;
+            --shadow-light: 0 2px 8px rgba(0,0,0,0.1);
+            --shadow-medium: 0 4px 16px rgba(0,0,0,0.15);
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+            --success-color: #28a745;
+            --error-color: #dc3545;
+            --warning-color: #ffc107;
+        }
+
         body {
-    margin: 0%;
-    padding: 0%;
-    box-sizing: border-box;
-}
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--walmart-light-gray) 0%, #ffffff 100%);
+            line-height: 1.6;
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-#container {
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    justify-content: center;
-    align-items: center;
-    margin-top: 25px;
-}
+        /* Skip Link for Accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--walmart-blue);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 4px;
+            z-index: 1000;
+        }
 
-#child-1 img {
-    height: 30px;
-}
+        .skip-link:focus {
+            top: 6px;
+        }
 
-#child-1 h1 {
-    font-weight: 500;
-}
+        /* Header Section */
+        .header {
+            background-color: #ffffff;
+            box-shadow: var(--shadow-light);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-#child-1 {
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    font-size: 9px;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 5px;
-}
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-form {
-    position: relative;
-    display: grid;
-    width: 300px;
-    margin: auto;
-    gap: 10px;
-}
+        .logo {
+            height: 40px;
+            width: auto;
+            transition: transform 0.2s ease;
+        }
 
-input {
-    padding: 15px;
-}
+        .logo:hover {
+            transform: scale(1.05);
+        }
 
+        .header-nav {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
 
+        .header-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
 
+        .header-link:hover {
+            color: var(--walmart-blue);
+        }
 
+        /* Progress Indicator */
+        .progress-container {
+            background: white;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
 
-#message {
-    width: 75%;
-    font-size: x-small;
-    margin: auto;
-}
+        .progress-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
 
-.valid {
-    color: green;
-}
+        .progress-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
 
-.valid::before {
-    position: relative;
-    left: -35px;
-    content: "✔";
-   
-}
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
 
+        .progress-step.active {
+            color: var(--walmart-blue);
+            font-weight: 600;
+        }
 
+        .progress-step.completed {
+            color: var(--success-color);
+        }
 
+        .step-number {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--border-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
 
-.invalid {
-    color: red;
-}
+        .progress-step.active .step-number {
+            background: var(--walmart-blue);
+        }
 
-.invalid::before {
-    position: relative;
-    left: -35px;
-    content: "✖";
-}
+        .progress-step.completed .step-number {
+            background: var(--success-color);
+        }
 
-#show-message {
-    font-size: 11px;
-    margin-top: -15px;
-}
+        /* Main Container */
+        .main-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1rem;
+            min-height: calc(100vh - 300px);
+        }
 
-#info-div {
-    margin-top: -15px;
-}
+        .signup-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow-medium);
+            padding: 3rem;
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
 
-#info10 {
-    display: flex;
-    width: 140px;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: -10px;
-}
+        .signup-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--walmart-blue), var(--walmart-yellow));
+        }
 
-#info10>h5 {
-    font-size: 13px;
-    font-weight: 700;
-}
+        .signup-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
 
-#info10>input[type="checkbox"] {
-    accent-color: black;
-    width: 15px;
-    /*Desired width*/
-    height: 30px;
-    /*Desired height*/
-}
+        .signup-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--walmart-blue), var(--walmart-dark-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
-#info11 {
-    display: flex;
-    align-items: center;
-    font-size: small;
-    margin-top: -25px;
-}
+        .signup-subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
 
-#info11 span {
-    border: none;
-    background-color: white;
-    text-decoration: underline;
-    font-size: 12px;
-    cursor: pointer;
-}
+        .signup-benefits {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
 
-#info20 {
-    display: flex;
-    align-items: center;
-    /* justify-content: flex-end; */
-    margin-top: -10px;
-}
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--success-color);
+            font-size: 0.85rem;
+        }
 
-#info20>input[type="checkbox"] {
-    accent-color: black;
-    width: 15.5px;
-    /*Desired width*/
-    height: 30px;
-    /*Desired height*/
-}
+        .benefit-item i {
+            font-size: 1rem;
+        }
 
-#info20>p {
-    font-size: 12px;
-    color: #74767c;
-}
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
 
-#info21>p {
-    font-size: 12px;
-    margin-top: -5px;
-    color: #74767c;
-}
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
 
-#info20 {
-    width: 270px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
+        .input-wrapper {
+            position: relative;
+        }
 
-#info3 {
-    font-size: 12px;
-}
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
 
-#info3>p {
-    color: #74767c;
-}
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            padding-left: 3rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: #fff;
+            font-family: inherit;
+        }
 
-#info3>p>a {
-    color: black;
-}
+        .form-input:focus {
+            outline: none;
+            border-color: var(--walmart-blue);
+            box-shadow: 0 0 0 3px rgba(0, 113, 206, 0.1);
+        }
 
-#createanaccount {
-    border-radius: 150px;
-    background-color: rgb(0, 113, 220);
-    color: white;
-    height: 40px;
-    border: none;
-    font-weight: 700;
-    cursor: pointer;
-}
+        .form-input:invalid:not(:placeholder-shown) {
+            border-color: var(--error-color);
+        }
 
-button[type="submit"]:hover,
-button[type="submit"]:focus-within {
-    background-color: #004281;
-}
+        .form-input:valid:not(:placeholder-shown) {
+            border-color: var(--success-color);
+        }
 
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            pointer-events: none;
+            transition: var(--transition);
+        }
 
-hr {
-    margin-top: 20px;
-    border: 2px solid rgb(241, 241, 242);
-}
+        .form-input:focus + .input-icon {
+            color: var(--walmart-blue);
+        }
 
-#form2 {
-    display: flex;
-    width: 1200px;
-    margin-bottom: 20px;
-    align-items: center;
-    justify-content: space-around;
-    font-size: 13px;
-}
+        /* Password Field with Toggle */
+        .password-wrapper {
+            position: relative;
+        }
 
-#footer1 {
-    width: 700px;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-}
+        .password-toggle {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
 
-#footer1>a {
-    color: #74767c;
-}
+        .password-toggle:hover {
+            color: var(--walmart-blue);
+            background: var(--walmart-light-gray);
+        }
 
+        /* Password Strength Indicator */
+        .password-strength {
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
 
+        .strength-bar {
+            flex: 1;
+            height: 4px;
+            background: var(--border-color);
+            border-radius: 2px;
+            overflow: hidden;
+        }
 
+        .strength-fill {
+            height: 100%;
+            width: 0%;
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        .strength-text {
+            font-size: 0.8rem;
+            font-weight: 500;
+            min-width: 60px;
+        }
+
+        .strength-weak .strength-fill {
+            width: 33%;
+            background: var(--error-color);
+        }
+
+        .strength-medium .strength-fill {
+            width: 66%;
+            background: var(--warning-color);
+        }
+
+        .strength-strong .strength-fill {
+            width: 100%;
+            background: var(--success-color);
+        }
+
+        /* Password Requirements */
+        .password-requirements {
+            background-color: var(--walmart-light-gray);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .password-requirements h4 {
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .requirement {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .requirement i {
+            margin-right: 0.5rem;
+            width: 16px;
+            font-size: 0.9rem;
+        }
+
+        .requirement.valid {
+            color: var(--success-color);
+        }
+
+        .requirement.invalid {
+            color: var(--error-color);
+        }
+
+        /* Phone Number Input */
+        .phone-wrapper {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .country-code {
+            width: 80px;
+            padding: 1rem 0.5rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            background: white;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        /* Checkbox Sections */
+        .checkbox-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: var(--walmart-light-gray);
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .checkbox-item:hover {
+            background: #f0f8ff;
+        }
+
+        .custom-checkbox {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--walmart-blue);
+            cursor: pointer;
+            margin-top: 2px;
+        }
+
+        .checkbox-label {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            cursor: pointer;
+            line-height: 1.4;
+            flex: 1;
+        }
+
+        .checkbox-description {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        .show-hide-btn {
+            background: none;
+            border: none;
+            color: var(--walmart-blue);
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+            padding: 0.25rem;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .show-hide-btn:hover {
+            background: var(--walmart-light-gray);
+        }
+
+        .additional-info {
+            display: none;
+            margin-top: 0.5rem;
+            padding: 0.75rem;
+            background-color: #e8f4fd;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            border-left: 3px solid var(--walmart-blue);
+        }
+
+        .additional-info.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Terms and Privacy */
+        .terms-text {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--walmart-light-gray);
+            border-radius: var(--border-radius);
+            border-left: 3px solid var(--walmart-blue);
+        }
+
+        .terms-text a {
+            color: var(--walmart-blue);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .terms-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--walmart-blue) 0%, var(--walmart-dark-blue) 100%);
+            color: white;
+            border: none;
+            padding: 1.25rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, var(--walmart-dark-blue) 0%, #003366 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 113, 206, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            background: var(--walmart-gray);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .submit-btn.loading {
+            pointer-events: none;
+        }
+
+        .submit-btn.loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Sign In Link */
+        .signin-link {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .signin-link p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .signin-btn {
+            background: transparent;
+            color: var(--walmart-blue);
+            border: 2px solid var(--walmart-blue);
+            padding: 0.75rem 2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .signin-btn:hover {
+            background: var(--walmart-blue);
+            color: white;
+        }
+
+        /* Success/Error Messages */
+        .message {
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            display: none;
+            animation: slideDown 0.3s ease;
+        }
+
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .message.warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #fff;
+            border-top: 1px solid var(--border-color);
+            padding: 2rem 1rem;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-copyright {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--walmart-blue);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .signup-card {
+                padding: 2rem;
+                margin: 1rem;
+                border-radius: 12px;
+            }
+
+            .signup-title {
+                font-size: 1.75rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .form-group {
+                margin-bottom: 1.25rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+
+            .footer-links {
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .progress-bar {
+                gap: 1rem;
+            }
+
+            .signup-benefits {
+                gap: 1rem;
+            }
+
+            .header-content {
+                justify-content: center;
+            }
+
+            .header-nav {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-container {
+                padding: 1rem 0.5rem;
+            }
+
+            .signup-card {
+                padding: 1.5rem;
+            }
+
+            .form-input {
+                padding: 0.875rem;
+                padding-left: 2.75rem;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .progress-bar {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .signup-benefits {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .form-input {
+                border-width: 3px;
+            }
+            
+            .submit-btn {
+                border: 2px solid #000;
+            }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Focus styles for accessibility */
+        button:focus,
+        a:focus,
+        input:focus {
+            outline: 3px solid var(--walmart-blue);
+            outline-offset: 2px;
+        }
     </style>
-   
-   
 </head>
 
 <body>
-    <div id="navbar"></div>
-    <div id="container">
-        
-        <div id="child-1">
-            <div>
-                <a href="../index.html">
-                    <img src="https://i5.walmartimages.com/dfw/4ff9c6c9-991c/k2-_03d329be-5936-4ef6-ad29-95e392df014d.v1.png" alt="logo" /></a>
-            </div>
-            <div>
-                <h1>Create your Walmart account</h1>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html">
+                <img src="https://i5.walmartimages.com/dfw/4ff9c6c9-991c/k2-_03d329be-5936-4ef6-ad29-95e392df014d.v1.png" 
+                     alt="Walmart Logo" class="logo" />
+            </a>
+            <nav class="header-nav">
+                <a href="login.html" class="header-link">Sign In</a>
+                <a href="#" class="header-link">Help</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Progress Indicator -->
+    <div class="progress-container">
+        <div class="progress-content">
+            <div class="progress-bar">
+                <div class="progress-step active">
+                    <div class="step-number">1</div>
+                    <span>Account Info</span>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">2</div>
+                    <span>Verification</span>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">3</div>
+                    <span>Complete</span>
+                </div>
             </div>
         </div>
+    </div>
 
-        
-        <div id="child-2">
-            <form action="" id="signup_form">
-                <input id="firstname" type="text" placeholder="First name" required />
-                <input id="lastname" type="text" placeholder="Last name" required />
-                
-                <input id="email" type="text" placeholder="Email Adress" required />
-                <input id="password" type="password" placeholder="Enter your Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required />
-               
-                <div id="message">
-                    <h3>Password must contain the following:</h3>
-                    <p >A <b>lowercase</b> letter</p>
-                    <p >
-                        A <b>capital (uppercase)</b> letter
-                    </p>
-                    <p >A <b>number</b></p>
-                    <p >Minimum <b>8 characters</b></p>
-                </div>
-                <div id="info-div">
-                    <div id="info1">
-                        <div id="info10">
-                            <input type="checkbox" checked />
-                            <h5>Keep me signed in</h5>
-                        </div>
-                        <div id="info11">
-                            <p>Uncheck if using a public device.</p>
-                            <span id="extractmessage">Show</span>
-                        </div>
-                        <div id="show-message">
-                            <p>
-                                We'll keep you signed in on this device. You may be asked to enter your password when modifying sensitive account information.
-                            </p>
-                        </div>
+    <!-- Main Content -->
+    <main id="main-content" class="main-container">
+        <div class="signup-card">
+            <div class="signup-header">
+                <h1 class="signup-title">Create your account</h1>
+                <p class="signup-subtitle">Join millions of customers who save with Walmart</p>
+                <div class="signup-benefits">
+                    <div class="benefit-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Free shipping</span>
                     </div>
-                    <div id="info2">
-                        <div id="info20">
-                            <input type="checkbox" checked />
-                            <p>Send me emails about new arrivals, hot items,</p>
-                        </div>
-                        <div id="info21">
-                            <p>daily savings, & more.</p>
-                        </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Exclusive deals</span>
                     </div>
-
-                    <div id="info3">
-                        <p>
-                            By clicking Create Account, you acknowledge you have read and agreed to our <a href=""> Terms of Use</a>&nbsp;and
-                            <a href="">Privacy Policy </a>.
-                        </p>
+                    <div class="benefit-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Easy returns</span>
                     </div>
                 </div>
+            </div>
 
-                <button id="createanaccount" type="submit">Create Account</button> 
+            <!-- Success/Error Messages -->
+            <div id="message" class="message"></div>
 
-                
-                      
+            <form id="signup_form" novalidate>
+                <!-- Name Fields -->
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="input-wrapper">
+                            <label for="firstname" class="form-label">First Name *</label>
+                            <input id="firstname" 
+                                   type="text" 
+                                   class="form-input" 
+                                   placeholder="Enter your first name" 
+                                   required 
+                                   autocomplete="given-name"
+                                   aria-label="First name" />
+                            <i class="fas fa-user input-icon"></i>
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="lastname" class="form-label">Last Name *</label>
+                            <input id="lastname" 
+                                   type="text" 
+                                   class="form-input" 
+                                   placeholder="Enter your last name" 
+                                   required 
+                                   autocomplete="family-name"
+                                   aria-label="Last name" />
+                            <i class="fas fa-user input-icon"></i>
+                        </div>
                     </div>
                 </div>
+
+                <!-- Email Field -->
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address *</label>
+                    <div class="input-wrapper">
+                        <input id="email" 
+                               type="email" 
+                               class="form-input" 
+                               placeholder="Enter your email address" 
+                               required 
+                               autocomplete="email"
+                               aria-label="Email address" />
+                        <i class="fas fa-envelope input-icon"></i>
+                    </div>
+                </div>
+
+                <!-- Phone Number Field -->
+                <div class="form-group">
+                    <label for="phone" class="form-label">Phone Number (Optional)</label>
+                    <div class="phone-wrapper">
+                        <select class="country-code">
+                            <option value="+1">+1</option>
+                            <option value="+44">+44</option>
+                            <option value="+91">+91</option>
+                        </select>
+                        <div class="input-wrapper" style="flex: 1;">
+                            <input id="phone" 
+                                   type="tel" 
+                                   class="form-input" 
+                                   placeholder="Enter your phone number" 
+                                   autocomplete="tel" />
+                            <i class="fas fa-phone input-icon"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Password Field -->
+                <div class="form-group">
+                    <label for="password" class="form-label">Create Password *</label>
+                    <div class="password-wrapper">
+                        <div class="input-wrapper">
+                            <input id="password" 
+                                   type="password" 
+                                   class="form-input" 
+                                   placeholder="Create a strong password" 
+                                   required 
+                                   autocomplete="new-password"
+                                   aria-label="Create password"
+                                   minlength="8" />
+                            <i class="fas fa-lock input-icon"></i>
+                        </div>
+                        <button type="button" class="password-toggle" id="togglePassword" aria-label="Toggle password visibility">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Password Strength Indicator -->
+                    <div class="password-strength" id="passwordStrength">
+                        <div class="strength-bar">
+                            <div class="strength-fill"></div>
+                        </div>
+                        <span class="strength-text">Weak</span>
+                    </div>
+                    
+                    <!-- Password Requirements -->
+                    <div class="password-requirements">
+                        <h4>Password must contain:</h4>
+                        <div class="requirement invalid" id="lowercase">
+                            <i class="fas fa-times"></i>
+                            <span>At least one lowercase letter</span>
+                        </div>
+                        <div class="requirement invalid" id="uppercase">
+                            <i class="fas fa-times"></i>
+                            <span>At least one uppercase letter</span>
+                        </div>
+                        <div class="requirement invalid" id="number">
+                            <i class="fas fa-times"></i>
+                            <span>At least one number</span>
+                        </div>
+                        <div class="requirement invalid" id="length">
+                            <i class="fas fa-times"></i>
+                            <span>At least 8 characters</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Checkbox Options -->
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="keepSignedIn" class="custom-checkbox" checked>
+                        <label for="keepSignedIn" class="checkbox-label">
+                            <strong>Keep me signed in</strong>
+                            <button type="button" class="show-hide-btn" id="toggleKeepInfo">Show details</button>
+                            <div class="checkbox-description">
+                                Uncheck if using a public device.
+                            </div>
+                        </label>
+                    </div>
+                    <div class="additional-info" id="keepSignedInInfo">
+                        <i class="fas fa-info-circle" style="margin-right: 0.5rem; color: var(--walmart-blue);"></i>
+                        We'll keep you signed in on this device. You may be asked to enter your password when modifying sensitive account information.
+                    </div>
+                </div>
+
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="emailUpdates" class="custom-checkbox" checked>
+                        <label for="emailUpdates" class="checkbox-label">
+                            <strong>Send me promotional emails</strong>
+                            <div class="checkbox-description">
+                                Get emails about new arrivals, hot items, daily savings, and exclusive offers.
+                            </div>
+                        </label>
+ </div>
+                </div>
+
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="smsUpdates" class="custom-checkbox">
+                        <label for="smsUpdates" class="checkbox-label">
+                            <strong>Send me text notifications</strong>
+                            <div class="checkbox-description">
+                                Get SMS alerts about order updates, delivery notifications, and special offers.
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Terms and Privacy -->
+                <div class="terms-text">
+                    <i class="fas fa-shield-alt" style="margin-right: 0.5rem; color: var(--walmart-blue);"></i>
+                    By clicking Create Account, you acknowledge you have read and agreed to our 
+                    <a href="#" target="_blank">Terms of Use</a> and 
+                    <a href="#" target="_blank">Privacy Policy</a>. You also agree to receive marketing communications from Walmart.
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="submit-btn" id="createAccountBtn">
+                    <i class="fas fa-user-plus" style="margin-right: 0.5rem;"></i>
+                    Create Account
+                </button>
             </form>
-        </div>
-    </div>
-    <div>
-        <hr class-1 />
-    </div>
-    <footer>
-        <form id="form2">
-            <div id="footer0">
-                <p>©2022 Walmart. All Rights Reserved.</p>
-            </div>
-            <div id="footer1">
-                <a href="">CA Privacy Rights</a>
 
-                <a href="">Do Not Sell My Personal Information</a>
-                <a href="">Request My Personal Information</a>
-                <a href="">California Supply Chains Act</a>
+            <!-- Sign In Link -->
+            <div class="signin-link">
+                <p>Already have an account?</p>
+                <a href="login.html" class="signin-btn">Sign In</a>
             </div>
-        </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-copyright">
+                ©2024 Walmart. All Rights Reserved.
+            </div>
+            <div class="footer-links">
+                <a href="#">CA Privacy Rights</a>
+                <a href="#">Do Not Sell My Personal Information</a>
+                <a href="#">Request My Personal Information</a>
+                <a href="#">California Supply Chains Act</a>
+            </div>
+        </div>
     </footer>
-    <a href="signup.html"></a>
-   
+
+    <script>
+        // DOM Elements
+        const signupForm = document.getElementById('signup_form');
+        const passwordInput = document.getElementById('password');
+        const togglePasswordBtn = document.getElementById('togglePassword');
+        const toggleKeepInfoBtn = document.getElementById('toggleKeepInfo');
+        const keepSignedInInfo = document.getElementById('keepSignedInInfo');
+        const messageDiv = document.getElementById('message');
+        const createAccountBtn = document.getElementById('createAccountBtn');
+        const passwordStrength = document.getElementById('passwordStrength');
+
+        // Password requirements elements
+        const requirements = {
+            lowercase: document.getElementById('lowercase'),
+            uppercase: document.getElementById('uppercase'),
+            number: document.getElementById('number'),
+            length: document.getElementById('length')
+        };
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            setupEventListeners();
+            setupFormValidation();
+            setupPasswordStrength();
+            setupAccessibility();
+            focusFirstInput();
+        });
+
+        // Event listeners setup
+        function setupEventListeners() {
+            // Form submission
+            signupForm.addEventListener('submit', handleFormSubmit);
+
+            // Password toggle
+            togglePasswordBtn.addEventListener('click', togglePasswordVisibility);
+
+            // Keep signed in info toggle
+            toggleKeepInfoBtn.addEventListener('click', toggleKeepSignedInInfo);
+
+            // Real-time validation
+            document.getElementById('email').addEventListener('blur', validateEmailField);
+            document.getElementById('firstname').addEventListener('input', validateNameField);
+            document.getElementById('lastname').addEventListener('input', validateNameField);
+            document.getElementById('phone').addEventListener('input', validatePhoneField);
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', handleKeyboardShortcuts);
+        }
+
+        // Password toggle functionality
+        function togglePasswordVisibility() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            const icon = togglePasswordBtn.querySelector('i');
+            icon.classList.toggle('fa-eye');
+            icon.classList.toggle('fa-eye-slash');
+            
+            // Announce to screen readers
+            const announcement = type === 'text' ? 'Password visible' : 'Password hidden';
+            announceToScreenReader(announcement);
+        }
+
+        // Keep signed in info toggle
+        function toggleKeepSignedInInfo() {
+            keepSignedInInfo.classList.toggle('show');
+            const isShowing = keepSignedInInfo.classList.contains('show');
+            toggleKeepInfoBtn.textContent = isShowing ? 'Hide details' : 'Show details';
+            
+            // Update ARIA expanded state
+            toggleKeepInfoBtn.setAttribute('aria-expanded', isShowing);
+        }
+
+        // Password strength and validation
+        function setupPasswordStrength() {
+            passwordInput.addEventListener('input', function() {
+                const password = this.value;
+                updatePasswordRequirements(password);
+                updatePasswordStrength(password);
+            });
+        }
+
+        function updatePasswordRequirements(password) {
+            // Check lowercase
+            const hasLowercase = /[a-z]/.test(password);
+            updateRequirement('lowercase', hasLowercase);
+            
+            // Check uppercase
+            const hasUppercase = /[A-Z]/.test(password);
+            updateRequirement('uppercase', hasUppercase);
+            
+            // Check number
+            const hasNumber = /\d/.test(password);
+            updateRequirement('number', hasNumber);
+            
+            // Check length
+            const hasLength = password.length >= 8;
+            updateRequirement('length', hasLength);
+        }
+
+        function updateRequirement(type, isValid) {
+            const element = requirements[type];
+            const icon = element.querySelector('i');
+            
+            if (isValid) {
+                element.classList.remove('invalid');
+                element.classList.add('valid');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-check');
+            } else {
+                element.classList.remove('valid');
+                element.classList.add('invalid');
+                icon.classList.remove('fa-check');
+                icon.classList.add('fa-times');
+            }
+        }
+
+        function updatePasswordStrength(password) {
+            const strengthBar = passwordStrength.querySelector('.strength-fill');
+            const strengthText = passwordStrength.querySelector('.strength-text');
+            
+            let score = 0;
+            let strength = 'Weak';
+            
+            // Calculate strength score
+            if (password.length >= 8) score++;
+            if (/[a-z]/.test(password)) score++;
+            if (/[A-Z]/.test(password)) score++;
+            if (/\d/.test(password)) score++;
+            if (/[^A-Za-z0-9]/.test(password)) score++;
+            
+            // Remove all strength classes
+            passwordStrength.classList.remove('strength-weak', 'strength-medium', 'strength-strong');
+            
+            if (score <= 2) {
+                passwordStrength.classList.add('strength-weak');
+                strength = 'Weak';
+            } else if (score <= 3) {
+                passwordStrength.classList.add('strength-medium');
+                strength = 'Medium';
+            } else {
+                passwordStrength.classList.add('strength-strong');
+                strength = 'Strong';
+            }
+            
+            strengthText.textContent = strength;
+            strengthText.style.color = score <= 2 ? 'var(--error-color)' : 
+                                     score <= 3 ? 'var(--warning-color)' : 'var(--success-color)';
+        }
+
+        // Form validation functions
+        function setupFormValidation() {
+            const inputs = document.querySelectorAll('.form-input');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    validateField(this);
+                });
+                
+                input.addEventListener('blur', function() {
+                    validateField(this);
+                });
+            });
+        }
+
+        function validateField(input) {
+            const isValid = input.checkValidity() && input.value.trim().length > 0;
+            
+            if (input.value.length > 0) {
+                if (isValid) {
+                    input.style.borderColor = 'var(--success-color)';
+                    input.setAttribute('aria-invalid', 'false');
+                } else {
+                    input.style.borderColor = 'var(--error-color)';
+                    input.setAttribute('aria-invalid', 'true');
+                }
+            } else {
+                input.style.borderColor = 'var(--border-color)';
+                input.removeAttribute('aria-invalid');
+            }
+        }
+
+        function validateEmailField(e) {
+            const email = e.target.value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (email && !emailRegex.test(email)) {
+                showMessage('Please enter a valid email address.', 'error');
+                return false;
+            }
+            
+            // Check if email already exists
+            if (email) {
+                checkEmailExists(email);
+            }
+            
+            return true;
+        }
+
+        function validateNameField(e) {
+            const name = e.target.value.trim();
+            const nameRegex = /^[a-zA-Z\s'-]+$/;
+            
+            if (name && !nameRegex.test(name)) {
+                e.target.style.borderColor = 'var(--error-color)';
+                return false;
+            }
+            
+            return true;
+        }
+
+        function validatePhoneField(e) {
+            const phone = e.target.value.trim();
+            const phoneRegex = /^[\d\s\-$$\+]+$/;
+            
+            if (phone && !phoneRegex.test(phone)) {
+                e.target.style.borderColor = 'var(--error-color)';
+                return false;
+            }
+            
+            return true;
+        }
+
+        function checkEmailExists(email) {
+            const users = JSON.parse(localStorage.getItem('walmart_users')) || [];
+            const userExists = users.some(user => user.email === email);
+            
+            if (userExists) {
+                document.getElementById('email').style.borderColor = 'var(--error-color)';
+                showMessage('This email is already registered. Please use a different email or sign in.', 'warning');
+                return true;
+            } else {
+                document.getElementById('email').style.borderColor = 'var(--success-color)';
+                return false;
+            }
+        }
+
+        // Form submission handler
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            
+            if (!validateForm()) {
+                return;
+            }
+
+            // Show loading state
+            setLoadingState(true);
+
+            // Get form data
+            const formData = getFormData();
+
+            // Simulate API call delay
+            setTimeout(() => {
+                if (checkEmailExists(formData.email)) {
+                    setLoadingState(false);
+                    return;
+                }
+
+                // Create user account
+                createUserAccount(formData);
+            }, 1500);
+        }
+
+        function validateForm() {
+            const firstName = document.getElementById('firstname').value.trim();
+            const lastName = document.getElementById('lastname').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+
+            // Basic validation
+            if (!firstName || !lastName || !email || !password) {
+                showMessage('Please fill in all required fields.', 'error');
+                focusFirstEmptyField();
+                return false;
+            }
+
+            // Name validation
+            const nameRegex = /^[a-zA-Z\s'-]+$/;
+            if (!nameRegex.test(firstName) || !nameRegex.test(lastName)) {
+                showMessage('Please enter valid names using only letters, spaces, hyphens, and apostrophes.', 'error');
+                return false;
+            }
+
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showMessage('Please enter a valid email address.', 'error');
+                document.getElementById('email').focus();
+                return false;
+            }
+
+            // Password validation
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+            if (!passwordRegex.test(password)) {
+                showMessage('Password does not meet the requirements. Please check the criteria below.', 'error');
+                passwordInput.focus();
+                return false;
+            }
+
+            return true;
+        }
+
+        function getFormData() {
+            return {
+                firstName: document.getElementById('firstname').value.trim(),
+                lastName: document.getElementById('lastname').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                password: document.getElementById('password').value,
+                keepSignedIn: document.getElementById('keepSignedIn').checked,
+                emailUpdates: document.getElementById('emailUpdates').checked,
+                smsUpdates: document.getElementById('smsUpdates').checked
+            };
+        }
+
+        function createUserAccount(formData) {
+            // Get existing users
+            let users = JSON.parse(localStorage.getItem('walmart_users')) || [];
+
+            // Add new user
+            const newUser = {
+                id: Date.now(),
+                firstName: formData.firstName,
+                lastName: formData.lastName,
+                email: formData.email,
+                phone: formData.phone,
+                password: formData.password, // In real app, this should be hashed
+                keepSignedIn: formData.keepSignedIn,
+                emailUpdates: formData.emailUpdates,
+                smsUpdates: formData.smsUpdates,
+                createdAt: new Date().toISOString(),
+                isVerified: false
+            };
+
+            users.push(newUser);
+            localStorage.setItem('walmart_users', JSON.stringify(users));
+            
+            // Show success message
+            showMessage('Account created successfully! Please check your email for verification.', 'success');
+            
+            // Update progress indicator
+            updateProgressStep(2);
+            
+            // Reset form
+            signupForm.reset();
+            resetPasswordRequirements();
+            
+            // Redirect after delay
+            setTimeout(() => {
+                window.location.href = 'login.html?message=account_created';
+            }, 3000);
+            
+            setLoadingState(false);
+        }
+
+        // Utility functions
+        function setLoadingState(isLoading) {
+            if (isLoading) {
+                createAccountBtn.classList.add('loading');
+                createAccountBtn.disabled = true;
+                createAccountBtn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 0.5rem;"></i>Creating Account...';
+            } else {
+                createAccountBtn.classList.remove('loading');
+                createAccountBtn.disabled = false;
+                createAccountBtn.innerHTML = '<i class="fas fa-user-plus" style="margin-right: 0.5rem;"></i>Create Account';
+            }
+        }
+
+        function showMessage(text, type) {
+            messageDiv.textContent = text;
+            messageDiv.className = `message ${type} show`;
+            
+            // Scroll to message
+            messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            
+            // Auto hide success messages after 5 seconds
+            if (type === 'success') {
+                setTimeout(() => {
+                    messageDiv.classList.remove('show');
+                }, 5000);
+            }
+        }
+
+        function resetPasswordRequirements() {
+            Object.keys(requirements).forEach(key => {
+                updateRequirement(key, false);
+            });
+            
+            // Reset password strength
+            const passwordStrength = document.getElementById('passwordStrength');
+            passwordStrength.classList.remove('strength-weak', 'strength-medium', 'strength-strong');
+            passwordStrength.classList.add('strength-weak');
+            passwordStrength.querySelector('.strength-text').textContent = 'Weak';
+        }
+
+        function updateProgressStep(step) {
+            const steps = document.querySelectorAll('.progress-step');
+            steps.forEach((stepEl, index) => {
+                if (index < step - 1) {
+                    stepEl.classList.add('completed');
+                    stepEl.classList.remove('active');
+                } else if (index === step - 1) {
+                    stepEl.classList.add('active');
+                    stepEl.classList.remove('completed');
+                } else {
+                    stepEl.classList.remove('active', 'completed');
+                }
+            });
+        }
+
+        function focusFirstInput() {
+            document.getElementById('firstname').focus();
+        }
+
+        function focusFirstEmptyField() {
+            const requiredFields = ['firstname', 'lastname', 'email', 'password'];
+            for (const fieldId of requiredFields) {
+                const field = document.getElementById(fieldId);
+                if (!field.value.trim()) {
+                    field.focus();
+                    break;
+                }
+            }
+        }
+
+        function handleKeyboardShortcuts(e) {
+            // Allow form submission with Ctrl+Enter
+            if (e.ctrlKey && e.key === 'Enter') {
+                e.preventDefault();
+                signupForm.dispatchEvent(new Event('submit'));
+            }
+            
+            // ESC key clears current message
+            if (e.key === 'Escape') {
+                messageDiv.classList.remove('show');
+            }
+        }
+
+        // Accessibility improvements
+        function setupAccessibility() {
+            // Add ARIA live region for messages
+            messageDiv.setAttribute('aria-live', 'polite');
+            messageDiv.setAttribute('aria-atomic', 'true');
+
+            // Add ARIA expanded state to toggle button
+            toggleKeepInfoBtn.setAttribute('aria-expanded', 'false');
+            toggleKeepInfoBtn.setAttribute('aria-controls', 'keepSignedInInfo');
+
+            // Add ARIA describedby for password field
+            passwordInput.setAttribute('aria-describedby', 'passwordStrength password-requirements');
+
+            // Improve form labels association
+            const inputs = document.querySelectorAll('.form-input');
+            inputs.forEach(input => {
+                const label = document.querySelector(`label[for="${input.id}"]`);
+                if (label) {
+                    input.setAttribute('aria-describedby', `${input.id}-help`);
+                }
+            });
+        }
+
+        function announceToScreenReader(message) {
+            const announcement = document.createElement('div');
+            announcement.setAttribute('aria-live', 'polite');
+            announcement.setAttribute('aria-atomic', 'true');
+            announcement.style.cssText = `
+                position: absolute;
+                left: -10000px;
+                width: 1px;
+                height: 1px;
+                overflow: hidden;
+            `;
+            announcement.textContent = message;
+            
+            document.body.appendChild(announcement);
+            
+            setTimeout(() => {
+                document.body.removeChild(announcement);
+            }, 1000);
+        }
+
+        // Analytics and tracking
+        function trackSignupEvent(eventName, properties = {}) {
+            console.log('Signup event:', eventName, properties);
+            // In production, send to analytics service
+            // analytics.track(eventName, properties);
+        }
+
+        // Track form interactions
+        document.querySelectorAll('.form-input').forEach(input => {
+            input.addEventListener('focus', () => {
+                trackSignupEvent('form_field_focused', { field: input.id });
+            });
+        });
+
+        // Track checkbox interactions
+        document.querySelectorAll('.custom-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                trackSignupEvent('checkbox_toggled', { 
+                    checkbox: checkbox.id, 
+                    checked: checkbox.checked 
+                });
+            });
+        });
+
+        // Performance monitoring
+        window.addEventListener('load', function() {
+            const loadTime = performance.now();
+            console.log(`Signup page loaded in ${loadTime.toFixed(2)}ms`);
+            trackSignupEvent('page_loaded', { loadTime: Math.round(loadTime) });
+        });
+
+        // Error handling
+        window.addEventListener('error', function(e) {
+            console.error('Signup page error:', e.error);
+            showMessage('An unexpected error occurred. Please try again.', 'error');
+            trackSignupEvent('error_occurred', { error: e.error.message });
+        });
+
+        // Auto-save form data (optional)
+        function autoSaveFormData() {
+            const formData = getFormData();
+            // Don't save password for security
+            delete formData.password;
+            localStorage.setItem('signup_draft', JSON.stringify(formData));
+        }
+
+        function loadSavedFormData() {
+            const savedData = localStorage.getItem('signup_draft');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                Object.keys(data).forEach(key => {
+                    const element = document.getElementById(key);
+                    if (element && element.type === 'checkbox') {
+                        element.checked = data[key];
+                    } else if (element) {
+                        element.value = data[key];
+                    }
+                });
+                localStorage.removeItem('signup_draft'); // Clear after loading
+            }
+        }
+
+        // Load saved data on page load
+        loadSavedFormData();
+
+        // Auto-save on input (debounced)
+        let autoSaveTimeout;
+        document.querySelectorAll('.form-input, .custom-checkbox').forEach(element => {
+            element.addEventListener('input', () => {
+                clearTimeout(autoSaveTimeout);
+                autoSaveTimeout = setTimeout(autoSaveFormData, 1000);
+            });
+        });
+    </script>
 </body>
 </html>
-<script>
-    let signup_form = document.getElementById("signup_form");
-signup_form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  let signup_form_fname = document.getElementById("firstname").value;
-  let signup_form_lname = document.getElementById("lastname").value;
-  let signup_form_email = document.getElementById("email").value;
-  let signup_form_password = document.getElementById("password").value;
-
-  let signup_form_data =
-    JSON.parse(localStorage.getItem("signup_form_data")) || [];
-
-  let exists =
-    signup_form_data.length &&
-    JSON.parse(localStorage.getItem("signup_form_data")).some(
-      (data) =>
-       
-        data.signup_form_email == signup_form_email
-    );
-
-  if (!exists) {
-    signup_form_data.push({
-      signup_form_fname,
-      signup_form_lname,
-      signup_form_email,
-      signup_form_password,
-    });
-
-    localStorage.setItem("signup_form_data", JSON.stringify(signup_form_data));
-    signup_form.reset();
-    document.getElementById("firstname").focus();
-    alert("account created succefful please login");
-    window.location.href = "login.html";
-  } else {
-    alert("user already exists");
-  }
-});
-  
-</script>
-

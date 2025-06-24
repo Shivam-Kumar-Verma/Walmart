@@ -1,171 +1,936 @@
-<!-- @format -->
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
+    <link rel="icon" href="https://www.walmart.com/favicon.ico" type="image/x-icon" />
+    
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <title>Sign In - Walmart</title>
+    
     <style>
-      body {
-        margin: 0%;
-        padding: 0%;
-        box-sizing: border-box;
-      }
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-      #container {
-        display: flex;
-        flex-direction: column;
-        margin: auto;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-          Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
-          sans-serif;
-        justify-content: center;
-        align-items: center;
-        margin-top: 25px;
-      }
+        :root {
+            --walmart-blue: #0071ce;
+            --walmart-dark-blue: #004c91;
+            --walmart-yellow: #ffc220;
+            --walmart-orange: #ff6900;
+            --walmart-light-gray: #f8f9fa;
+            --walmart-gray: #74767c;
+            --walmart-dark-gray: #46474a;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666;
+            --border-color: #e5e5e5;
+            --shadow-light: 0 2px 8px rgba(0,0,0,0.1);
+            --shadow-medium: 0 4px 16px rgba(0,0,0,0.15);
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+            --success-color: #28a745;
+            --error-color: #dc3545;
+        }
 
-      #child-1 {
-        width: 300px;
-        display: flex;
-        flex-direction: column;
-        margin: auto;
-        font-size: 9px;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 5px;
-      }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--walmart-light-gray) 0%, #ffffff 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
 
-      #child-1 > div:last-child > h1:last-child {
-        display: flex;
-        justify-content: center;
-        margin-top: -10px;
-        margin-bottom: 15px;
-      }
+        /* Skip Link for Accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--walmart-blue);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 4px;
+            z-index: 1000;
+        }
 
-      #child-1 img {
-        height: 30px;
-      }
+        .skip-link:focus {
+            top: 6px;
+        }
 
-      form {
-        display: grid;
-        width: 300px;
-        margin: auto;
-        gap: 10px;
-      }
+        /* Header */
+        .header {
+            background: white;
+            box-shadow: var(--shadow-light);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-      input {
-        padding: 15px;
-      }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-      input[type='submit'] {
-        margin-top: 25px;
-        border-radius: 150px;
-        background-color: rgb(0, 113, 220);
-        color: white;
-        border: none;
-        font-weight: 700;
-        cursor: pointer;
-      }
+        .logo {
+            height: 40px;
+            width: auto;
+            transition: transform 0.2s ease;
+        }
 
-      input[type='submit']:hover,
-      input[type='submit']:focus-within {
-        background-color: #004281;
-      }
+        .logo:hover {
+            transform: scale(1.05);
+        }
 
-      #form2 {
-        display: flex;
-        width: 1200px;
-        margin-bottom: 20px;
-        align-items: center;
-        justify-content: space-around;
-        font-size: 13px;
-      }
-    </style>
-    <link
-      rel="icon"
-      href="https://www.walmart.com/favicon.ico"
-      type="image/x-icon" />
-    <link rel="stylesheet" href="../styles/SigninEmail.css" />
-  </head>
+        /* Main Container */
+        .main-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1rem;
+            min-height: calc(100vh - 200px);
+        }
 
-  <body>
-    <div id="navbar"></div>
-    <div id="container">
-      <div id="child-1">
-        <div>
-          <a href="../index.html">
-            <img
-              src="https://i5.walmartimages.com/dfw/4ff9c6c9-991c/k2-_03d329be-5936-4ef6-ad29-95e392df014d.v1.png"
-              alt="logo"
-          /></a>
-        </div>
-        <div>
-          <h1>Enter your email to sign in or</h1>
-          <h1>create an account</h1>
-        </div>
-      </div>
-      <div id="child-2">
-        <form id="login_form">
-          <input
-            id="login_email"
-            type="email"
-            placeholder="Email address"
-            required />
-          <input
-            id="login_password"
-            type="password"
-            placeholder="Enter password"
-            required />
-          <input type="submit" value="Continue" onclick="signUp()" />
-        </form>
-      </div>
-    </div>
-  </body>
-  <script>
-    let login_form = document.getElementById('login_form');
+        .login-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-medium);
+            padding: 3rem;
+            width: 100%;
+            max-width: 450px;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
 
-    login_form.addEventListener('submit', (e) => {
-      e.preventDefault();
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--walmart-blue), var(--walmart-yellow));
+        }
 
-      let login_email = document.getElementById('login_email').value;
-      let login_password = document.getElementById('login_password').value;
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
 
-      let form_data =
-        JSON.parse(localStorage.getItem('signup_form_data')) || [];
+        .login-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
 
-      let exists =
-        form_data.length &&
-        JSON.parse(localStorage.getItem('signup_form_data')).some(
-          (data) =>
-            data.signup_form_email === login_email &&
-            data.signup_form_password == login_password
-        );
+        .login-subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
 
-      if (exists) {
-        alert('login successfull');
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
 
-        let user = JSON.parse(localStorage.getItem('signup_form_data')).filter(
-          (user_data) => {
-            if (user_data.signup_form_email === login_email) {
-              return user_data;
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            padding-left: 3rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            background: white;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--walmart-blue);
+            box-shadow: 0 0 0 3px rgba(0, 113, 206, 0.1);
+        }
+
+        .form-input:invalid:not(:placeholder-shown) {
+            border-color: var(--error-color);
+        }
+
+        .form-input:valid:not(:placeholder-shown) {
+            border-color: var(--success-color);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .form-input:focus + .input-icon {
+            color: var(--walmart-blue);
+        }
+
+        /* Password Field */
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            padding: 0.25rem;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .password-toggle:hover {
+            color: var(--walmart-blue);
+            background: var(--walmart-light-gray);
+        }
+
+        /* Remember Me & Forgot Password */
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .custom-checkbox {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--walmart-blue);
+            cursor: pointer;
+        }
+
+        .checkbox-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+
+        .forgot-password {
+            color: var(--walmart-blue);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--walmart-blue) 0%, var(--walmart-dark-blue) 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, var(--walmart-dark-blue) 0%, #003366 100%);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            background: var(--walmart-gray);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .submit-btn.loading {
+            pointer-events: none;
+        }
+
+        .submit-btn.loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 2rem 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-color);
+        }
+
+        .divider span {
+            padding: 0 1rem;
+            background: white;
+        }
+
+        /* Social Login */
+        .social-login {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            background: white;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .social-btn:hover {
+            border-color: var(--walmart-blue);
+            background: var(--walmart-light-gray);
+        }
+
+        .social-btn i {
+            font-size: 1.2rem;
+        }
+
+        .google-btn i {
+            color: #db4437;
+        }
+
+        .facebook-btn i {
+            color: #4267b2;
+        }
+
+        /* Create Account Link */
+        .create-account {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .create-account p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .create-account-btn {
+            background: transparent;
+            color: var(--walmart-blue);
+            border: 2px solid var(--walmart-blue);
+            padding: 0.75rem 2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .create-account-btn:hover {
+            background: var(--walmart-blue);
+            color: white;
+        }
+
+        /* Error/Success Messages */
+        .message {
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            display: none;
+            animation: slideDown 0.3s ease;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
             }
-          }
-        );
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-        localStorage.setItem('user_data', JSON.stringify(user));
-        // window.location.href = "email.html";
-        window.location.href = 'index.html';
-      } else {
-        alert('please check the credentials');
-      }
-    });
+        /* Footer */
+        .footer {
+            background: white;
+            border-top: 1px solid var(--border-color);
+            padding: 2rem 1rem;
+            text-align: center;
+        }
 
-    let create_account = document
-      .getElementById('create_account')
-      .addEventListener('click', () => {
-        window.location.href = 'index.html';
-      });
-  </script>
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--walmart-blue);
+        }
+
+        .footer-copyright {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .login-card {
+                padding: 2rem;
+                margin: 1rem;
+                border-radius: var(--border-radius);
+            }
+
+            .login-title {
+                font-size: 1.5rem;
+            }
+
+            .form-options {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .social-login {
+                flex-direction: column;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-container {
+                padding: 1rem 0.5rem;
+            }
+
+            .login-card {
+                padding: 1.5rem;
+            }
+
+            .form-input {
+                padding: 0.875rem;
+                padding-left: 2.75rem;
+            }
+        }
+
+        /* Focus styles for better accessibility */
+        button:focus,
+        a:focus,
+        input:focus {
+            outline: 3px solid var(--walmart-blue);
+            outline-offset: 2px;
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .form-input {
+                border-width: 3px;
+            }
+            
+            .submit-btn {
+                border: 2px solid #000;
+            }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html">
+                <img src="https://i5.walmartimages.com/dfw/4ff9c6c9-991c/k2-_03d329be-5936-4ef6-ad29-95e392df014d.v1.png" 
+                     alt="Walmart Logo" class="logo" />
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content" class="main-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1 class="login-title">Sign in to your account</h1>
+                <p class="login-subtitle">Welcome back! Please enter your details.</p>
+            </div>
+
+            <!-- Success/Error Messages -->
+            <div id="message" class="message"></div>
+
+            <!-- Sign In Form -->
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email" class="form-label">Email Address</label>
+                    <div class="input-wrapper">
+                        <input 
+                            id="login-email" 
+                            type="email" 
+                            class="form-input" 
+                            placeholder="Enter your email address" 
+                            required 
+                            autocomplete="email"
+                            aria-describedby="email-error" />
+                        <i class="fas fa-envelope input-icon"></i>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="login-password" class="form-label">Password</label>
+                    <div class="input-wrapper password-wrapper">
+                        <input 
+                            id="login-password" 
+                            type="password" 
+                            class="form-input" 
+                            placeholder="Enter your password" 
+                            required 
+                            autocomplete="current-password"
+                            aria-describedby="password-error" />
+                        <i class="fas fa-lock input-icon"></i>
+                        <button type="button" class="password-toggle" onclick="togglePassword()" aria-label="Toggle password visibility">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-options">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" id="remember-me" class="custom-checkbox">
+                        <label for="remember-me" class="checkbox-label">Keep me signed in</label>
+                    </div>
+                    <a href="#" class="forgot-password" onclick="showForgotPassword()">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="submit-btn" id="signin-btn">
+                    Sign In
+                </button>
+            </form>
+
+            <!-- Social Login -->
+            <div class="divider">
+                <span>or continue with</span>
+            </div>
+
+            <div class="social-login">
+                <a href="#" class="social-btn google-btn" onclick="socialLogin('google')">
+                    <i class="fab fa-google"></i>
+                    <span>Google</span>
+                </a>
+                <a href="#" class="social-btn facebook-btn" onclick="socialLogin('facebook')">
+                    <i class="fab fa-facebook-f"></i>
+                    <span>Facebook</span>
+                </a>
+            </div>
+
+            <!-- Create Account Link -->
+            <div class="create-account">
+                <p>Don't have an account?</p>
+                <a href="signup.html" class="create-account-btn">Create Account</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Help Center</a>
+            <a href="#">Contact Us</a>
+        </div>
+        <div class="footer-copyright">
+            ©2024 Walmart Inc. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Global variables
+        let users = JSON.parse(localStorage.getItem('walmart_users')) || [];
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            setupEventListeners();
+            setupFormValidation();
+            checkRememberedUser();
+        });
+
+        // Event listeners setup
+        function setupEventListeners() {
+            // Form submission
+            document.getElementById('login-form').addEventListener('submit', handleSignIn);
+
+            // Real-time validation
+            document.getElementById('login-email').addEventListener('blur', validateEmail);
+            document.getElementById('login-password').addEventListener('input', validatePassword);
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.ctrlKey && e.key === 'Enter') {
+                    document.getElementById('login-form').dispatchEvent(new Event('submit'));
+                }
+            });
+        }
+
+        // Password toggle
+        function togglePassword() {
+            const input = document.getElementById('login-password');
+            const icon = document.querySelector('.password-toggle i');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // Form validation
+        function setupFormValidation() {
+            const inputs = document.querySelectorAll('.form-input');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    validateField(this);
+                });
+            });
+        }
+
+        function validateField(input) {
+            const isValid = input.checkValidity();
+            
+            if (input.value.length > 0) {
+                if (isValid) {
+                    input.style.borderColor = 'var(--success-color)';
+                } else {
+                    input.style.borderColor = 'var(--error-color)';
+                }
+            } else {
+                input.style.borderColor = 'var(--border-color)';
+            }
+        }
+
+        function validateEmail(e) {
+            const email = e.target.value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (email && !emailRegex.test(email)) {
+                showMessage('Please enter a valid email address.', 'error');
+                return false;
+            }
+            return true;
+        }
+
+        function validatePassword(e) {
+            const password = e.target.value;
+            const minLength = 8;
+            
+            if (password && password.length < minLength) {
+                e.target.style.borderColor = 'var(--error-color)';
+                return false;
+            }
+            return true;
+        }
+
+        // Sign In Handler
+        function handleSignIn(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value;
+            const rememberMe = document.getElementById('remember-me').checked;
+
+            // Validation
+            if (!email || !password) {
+                showMessage('Please fill in all fields.', 'error');
+                return;
+            }
+
+            if (!validateEmail({target: {value: email}})) {
+                return;
+            }
+
+            // Show loading state
+            const submitBtn = document.getElementById('signin-btn');
+            setLoadingState(submitBtn, true);
+
+            // Simulate API call
+            setTimeout(() => {
+                // Check credentials against localStorage users
+                const user = users.find(u => 
+                    u.email === email && u.password === password
+                );
+
+                if (user) {
+                    // Successful login
+                    showMessage('Sign in successful! Redirecting...', 'success');
+                    
+                    // Store user session
+                    const sessionData = {
+                        user: {
+                            id: user.id,
+                            firstName: user.firstName,
+                            lastName: user.lastName,
+                            email: user.email
+                        },
+                        loginTime: new Date().toISOString(),
+                        rememberMe: rememberMe
+                    };
+                    
+                    localStorage.setItem('walmart_session', JSON.stringify(sessionData));
+                    
+                    if (rememberMe) {
+                        localStorage.setItem('walmart_remember', email);
+                    }
+
+                    // Redirect after delay
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1500);
+                } else {
+                    showMessage('Invalid email or password. Please try again.', 'error');
+                }
+
+                setLoadingState(submitBtn, false);
+            }, 1500);
+        }
+
+        // Social Login
+        function socialLogin(provider) {
+            showMessage(`${provider.charAt(0).toUpperCase() + provider.slice(1)} login would be implemented here.`, 'info');
+            
+            // In a real application, you would integrate with OAuth providers
+            setTimeout(() => {
+                const mockUser = {
+                    id: Date.now(),
+                    firstName: 'John',
+                    lastName: 'Doe',
+                    email: `user@${provider}.com`,
+                    provider: provider,
+                    createdAt: new Date().toISOString()
+                };
+
+                const sessionData = {
+                    user: mockUser,
+                    loginTime: new Date().toISOString(),
+                    provider: provider
+                };
+
+                localStorage.setItem('walmart_session', JSON.stringify(sessionData));
+                showMessage(`${provider.charAt(0).toUpperCase() + provider.slice(1)} login successful! Redirecting...`, 'success');
+                
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+            }, 1000);
+        }
+
+        // Forgot Password
+        function showForgotPassword() {
+            const email = document.getElementById('login-email').value.trim();
+            
+            if (!email) {
+                showMessage('Please enter your email address first.', 'error');
+                document.getElementById('login-email').focus();
+                return;
+            }
+
+            if (!validateEmail({target: {value: email}})) {
+                return;
+            }
+
+            // Simulate sending reset email
+            showMessage('Password reset instructions have been sent to your email.', 'success');
+            
+            console.log(`Password reset requested for: ${email}`);
+        }
+
+        // Remember user functionality
+        function checkRememberedUser() {
+            const rememberedEmail = localStorage.getItem('walmart_remember');
+            if (rememberedEmail) {
+                document.getElementById('login-email').value = rememberedEmail;
+                document.getElementById('remember-me').checked = true;
+            }
+        }
+
+        // Loading state management
+        function setLoadingState(button, isLoading) {
+            if (isLoading) {
+                button.classList.add('loading');
+                button.disabled = true;
+                button.textContent = '';
+            } else {
+                button.classList.remove('loading');
+                button.disabled = false;
+                button.textContent = 'Sign In';
+            }
+        }
+
+        // Message display
+        function showMessage(text, type) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = text;
+            messageDiv.className = `message ${type} show`;
+            
+            // Auto hide after 5 seconds for non-error messages
+            if (type !== 'error') {
+                setTimeout(() => {
+                    clearMessage();
+                }, 5000);
+            }
+
+            // Scroll to message
+            messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function clearMessage() {
+            const messageDiv = document.getElementById('message');
+            messageDiv.classList.remove('show');
+        }
+
+        // Accessibility improvements
+        function setupAccessibility() {
+            // Add ARIA live region for messages
+            const messageDiv = document.getElementById('message');
+            messageDiv.setAttribute('aria-live', 'polite');
+            messageDiv.setAttribute('aria-atomic', 'true');
+        }
+
+        setupAccessibility();
+    </script>
+</body>
 </html>
