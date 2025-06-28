@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Walmart Cart</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Cart Empty Section -->
+        <div class="cart-empty-section">
+            <h1>Cart (0 Items)</h1>
+            <div class="cart-icon">
+                <img src="empty-cart.svg" alt="Empty Cart" class="cart-svg">
+            </div>
+            <p class="sign-in-text"><b>Sign in to see your saved items.</b></p>
+            <button class="sign-in-btn">Sign in</button>
+
+            <h2>Time to start shopping!</h2>
+            <p>Fill it up with savings from these popular departments.</p>
+
+            <div class="department-buttons">
+                <button class="dept-btn">Shop Grocery</button>
+                <button class="dept-btn">Shop Electronics</button>
+                <button class="dept-btn">Shop Toys</button>
+                <button class="dept-btn">Shop Home</button>
+            </div>
+        </div>
+
+        <!-- Add Essentials Section -->
+        <div class="essentials-section">
+            <h2>Add your essentials</h2>
+            <div class="product-grid">
+                <!-- Product Cards will be added here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for dynamic content -->
+    <script>
+        // Mock data for essential items
+        const essentialItems = [
+            {
+                id: 1,
+                isBestSeller: true,
+                image: "https://placehold.co/96x96/E2E8F0/1A202C?text=Paper+Plates",
+                price: "$5.58",
+                name: "Great Value Everyday Disposable Paper Plates, 8.5\", 100 Count",
+                rating: 4.5,
+                reviews: "9877",
+                deliveryInfo: "Pickup today, delivery today"
+            },
+            {
+                id: 1,
+                isBestSeller: true,
+                image: "https://placehold.co/96x96/E2E8F0/1A202C?text=Paper+Plates",
+                price: "$5.58",
+                name: "Great Value Everyday Disposable Paper Plates, 8.5\", 100 Count",
+                rating: 4.5,
+                reviews: "9877",
+                deliveryInfo: "Pickup today, delivery today"
+            },
+            {
+                id: 1,
+                isBestSeller: true,
+                image: "https://placehold.co/96x96/E2E8F0/1A202C?text=Paper+Plates",
+                price: "$5.58",
+                name: "Great Value Everyday Disposable Paper Plates, 8.5\", 100 Count",
+                rating: 4.5,
+                reviews: "9877",
+                deliveryInfo: "Pickup today, delivery today"
+            },
+            {
+                id: 1,
+                isBestSeller: true,
+                image: "https://placehold.co/96x96/E2E8F0/1A202C?text=Paper+Plates",
+                price: "$5.58",
+                name: "Great Value Everyday Disposable Paper Plates, 8.5\", 100 Count",
+                rating: 4.5,
+                reviews: "9877",
+                deliveryInfo: "Pickup today, delivery today"
+            },
+            {
+                id: 1,
+                isBestSeller: true,
+                image: "https://placehold.co/96x96/E2E8F0/1A202C?text=Paper+Plates",
+                price: "$5.58",
+                name: "Great Value Everyday Disposable Paper Plates, 8.5\", 100 Count",
+                rating: 4.5,
+                reviews: "9877",
+                deliveryInfo: "Pickup today, delivery today"
+            },
+            // ... rest of the items data
+        ];
+
+        // Function to create product cards
+        function createProductCard(item) {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            
+            // Add best seller badge if applicable
+            if (item.isBestSeller) {
+                const badge = document.createElement('span');
+                badge.className = 'best-seller-badge';
+                badge.textContent = 'Best seller';
+                card.appendChild(badge);
+            }
+
+            // Create product image
+            const img = document.createElement('img');
+            img.src = item.image;
+            img.alt = item.name;
+            img.className = 'product-image';
+            card.appendChild(img);
+
+            // Create add button
+            const addButton = document.createElement('button');
+            addButton.className = 'add-button';
+            addButton.textContent = 'Add';
+            card.appendChild(addButton);
+
+            // Add price
+            const price = document.createElement('p');
+            price.className = 'price';
+            price.textContent = item.price;
+            card.appendChild(price);
+
+            // Add product name
+            const name = document.createElement('p');
+            name.className = 'product-name';
+            name.textContent = item.name;
+            card.appendChild(name);
+
+            // Add rating section
+            const ratingDiv = document.createElement('div');
+            ratingDiv.className = 'rating';
+            for (let i = 0; i < 5; i++) {
+                const star = document.createElement('i');
+                star.className = 'fas fa-star';
+                if (i < Math.floor(item.rating)) {
+                    star.style.color = '#FFD700';
+                } else if (i < item.rating) {
+                    star.className = 'fas fa-star-half-alt';
+                    star.style.color = '#FFD700';
+                }
+                ratingDiv.appendChild(star);
+            }
+            ratingDiv.innerHTML += `<span class="reviews">(${item.reviews})</span>`;
+            card.appendChild(ratingDiv);
+
+            // Add delivery info
+            const delivery = document.createElement('p');
+            delivery.className = 'delivery-info';
+            delivery.textContent = item.deliveryInfo;
+            card.appendChild(delivery);
+
+            return card;
+        }
+
+        // Populate product cards
+        const productGrid = document.querySelector('.product-grid');
+        essentialItems.forEach(item => {
+            const card = createProductCard(item);
+            productGrid.appendChild(card);
+        });
+    </script>
+</body>
+</html>

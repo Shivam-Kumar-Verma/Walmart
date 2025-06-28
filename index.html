@@ -696,9 +696,9 @@
                     </div>
                 </div>
                 
-                <div class="side-banner">
+                <!-- <div class="side-banner">
                     <img src="https://live.staticflickr.com/65535/49430551203_cfb8646eec_b.jpg" alt="Rollback deals" />
-                </div>
+                </div> -->
             </section>
 
             <!-- Services Section -->
@@ -1232,14 +1232,52 @@
             showNotification(`Opening product details...`);
         }
 
-        function addToCart(productId) {
+        async function addToCart(productId) {
+            const baseUrl = 'http://localhost:3000'; // Adjust if backend runs on different host/port
+            try {
+                // Fetch product details from backend
+                const productResponse = await fetch(`${baseUrl}/porducts/${productId}`);
+                if (!productResponse.ok) {
+                    throw new Error('Product not found');
+                }
+                const product = await productResponse.json();
+
+                // Check if product already in cart
+                const cartResponse = await fetch(`${baseUrl}/cartItems?idd=${productId}`);
+                const cartItems = await cartResponse.json();
+
+                if (cartItems.length > 0) {
+                    // Product exists in cart, update quantity
+                    const cartItem = cartItems[0];
+                    const updatedItem = { ...cartItem, count: cartItem.count + 1 };
+                    await fetch(`${baseUrl}/cartItems/${cartItem.id}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(updatedItem),
+                    });
+                } else {
+                    // Add new product to cart
+                    const newCartItem = { ...product, count: 1 };
+                    await fetch(`${baseUrl}/cartItems`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(newCartItem),
+                    });
+                }
+
+                showNotification(`Added to cart!`);
+                updateCartCount();
+            } catch (error) {
+                console.error('Error adding to cart:', error);
+                showNotification('Failed to add product to cart.', 'error');
+            }
+        }
             console.log(`Adding product ${productId} to cart`);
             // Add your cart logic here
             showNotification(`Added to cart!`);
             
             // Update cart count (if you have a cart counter)
             updateCartCount();
-        }
 
         function updateCartCount() {
             // Simulate cart count update
