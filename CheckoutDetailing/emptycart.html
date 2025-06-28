@@ -7,6 +7,16 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div id="navbar-container"></div>
+    <script>
+        // Dynamically load navbar content
+        fetch('../nav.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading navbar:', error));
+    </script>
     <div class="container">
         <!-- Cart Empty Section -->
         <div class="cart-empty-section">
@@ -164,6 +174,16 @@
             const card = createProductCard(item);
             productGrid.appendChild(card);
         });
+    </script>
+    <div id="footer-container"></div>
+    <script>
+        // Dynamically load footer content
+        fetch('../footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading footer:', error));
     </script>
 </body>
 </html>

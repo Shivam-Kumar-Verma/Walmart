@@ -1243,24 +1243,24 @@
             showNotification(`Opening product details...`);
         }
 
-        async function addToCart(productId) {
+async function addToCart(productId) {
             try {
                 // Fetch product details from backend
-                const productResponse = await fetch(`/porducts/${productId}`);
+                const productResponse = await fetch(`http://localhost:3000/products/${productId}`);
                 if (!productResponse.ok) {
                     throw new Error('Product not found');
                 }
                 const product = await productResponse.json();
 
                 // Check if product already in cart
-                const cartResponse = await fetch(`/cartItems?idd=${productId}`);
+                const cartResponse = await fetch(`http://localhost:3000/cartItems?id=${productId}`);
                 const cartItems = await cartResponse.json();
 
                 if (cartItems.length > 0) {
                     // Product exists in cart, update quantity
                     const cartItem = cartItems[0];
                     const updatedItem = { ...cartItem, count: cartItem.count + 1 };
-                    await fetch(`/cartItems/${cartItem.id}`, {
+                    await fetch(`http://localhost:3000/cartItems/${cartItem.id}`, {
                         method: 'PUT',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(updatedItem),
@@ -1268,7 +1268,7 @@
                 } else {
                     // Add new product to cart
                     const newCartItem = { ...product, count: 1 };
-                    await fetch('/cartItems', {
+                    await fetch('http://localhost:3000/cartItems', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(newCartItem),

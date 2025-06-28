@@ -5,13 +5,9 @@
       "idd": 1,
       "Product_Name": "Coca-Cola Soda Soft Drink, 16.9 fl oz, 6 Pack",
       "Product_imgUrl": "https://i5.walmartimages.com/asr/3e59ef41-fe9e-461a-9c06-176b056db393.6399bcde10eebb9c62c9547e368be4d4.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF",
-
       "Product_img1": "https://i5.walmartimages.com/asr/6fd9ecfc-1da3-4867-b8c0-844a4356269c.88898e4cdfc4af21ec2f9c3ecd0b6fea.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF",
-
       "Product_img2": "https://i5.walmartimages.com/asr/50490e54-c6a2-47c5-874e-bf7bc7fb5f5a.e280c70fbe27bdacaecb80122b142367.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF",
-
       "Product_img3": "https://i5.walmartimages.com/asr/c2b78ebb-5290-4b7a-8307-ae4730325122.449b376d36091124c2642c65895ac4de.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF",
-
       "Product_img4": "https://i5.walmartimages.com/asr/c2b78ebb-5290-4b7a-8307-ae4730325122.449b376d36091124c2642c65895ac4de.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF",
       "List_Price": "19.9",
       "Sale_Price": "19.9",
@@ -271,72 +267,6 @@
     }
   ],
   "cartItems": [
-    {
-      "idd": 1,
-      "Product_imgUrl": "https://i5.walmartimages.com/asr/83f533c3-3234-4bea-80bf-a0f9a43cd279_2.9b223f40bab27c513ba64f9f0e3fc2d9.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF",
-      "List_Price": "3.57",
-      "Sale_Price": "9.99",
-      "Product_Name": "Great Value Whole Vitamin D Milk, Gallon",
-      "rating": "3.0",
-      "count": 1,
-      "Brand": "Coca-Cola",
-      "speed": "Today"
-    },
-    {
-      "idd": 2,
-      "Product_imgUrl": "https://i5.walmartimages.com/asr/59f447c9-ee28-428e-b5b1-698f6fd8dd47.27ef69f3d5b0fa50ce7b17020dc718e6.jpeg",
-      "List_Price": "9.9",
-      "Sale_Price": "12.99",
-      "Product_Name": "Angel Soft Toilet Paper, 12 Mega Rolls",
-      "rating": "4.0",
-      "count": 1,
-      "Brand": "Coca-Cola",
-      "speed": "Today"
-    },
-    {
-      "idd": 3,
-      "Product_imgUrl": "https://i5.walmartimages.com/asr/6b07428c-5a43-4379-b83a-74d7650e993f.8d4fd31b242356d40c7d71151cd71b38.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF",
-      "List_Price": "199",
-      "Sale_Price": "300.99",
-      "Product_Name": "Nintendo Switch™ Lite - Blue",
-      "rating": "4.0",
-      "count": 1,
-      "Brand": "Coca-Cola",
-      "speed": "Today"
-    },
-    {
-      "idd": 4,
-      "Product_imgUrl": "https://i5.walmartimages.com/asr/2b163e77-9297-4726-9276-b7319f97ab2e.d1c36937642ec0c5b4912a0c319f31d2.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF",
-      "List_Price": "999.97",
-      "Sale_Price": "1900",
-      "Product_Name": "JBL Live 650BT On-Ear Wireless Headphones with Noise-Cancelling and Voice Assistant (Blue)",
-      "rating": "3.4",
-      "count": 1,
-      "Brand": "Coca-Cola",
-      "speed": "Today"
-    },
-    {
-      "idd": 5,
-      "Product_imgUrl": "https://i5.walmartimages.com/asr/b96fa548-8658-4a43-8d6b-8c91ee336c05.64c2f8906fdbdd5c3fb8f6a933f7dcb9.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF",
-      "List_Price": "449.00",
-      "Sale_Price": "699",
-      "Product_Name": "Core Innovations CLT136401SL 14 Notebook - Intel Atom Z3850 - 4GB RAM - 64GB SSD - 1920 x 1080",
-      "rating": "4.6",
-      "count": 1,
-      "Brand": "Coca-Cola",
-      "speed": "Today"
-    },
-    {
-      "idd": 6,
-      "Product_imgUrl": "https://i5.walmartimages.com/asr/a1398e37-09d8-47da-aed3-f7cdf6338666.672654bd6d10919c3eee82c62b37014d.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF",
-      "List_Price": "5.48",
-      "Sale_Price": "9.99",
-      "Product_Name": "Mayonnaise Real Mayo Gluten-Free Sandwich Spread, Rich in Omega-3 ",
-      "rating": "4.2",
-      "count": 1,
-      "Brand": "Coca-Cola",
-      "speed": "Today"
-    }
   ],
   "rollbackItems": [
     {
