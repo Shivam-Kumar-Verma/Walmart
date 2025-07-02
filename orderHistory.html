@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Order History - Walmart Green Mode Dashboard</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --green: #2e7d32;
+    --green-light: #81c784;
+    --gray-dark: #333;
+    --gray-light: #f5f5f5;
+    --border-radius: 8px;
+    --font-family: 'Inter', sans-serif;
+  }
+  body {
+    margin: 0;
+    font-family: var(--font-family);
+    background-color: #fff;
+    color: var(--gray-dark);
+  }
+  header {
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #ddd;
+    justify-content: space-between;
+  }
+  header .logo {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--green);
+  }
+  header .title {
+    font-weight: 600;
+    font-size: 1.25rem;
+  }
+  nav {
+    display: flex;
+    gap: 2rem;
+    padding: 0 2rem;
+    border-bottom: 1px solid #ddd;
+  }
+  nav a {
+    text-decoration: none;
+    color: var(--gray-dark);
+    font-weight: 500;
+    padding: 1rem 0;
+    border-bottom: 3px solid transparent;
+    transition: border-color 0.3s;
+  }
+  nav a.active,
+  nav a:hover {
+    border-bottom-color: var(--green);
+    color: var(--green);
+  }
+  .signout {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--gray-dark);
+    cursor: pointer;
+    font-weight: 500;
+  }
+  .signout i {
+    background-color: var(--gray-light);
+    border-radius: 50%;
+    padding: 0.3rem;
+  }
+  main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .card {
+    background: #f9f9f9;
+    border-radius: var(--border-radius);
+    padding: 1rem 1.5rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .card svg, .card i {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    color: var(--green);
+  }
+  .card .content {
+    flex-grow: 1;
+  }
+  .card .label {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+  .card .value {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+  }
+  .chart-card, .orders-card {
+    background: #f9f9f9;
+    border-radius: var(--border-radius);
+    padding: 1rem 1.5rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  }
+  .chart-card h2, .orders-card h2 {
+    margin-top: 0;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  .chart-container {
+    width: 100%;
+    height: 250px;
+  }
+  .orders-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(120px,1fr));
+    gap: 1rem;
+  }
+  .order-item {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    padding: 0.5rem;
+    text-align: center;
+  }
+  .order-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 0.5rem;
+  }
+  .order-item .name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+  }
+  .order-item .price {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--green);
+  }
+  @media (max-width: 768px) {
+    .dashboard-grid {
+      grid-template-columns: 1fr;
+    }
+    nav {
+      justify-content: space-around;
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">Walmart</div>
+  <div class="title">Green Mode Dashboard</div>
+  <div class="signout" tabindex="0" role="button" aria-label="Sign Out">
+    Sign Out <i class="fas fa-user-circle"></i>
+  </div>
+</header>
+<nav aria-label="Primary">
+  <a href="index.html" class="active">Dashboard</a>
+  <a href="#">Impact</a>
+  <a href="#">Account</a>
+</nav>
+<main>
+  <section class="cards" aria-label="Order summary cards">
+    <article class="card" tabindex="0">
+      <i class="fas fa-leaf" aria-hidden="true"></i>
+      <div class="content">
+        <div class="label">Eco Certified Orders</div>
+        <div class="value" aria-live="polite">24</div>
+      </div>
+    </article>
+    <article class="card" tabindex="0">
+      <i class="fas fa-sync-alt" aria-hidden="true"></i>
+      <div class="content">
+        <div class="label">Refurbished Purchases</div>
+        <div class="value" aria-live="polite">6</div>
+      </div>
+    </article>
+    <article class="card" tabindex="0">
+      <i class="fas fa-cloud" aria-hidden="true"></i>
+      <div class="content">
+        <div class="label">Carbon Emissions Avoided</div>
+        <div class="value" aria-live="polite">47 kg</div>
+      </div>
+    </article>
+  </section>
+  <section class="dashboard-grid">
+    <article class="chart-card" aria-label="Sales chart">
+      <h2>Selling</h2>
+      <canvas id="salesChart" class="chart-container" role="img" aria-label="Line chart showing sales over the week"></canvas>
+      <p>Your Sales</p>
+    </article>
+    <article class="orders-card" aria-label="Recent orders">
+      <h2>Recent Orders</h2>
+      <div class="orders-list" id="ordersList" role="list">
+        <!-- Order items inserted here -->
+      </div>
+    </article>
+  </section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const orders = [
+    { id: 1, name: "Eco Certifee Shampoo", price: "$9.97", img: "./landing_page/img1.png" },
+    { id: 2, name: "Reusable Water Bottle", price: "$14.88", img: "./landing_page/img2.png" },
+    { id: 3, name: "Plastic-Free Toothpaste", price: "$5.98", img: "./landing_page/img3.png" },
+    { id: 4, name: "Mesh Produce", price: "$10.59", img: "./landing_page/img1.png" },
+    { id: 5, name: "Organic Facial Cream", price: "$11.96", img: "./landing_page/img2.png" },
+    { id: 6, name: "Organic Facial Cream", price: "$11.96", img: "./landing_page/img3.png" }
+  ];
+
+  function renderOrders() {
+    const container = document.getElementById('ordersList');
+    container.innerHTML = '';
+    orders.forEach(order => {
+      const div = document.createElement('div');
+      div.className = 'order-item';
+      div.setAttribute('role', 'listitem');
+      div.tabIndex = 0;
+      div.innerHTML = `
+        <img src="${order.img}" alt="${order.name}" />
+        <div class="name">${order.name}</div>
+        <div class="price">${order.price}</div>
+      `;
+      container.appendChild(div);
+    });
+  }
+
+  // Chart.js line chart for sales
+  const ctx = document.getElementById('salesChart').getContext('2d');
+  const salesChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      datasets: [{
+        label: 'Sales',
+        data: [10, 20, 30, 25, 22, 35, 40],
+        borderColor: 'var(--green)',
+        backgroundColor: 'rgba(46, 125, 50, 0.2)',
+        fill: true,
+        tension: 0.3,
+        pointRadius: 4,
+        pointHoverRadius: 6,
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { stepSize: 5 }
+        }
+      }
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    renderOrders();
+  });
+</script>
+</body>
+</html>
