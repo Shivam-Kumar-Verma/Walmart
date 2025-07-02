@@ -1,113 +1,134 @@
 /** @format */
-import { fetchdata } from '../compoents/fetch.js';
-import { navbar, hjjk } from '../nav.js';
-import { footer } from '../footer.js';
+import { fetchdata } from './components/fetch.js'; // Fixed path
+import { navbar, hjjk } from './nav.js';
+import { footer } from './footer.js';
 
-document.querySelector('#footer-container').innerHTML = footer();
-document.querySelector('#navbar-container').innerHTML = navbar();
-
-setInterval(function () {
-  if (
-    document.getElementsByClassName('slider')[0].classList.contains('active')
-  ) {
-    // check for active class for the 1st div
-    document.getElementsByClassName('slider')[1].classList.add('active'); //active 2nd div
-    document.getElementsByClassName('slider')[0].classList.remove('active'); // remove Ist div from active class
-  } else if (
-    document.getElementsByClassName('slider')[1].classList.contains('active')
-  ) {
-    document.getElementsByClassName('slider')[2].classList.add('active');
-    document.getElementsByClassName('slider')[1].classList.remove('active');
-  } else if (
-    document.getElementsByClassName('slider')[2].classList.contains('active')
-  ) {
-    document.getElementsByClassName('slider')[0].classList.add('active');
-    document.getElementsByClassName('slider')[2].classList.remove('active');
+// Wait for DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+  // Load navbar and footer
+  const navbarContainer = document.querySelector('#navbar-container');
+  const footerContainer = document.querySelector('#footer-container');
+  
+  if (navbarContainer) {
+    navbarContainer.innerHTML = navbar();
   }
-}, 3000);
-
-function next() {
-  if (
-    document.getElementsByClassName('slider')[0].classList.contains('active')
-  ) {
-    // check for active class for the 1st div
-    document.getElementsByClassName('slider')[1].classList.add('active'); //active 2nd div
-    document.getElementsByClassName('slider')[0].classList.remove('active'); // remove Ist div from active class
-  } else if (
-    document.getElementsByClassName('slider')[1].classList.contains('active')
-  ) {
-    document.getElementsByClassName('slider')[2].classList.add('active');
-    document.getElementsByClassName('slider')[1].classList.remove('active');
-  } else if (
-    document.getElementsByClassName('slider')[2].classList.contains('active')
-  ) {
-    document.getElementsByClassName('slider')[0].classList.add('active');
-    document.getElementsByClassName('slider')[2].classList.remove('active');
+  
+  if (footerContainer) {
+    footerContainer.innerHTML = footer();
   }
-}
+  
+  // Initialize user info after navbar is loaded
+  hjjk();
+  
+  // Setup search functionality after navbar is loaded
+  setupSearch();
+  
+  // Initialize slider functionality
+  initializeSlider();
+  
+  // Load data
+  loadCartItems();
+  loadRollbackItems();
+});
 
-function prev() {
-  if (
-    document.getElementsByClassName('slider')[0].classList.contains('active')
-  ) {
-    // check for active class for the 1st div
-    document.getElementsByClassName('slider')[2].classList.add('active'); //active last div
-    document.getElementsByClassName('slider')[0].classList.remove('active'); // remove Ist div from active class
-  } else if (
-    document.getElementsByClassName('slider')[2].classList.contains('active')
-  ) {
-    document.getElementsByClassName('slider')[1].classList.add('active');
-    document.getElementsByClassName('slider')[2].classList.remove('active');
-  } else if (
-    document.getElementsByClassName('slider')[1].classList.contains('active')
-  ) {
-    document.getElementsByClassName('slider')[0].classList.add('active');
-    document.getElementsByClassName('slider')[1].classList.remove('active');
+function setupSearch() {
+  const searchButton = document.querySelector('.search-button');
+  const searchInput = document.querySelector('.search-bar input');
+  
+  if (searchButton && searchInput) {
+    searchButton.addEventListener('click', performSearch);
+    searchInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        performSearch();
+      }
+    });
   }
 }
 
-var rollbackItems = [
-  {
-    img_url:
-      'https://i5.walmartimages.com/asr/c00047a0-20e0-4bfc-bea6-e7f0abdd3e73.283cab9661ccd6ecd23065fec9e9d98b.png?odnHeight=612&odnWidth=612&odnBg=FFFFFF',
-    price: '$9.96',
-    type: 'Bootcut Jeans, Womens',
-    rating: '4.2',
-  },
-  {
-    img_url:
-      'https://i5.walmartimages.com/asr/5206550a-5197-4f61-bf9c-42732d6c90a3.e9442a3ac54452c2b7e43d40bc4f2871.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF',
-    price: '$ 199',
-    type: 'HP Stream 14" Laptop, Intel',
-    rating: '3.9',
-  },
-  {
-    img_url:
-      'https://i5.walmartimages.com/asr/afb203a0-c091-4dac-92a2-42b399c879a6.d38bbb94c2bc8e0dad76edfbfd491d55.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF',
-    price: '$ 15.98',
-    type: 'Regular Fit Jeans',
-    rating: '4.6',
-  },
-  {
-    img_url:
-      'https://i5.walmartimages.com/asr/7a019d3c-cf5f-44a6-b6a2-2d8409ca3527_1.dc9a10e5cb280701034f21ad30ca74cb.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF',
-    price: '$ 13.48',
-    type: `George Men's Wrinkle Resistant Pants`,
-    rating: '4.3',
-  },
-  {
-    img_url:
-      'https://i5.walmartimages.com/asr/3e505f4f-d5fb-4c0f-a127-01c98f359149.fe69252546bfccdf9dec49b10307de3f.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF',
-    price: '$ 169.00',
-    type: 'Core Innovations 14.1" Ultra Slim Notebook ',
-    rating: '3.5',
-  },
-];
+function performSearch() {
+  const searchInput = document.querySelector('.search-bar input');
+  const searchValue = searchInput.value.trim();
+  
+  if (searchValue) {
+    let url = `https://mock-server-gv8m.onrender.com/porducts?q=${searchValue}`;
+    console.log(url);
+    
+    fetchdata(url)
+      .then(function (data) {
+        console.log(data);
+        if (data.length != 0) {
+          localStorage.setItem('search', JSON.stringify(data));
+          window.location.href = 'product.html';
+        } else {
+          console.log('no such product');
+          alert('No products found for your search.');
+        }
+      })
+      .catch(function (error) {
+        console.error('Search error:', error);
+      });
+  }
+}
 
-let rollback_cards = document.getElementById('rollback-cards');
-// rollback();
+function initializeSlider() {
+  // Auto slider
+  setInterval(function () {
+    const sliders = document.getElementsByClassName('slider');
+    if (sliders.length === 0) return;
+    
+    if (sliders[0].classList.contains('active')) {
+      sliders[1].classList.add('active');
+      sliders[0].classList.remove('active');
+    } else if (sliders[1].classList.contains('active')) {
+      sliders[2].classList.add('active');
+      sliders[1].classList.remove('active');
+    } else if (sliders[2].classList.contains('active')) {
+      sliders[0].classList.add('active');
+      sliders[2].classList.remove('active');
+    }
+  }, 3000);
+}
+
+// Make functions global for button clicks
+window.next = function() {
+  const sliders = document.getElementsByClassName('slider');
+  if (sliders.length === 0) return;
+  
+  if (sliders[0].classList.contains('active')) {
+    sliders[1].classList.add('active');
+    sliders[0].classList.remove('active');
+  } else if (sliders[1].classList.contains('active')) {
+    sliders[2].classList.add('active');
+    sliders[1].classList.remove('active');
+  } else if (sliders[2].classList.contains('active')) {
+    sliders[0].classList.add('active');
+    sliders[2].classList.remove('active');
+  }
+};
+
+window.prev = function() {
+  const sliders = document.getElementsByClassName('slider');
+  if (sliders.length === 0) return;
+  
+  if (sliders[0].classList.contains('active')) {
+    sliders[2].classList.add('active');
+    sliders[0].classList.remove('active');
+  } else if (sliders[2].classList.contains('active')) {
+    sliders[1].classList.add('active');
+    sliders[2].classList.remove('active');
+  } else if (sliders[1].classList.contains('active')) {
+    sliders[0].classList.add('active');
+    sliders[1].classList.remove('active');
+  }
+};
+
 function rollback(rollbackItems) {
-  rollbackItems.map(function (item) {
+  const rollback_cards = document.getElementById('rollback-cards');
+  if (!rollback_cards) return;
+  
+  rollback_cards.innerHTML = ''; // Clear existing content
+  
+  rollbackItems.forEach(function (item) {
     console.log(item);
     var imgDiv = document.createElement('div');
     imgDiv.setAttribute('id', 'card');
@@ -116,15 +137,15 @@ function rollback(rollbackItems) {
     text.setAttribute('id', 'text');
 
     var img = document.createElement('img');
-    img.setAttribute('src', item.Product_imgUrl);
+    img.setAttribute('src', item.Product_imgUrl || item.img_url);
 
     var price = document.createElement('h2');
     price.setAttribute('id', 'price');
-    price.textContent = '$' + item.List_Price;
+    price.textContent = '$' + (item.List_Price || item.price);
 
     var type = document.createElement('p');
     type.setAttribute('id', 'type');
-    type.textContent = item.Product_Name;
+    type.textContent = item.Product_Name || item.type;
 
     var btn = document.createElement('button');
     btn.setAttribute('id', 'shippingBtn');
@@ -152,87 +173,38 @@ function rollback(rollbackItems) {
   });
 }
 
-let cartItems = [
-  {
-    id: 1,
-    img_url:
-      'https://i5.walmartimages.com/asr/83f533c3-3234-4bea-80bf-a0f9a43cd279_2.9b223f40bab27c513ba64f9f0e3fc2d9.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF',
-    price: '$3.57',
-    type: 'Great Value Whole Vitamin D Milk, Gallon',
-    rating: '3.0',
-  },
-  {
-    id: 2,
-    img_url:
-      'https://i5.walmartimages.com/asr/59f447c9-ee28-428e-b5b1-698f6fd8dd47.27ef69f3d5b0fa50ce7b17020dc718e6.jpeg',
-    price: '$ 9.9',
-    type: 'Angel Soft Toilet Paper, 12 Mega Rolls',
-    rating: '4.0',
-  },
-  {
-    id: 3,
-    img_url:
-      'https://i5.walmartimages.com/asr/6b07428c-5a43-4379-b83a-74d7650e993f.8d4fd31b242356d40c7d71151cd71b38.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF',
-    price: '$199',
-    type: 'Nintendo Switch™ Lite - Blue',
-    rating: '4.0',
-  },
-  {
-    id: 4,
-    img_url:
-      'https://i5.walmartimages.com/asr/2b163e77-9297-4726-9276-b7319f97ab2e.d1c36937642ec0c5b4912a0c319f31d2.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF',
-    price: '$ 999.97',
-    type: 'JBL Live 650BT On-Ear Wireless Headphones with Noise-Cancelling and Voice Assistant (Blue)',
-    rating: '3.4',
-  },
-  {
-    id: 5,
-    img_url:
-      'https://i5.walmartimages.com/asr/b96fa548-8658-4a43-8d6b-8c91ee336c05.64c2f8906fdbdd5c3fb8f6a933f7dcb9.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF',
-    price: '$ 449.00',
-    type: 'Core Innovations CLT136401SL 14" Notebook - Intel Atom Z3850 - 4GB RAM - 64GB SSD - 1920 x 1080',
-    rating: '4.6',
-  },
-  {
-    id: 6,
-    img_url:
-      'https://i5.walmartimages.com/asr/a1398e37-09d8-47da-aed3-f7cdf6338666.672654bd6d10919c3eee82c62b37014d.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF',
-    price: '$5.48',
-    type: 'Mayonnaise Real Mayo Gluten-Free Sandwich Spread, Rich in Omega-3 ',
-    rating: '4.2',
-  },
-];
-
 function displayItems(cartItems) {
   let cart_card = document.getElementById('cart-card');
-  cartItems.map(function (items) {
+  if (!cart_card) return;
+  
+  cart_card.innerHTML = ''; // Clear existing content
+  
+  cartItems.forEach(function (items) {
     console.log(items);
 
     let box = document.createElement('div');
     box.setAttribute('id', 'box');
 
     let img = document.createElement('img');
-    img.src = items.Product_imgUrl;
-    img.addEventListener('click', detail_page);
-    function detail_page() {
-      localStorage.setItem('detail_me', JSON.stringify(item));
-    }
-
-    let arr = [];
+    img.src = items.Product_imgUrl || items.img_url;
+    img.addEventListener('click', function() {
+      localStorage.setItem('detail_me', JSON.stringify(items));
+    });
 
     let btn = document.createElement('button');
     btn.setAttribute('id', 'addToCart');
     btn.textContent = '+ Add';
     btn.addEventListener('click', () => {
+      let arr = JSON.parse(localStorage.getItem('product_added')) || [];
       arr.push(items);
       localStorage.setItem('product_added', JSON.stringify(arr));
     });
 
     let price = document.createElement('h2');
-    price.textContent = '$' + items.List_Price;
+    price.textContent = '$' + (items.List_Price || items.price);
 
     let title = document.createElement('h4');
-    title.textContent = items.Product_Name;
+    title.textContent = items.Product_Name || items.type;
 
     let delivery = document.createElement('div');
     delivery.setAttribute('id', 'deliveryInfo');
@@ -247,64 +219,36 @@ function displayItems(cartItems) {
 
     delivery.append(pickupBtn, deliveryBtn);
     box.append(img, btn, price, title, delivery);
-    document.querySelector('#cart-card').append(box);
+    cart_card.append(box);
   });
 }
 
-let url = `https://mock-server-gv8m.onrender.com/cartItems`;
-let getdata = (url) => {
+function loadCartItems() {
+  let url = `https://mock-server-gv8m.onrender.com/cartItems`;
   fetchdata(url)
     .then(function (data) {
       console.log(data);
-      //   return data;
-      // displayItems(data);
       displayItems(data);
     })
-    .catch(function () {});
-};
-getdata(url);
+    .catch(function (error) {
+      console.error('Error loading cart items:', error);
+    });
+}
 
-hjjk();
-
-let urll = `https://mock-server-gv8m.onrender.com/rollbackItems`;
-
-let getdataroll = (urll) => {
+function loadRollbackItems() {
+  let urll = `https://mock-server-gv8m.onrender.com/rollbackItems`;
   fetchdata(urll)
     .then(function (data) {
       console.log(data);
-      //   return data;
-      // displayItems(data);
       rollback(data);
     })
-    .catch(function () {});
-};
-getdataroll(urll);
+    .catch(function (error) {
+      console.error('Error loading rollback items:', error);
+    });
+}
 
-document.querySelector('.se').addEventListener('click', kill);
-function kill() {
-  // console.log('sdc');
-  // window.location.href = 'product.html';
-  let se = document.getElementById('asddd');
-  // console.log(se.value);
-
-  let url = `https://mock-server-gv8m.onrender.com/porducts?q=${se.value}`;
-  console.log(url);
-  // window.location.href = 'product.html';
-  // let getdata = (url) => {
-  fetchdata(url)
-    .then(function (data) {
-      console.log(data);
-      //   return data;
-      if (data.length != 0) {
-        localStorage.setItem('search', JSON.stringify(data));
-        window.location.href = 'product.html';
-      } else {
-        console.log('no such product');
-      }
-      // displayItems(data);
-      // rollback();
-    })
-    .catch(function () {});
-  // };
-  // getdata(url);
+// Placeholder function for addtoCart
+function addtoCart(item) {
+  console.log('Adding to cart:', item);
+  // Implement your cart functionality here
 }

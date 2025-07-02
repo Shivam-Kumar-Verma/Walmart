@@ -1,351 +1,1265 @@
-#cartBox {
-  width: 55rem;
-  /* border: 5px solid green; */
-  /* margin: auto; */
-  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-}
-#cartDetails > div > img {
-  width: 50px;
-  height: 50px;
-}
-#cartDetails {
-  width: 50rem;
-  /* border:5px solid red */
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-#upperhead {
-  display: flex;
-  border-radius: 10px 10px 0px 0px;
-  height: 25%;
-  width: 100%;
-  /* border: 3px solid red; */
-  background-color: rgb(242, 248, 253);
+:root {
+    --walmart-blue: #0071ce;
+    --walmart-dark-blue: #004c91;
+    --walmart-yellow: #ffc220;
+    --walmart-orange: #ff6900;
+    --walmart-light-gray: #f8f9fa;
+    --walmart-gray: #74767c;
+    --walmart-dark-gray: #46474a;
+    --text-primary: #1a1a1a;
+    --text-secondary: #666;
+    --border-color: #e5e5e5;
+    --shadow-light: 0 2px 8px rgba(0,0,0,0.1);
+    --shadow-medium: 0 4px 16px rgba(0,0,0,0.15);
+    --border-radius: 8px;
+    --transition: all 0.3s ease;
+    --success-color: #28a745;
+    --error-color: #dc3545;
+    --warning-color: #ffc107;
 }
 
-#heading {
-  height: 80px;
-  width: 99%;
-  background-color: #0071dc;
-  color: white;
-  border: 3px solid blue;
-}
-#Checkout {
-  text-align: center;
-}
-#displayItem {
-  /* height: 700px; */
-  width: 80%;
-  margin-top: 3%;
-  padding: 0 0 10px 0;
-  border-radius: 10px;
-  margin-bottom: 2%;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
-#truck {
-  width: 90px;
-  margin-left: 25px;
-  margin-top: 35px;
-}
-#freeShip {
-  margin-top: 60px;
-  margin-left: 40px;
-}
-#nameaddress {
-  margin-top: 40px;
-  margin-left: 45px;
-}
-hr {
-  border-color: rgb(227, 222, 222);
-  width: 90%;
-  margin: auto;
-}
-#generalinst {
-  margin-top: 40px;
-  margin-left: 45px;
-}
-#item {
-  margin-top: 40px;
-  margin-left: 45px;
-}
-.fa-solid {
-  color: green;
-  /* border: 2px solid red; */
-}
-#payment {
-  height: 500px;
-  width: 80%;
-  margin-top: 3%;
-  /* margin-left: 10%; */
-  border-radius: 10px;
-  margin-bottom: 2%;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
-#header {
-  display: flex;
-  border-radius: 10px 10px 0px 0px;
-  height: 25%;
-  width: 100%;
-  /* border: 3px solid red; */
-  background-color: rgb(242, 248, 253);
-  /* border: 2px solid black; */
-}
-#paymethod {
-  margin-top: 50px;
-  margin-left: 150px;
-}
-#header > h1 {
-  margin-left: 1%;
-}
-#headcard {
-  margin-left: 20px;
-  margin-top: 20px;
-}
-#allcards > img {
-  height: 50px;
-  width: 70px;
-  margin-left: 1%;
-}
-#line {
-  margin-left: 20px;
-}
-#forinput {
-  margin-left: 20px;
-  color: rgb(76, 72, 72);
-}
-#inputbox {
-  width: 70%;
-  height: 2%;
-  margin-left: 15%;
-  margin-right: 15%;
-  padding: 15px;
-}
-#btn {
-  background-color: #0071dc;
-  color: white;
-  height: 8%;
-  width: 20%;
-  border-radius: 50px;
-  font-weight: bold;
-  font-size: 15px;
-  margin-left: 70%;
-  margin-top: 10px;
-}
-#contact {
-  height: 500px;
-  width: 80%;
-  margin-top: 3%;
-  /* margin-left: 10%; */
-  border-radius: 10px;
-  margin-bottom: 2%;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
-#mobilehead {
-  display: flex;
-  border-radius: 10px 10px 0px 0px;
-  height: 25%;
-  width: 100%;
-  /* border: 3px solid red; */
-  background-color: rgb(242, 248, 253);
-  /* border: 2px solid black; */
-}
-#headingtomobile {
-  margin-top: 50px;
-  margin-left: 150px;
-}
-#headingtomobile {
-  margin-left: 2%;
-}
-#inputbox2 {
-  width: 40%;
-  height: 7%;
-  margin-left: 15%;
-  margin-right: 15%;
-  padding: 15px;
-}
-#chkbox {
-  background-color: goldenrod;
-  width: 20px;
-  margin-bottom: 80px;
-}
-#messs {
-  color: rgb(80, 79, 79);
-  margin-left: 20px;
-  margin-right: 20px;
-}
-#chktick {
-  margin-left: 30px;
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--walmart-light-gray);
+    line-height: 1.6;
+    color: var(--text-primary);
+    min-height: 100vh;
 }
 
-#subtotal {
-  width: 40%;
-  height: 40%;
-  /* border: 2px solid red; */
-  /* margin-left: 56%; */
-  /* margin-top: -120%; */
-  border-radius: 10px;
-  /* margin-bottom: 2%; */
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  /* border: 2px solid red; */
-  padding: 20px;
-}
-#subTotal_cart {
-  display: flex;
-  justify-content: center;
-  max-width: 100%;
-  gap: 3%;
-  margin: auto;
+/* Skip Link for Accessibility */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: var(--walmart-blue);
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    border-radius: 4px;
+    z-index: 1000;
 }
 
-#bonus {
-  height: 25%;
-  width: 100%;
-  border-radius: 10px 10px 0px 0px;
-  border-radius: 10px;
-  position: sticky;
-}
-#btndiv {
-  margin-top: -30px;
-  margin-left: 40px;
-}
-#buttonContinue {
-  width: 100%;
-  height: 40px;
-  border-radius: 30px;
-  background-color: #0071dc;
-  border: #0071dc;
-  color: #fff;
-  font-weight: 700;
-  margin-left: -20px;
-  margin-top: 50px;
-}
-#saving {
-  width: 80%;
-  height: 35%;
-  border: #002d58;
-  margin-top: 20px;
-  margin-left: 10%;
-  margin-right: 10%;
-  background-color: #002d58;
-  color: white;
-  padding: 5px;
-  border-radius: 8px;
-}
-#saving p {
-  margin-top: -45px;
-  margin-left: 80px;
-  font-size: large;
-}
-#saving img {
-  margin-left: 30px;
-  margin-top: 10px;
+.skip-link:focus {
+    top: 6px;
 }
 
-#summaryoftotal {
-  margin: 20px 0;
-}
-#summaryoftotal > h3 {
-  display: flex;
-  justify-content: space-between;
-}
-#s {
-  color: green;
-}
-#saving23 {
-  background-color: #eaf3e6;
-  color: #2a8703;
-  padding: 5px;
+/* Header */
+.checkout-header {
+    background: white;
+    box-shadow: var(--shadow-light);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
-#learnHow {
-  align-items: flex-end;
-  margin: 80%;
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-#affirm {
-  margin-left: 68%;
-}
-#checkOUt {
-  display: block;
-}
-#mainConatiner {
-  border: 10px solid black;
 
-  display: flex;
-  
+.back-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--walmart-blue);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
 }
-#cartDetails {
-  width: 60%;
-  padding: auto;
-  padding-left: 5%;
+
+.back-link:hover {
+    color: var(--walmart-dark-blue);
 }
-#cartDetails > div > img {
-  width: 100px;
-  height: 100px;
+
+.checkout-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
-#roundQtyBtn {
-  background-color: red;
-  color: white;
-  font-size: larger;
-  font-weight: bold;
-  width: 35px;
-  height: 35px;
-  border-radius: 20px;
+
+.checkout-title i {
+    color: var(--success-color);
 }
-#subtotal {
-  /* border: 2px solid orange; */
-  /* margin-top: -135%; */
-  display: flex;
-  margin-bottom: 10;
+
+.security-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--success-color);
+    font-size: 0.9rem;
+    font-weight: 500;
 }
-#mainContainer {
+
+/* Progress Indicator */
+.progress-container {
+    background: white;
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 0;
+}
+
+.progress-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.progress-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    position: relative;
+}
+
+.progress-bar::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 25%;
+    right: 25%;
+    height: 2px;
+    background: var(--border-color);
+    z-index: 1;
+}
+
+.progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--border-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.progress-step.active .step-number {
+    background: var(--walmart-blue);
+}
+
+.progress-step.completed .step-number {
+    background: var(--success-color);
+}
+
+.step-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.progress-step.active .step-label,
+.progress-step.completed .step-label {
+    color: var(--text-primary);
+}
+
+/* Main Container */
+.main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+}
+
+/* Left Column */
+.checkout-left {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.checkout-section {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
     overflow: hidden;
 }
-#mainContainer {
-  /* border: 5px solid red; */
-  display: flex;
-  gap: 40px;
-  padding: 1%;
-  margin: auto;
-  padding: 1% 7%;
-}
-#container {
-  /* display: flex; */
-  /* border: 5px solid black; */
-  /* padding: 5%; */
-  width: 50%;
-}
-#displayItem {
-  /* border: 5px solid green; */
-  width: 100%;
-}
-#payment {
-  width: 100%;
-  padding: 0 0 10px 0;
-}
-#contact {
-  width: 100%;
-  padding: 0 0 10px 0;
-}
-#subtotal {
-  margin-top: 1.8%;
+
+.section-header {
+    background: var(--walmart-light-gray);
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-@media screen and (max-width: 780px) {
-  #mainContainer {
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.section-title i {
+    color: var(--walmart-blue);
+}
+
+.section-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+}
+
+.section-status.completed {
+    color: var(--success-color);
+}
+
+.items-count {
+    color: var(--walmart-blue);
+    font-weight: 600;
+}
+
+.section-content {
+    padding: 1.5rem;
+}
+
+/* Shipping Section */
+.shipping-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.shipping-icon img {
+    width: 60px;
+    height: 60px;
+}
+
+.shipping-details h3 {
+    color: var(--success-color);
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.shipping-details p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.address-card {
+    background: var(--walmart-light-gray);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.address-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.address-header h4 {
+    font-weight: 600;
+}
+
+.edit-btn {
+    background: none;
+    border: 1px solid var(--walmart-blue);
+    color: var(--walmart-blue);
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.edit-btn:hover {
+    background: var(--walmart-blue);
+    color: white;
+}
+
+.recipient-name {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.address-line {
+    color: var(--text-secondary);
+}
+
+.delivery-instructions h4 {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.delivery-instructions p {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.add-instructions-btn {
+    background: transparent;
+    border: 2px dashed var(--border-color);
+    color: var(--walmart-blue);
+    padding: 0.75rem 1rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    justify-content: center;
+}
+
+.add-instructions-btn:hover {
+    border-color: var(--walmart-blue);
+    background: var(--walmart-light-gray);
+}
+
+/* Cart Items */
+.cart-items {
+    display: flex;
     flex-direction: column;
-  }
-  #container,
-  #subtotal {
-    width: 95%;
-    margin: auto;
-  }
-  #cartBox {
-    margin-bottom: 20px;
-  }
+    gap: 1rem;
+}
 
-  #payment {
-    height: auto;
-  }
-  #contact {
-    height: auto;
-  }
+.cart-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.cart-item:hover {
+    box-shadow: var(--shadow-light);
+}
+
+.item-image {
+    width: 80px;
+    height: 80px;
+    border-radius: var(--border-radius);
+    object-fit: cover;
+    background: var(--walmart-light-gray);
+}
+
+.item-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.item-name {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.item-price {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--walmart-blue);
+}
+
+.item-quantity {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.qty-badge {
+    background: var(--walmart-blue);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* Payment Section */
+.payment-methods h3 {
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.payment-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.payment-option {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.payment-option:hover {
+    border-color: var(--walmart-blue);
+    background: var(--walmart-light-gray);
+}
+
+.payment-option input[type="radio"] {
+    margin-right: 1rem;
+    accent-color: var(--walmart-blue);
+}
+
+.payment-option label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.payment-option label i {
+    font-size: 1.2rem;
+    color: var(--walmart-blue);
+}
+
+.accepted-cards {
+    margin-bottom: 1.5rem;
+}
+
+.accepted-cards h4 {
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+.card-logos {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.card-logos img {
+    height: 30px;
+    width: auto;
+    opacity: 0.7;
+    transition: var(--transition);
+}
+
+.card-logos img:hover {
+    opacity: 1;
+}
+
+/* Form Styles */
+.card-form {
+    margin-top: 1.5rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.form-row:first-child {
+    grid-template-columns: 1fr;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.form-group input {
+    padding: 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--walmart-blue);
+    box-shadow: 0 0 0 3px rgba(0, 113, 206, 0.1);
+}
+
+.input-icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+}
+
+.cvv-help {
+    cursor: help;
+    color: var(--walmart-blue);
+}
+
+.payment-info {
+    background: var(--walmart-light-gray);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    margin-top: 1rem;
+}
+
+.payment-info p {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--success-color);
+    font-weight: 500;
+}
+
+.learn-more {
+    color: var(--walmart-blue);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.learn-more:hover {
+    text-decoration: underline;
+}
+/* Contact Section */
+.contact-info {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.phone-input {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.country-code {
+    width: 80px;
+    padding: 1rem 0.5rem;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    background: white;
+}
+
+.phone-input input {
+    flex: 1;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin: 1.5rem 0;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--walmart-blue);
+    cursor: pointer;
+    margin-top: 2px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.checkbox-group label i {
+    color: var(--walmart-blue);
+}
+
+.terms-notice {
+    background: var(--walmart-light-gray);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.terms-notice a {
+    color: var(--walmart-blue);
+    text-decoration: none;
+}
+
+.terms-notice a:hover {
+    text-decoration: underline;
+}
+
+/* Right Column - Order Summary */
+.checkout-right {
+    position: sticky;
+    top: 120px;
+    height: fit-content;
+}
+
+.order-summary {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    overflow: hidden;
+}
+
+/* Savings Banner */
+.savings-banner {
+    background: linear-gradient(135deg, var(--walmart-orange), var(--walmart-yellow));
+    color: white;
+    padding: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.savings-banner::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+    animation: float 20s linear infinite;
+}
+
+@keyframes float {
+    0% { transform: translateX(-50px) translateY(-50px); }
+    100% { transform: translateX(50px) translateY(50px); }
+}
+
+.savings-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+.savings-icon img {
+    width: 40px;
+    height: 40px;
+    filter: brightness(0) invert(1);
+}
+
+.savings-text {
+    flex: 1;
+}
+
+.savings-text h4 {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.savings-text p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.close-savings {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: var(--transition);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-savings:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Summary Content */
+.summary-content {
+    padding: 1.5rem;
+}
+
+.summary-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.summary-row:last-of-type {
+    border-bottom: none;
+}
+
+.summary-label {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.summary-value {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.savings-value {
+    color: var(--success-color);
+    background: #e8f5e8;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.free-shipping {
+    color: var(--success-color);
+    font-weight: 600;
+}
+
+.summary-divider {
+    height: 1px;
+    background: var(--border-color);
+    margin: 1rem 0;
+}
+
+.total-row {
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 1rem 0;
+    border-top: 2px solid var(--border-color);
+    border-bottom: none;
+}
+
+.financing-info {
+    background: var(--walmart-light-gray);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.financing-info p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.affirm-logo {
+    height: 18px;
+    width: auto;
+}
+
+.learn-how {
+    color: var(--walmart-blue);
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+
+.learn-how:hover {
+    text-decoration: underline;
+}
+
+.checkout-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--walmart-blue) 0%, var(--walmart-dark-blue) 100%);
+    color: white;
+    border: none;
+    padding: 1.25rem 2rem;
+    border-radius: var(--border-radius);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 1rem;
+}
+
+.checkout-btn:hover {
+    background: linear-gradient(135deg, var(--walmart-dark-blue) 0%, #003366 100%);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.checkout-btn:disabled {
+    background: var(--walmart-gray);
+    cursor: not-allowed;
+    transform: none;
+}
+
+.security-notice {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: var(--success-color);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.loading-overlay.show {
+    display: flex;
+}
+
+.loading-spinner {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    text-align: center;
+    box-shadow: var(--shadow-medium);
+}
+
+.loading-spinner i {
+    font-size: 2rem;
+    color: var(--walmart-blue);
+    margin-bottom: 1rem;
+}
+
+.loading-spinner p {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10001;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-medium);
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    text-align: center;
+    padding: 2rem 2rem 1rem;
+}
+
+.success-icon {
+    font-size: 3rem;
+    color: var(--success-color);
+    margin-bottom: 1rem;
+}
+
+.modal-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.modal-body {
+    padding: 1rem 2rem;
+    text-align: center;
+}
+
+.modal-body p {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.order-number {
+    background: var(--walmart-light-gray);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    font-size: 1.1rem;
+}
+
+.modal-footer {
+    padding: 1rem 2rem 2rem;
+    text-align: center;
+}
+
+.btn-primary {
+    background: var(--walmart-blue);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-primary:hover {
+    background: var(--walmart-dark-blue);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .main-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .checkout-right {
+        position: static;
+        order: -1;
+    }
+
+    .progress-bar {
+        gap: 2rem;
+    }
+
+    .progress-bar::before {
+        left: 20%;
+        right: 20%;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+
+    .checkout-title {
+        font-size: 1.5rem;
+    }
+
+    .progress-bar {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .progress-bar::before {
+        display: none;
+    }
+
+    .main-container {
+        padding: 1rem 0.5rem;
+    }
+
+    .section-content {
+        padding: 1rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .shipping-info {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .address-header {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-start;
+    }
+
+    .phone-input {
+        flex-direction: column;
+    }
+
+    .country-code {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .checkout-header {
+        padding: 0.75rem 0;
+    }
+
+    .progress-container {
+        padding: 0.75rem 0;
+    }
+
+    .section-header {
+        padding: 1rem;
+    }
+
+    .section-content {
+        padding: 1rem;
+    }
+
+    .summary-content {
+        padding: 1rem;
+    }
+
+    .modal-content {
+        margin: 1rem;
+        width: calc(100% - 2rem);
+    }
+}
+
+/* Focus Styles for Accessibility */
+button:focus,
+a:focus,
+input:focus,
+select:focus {
+    outline: 3px solid var(--walmart-blue);
+    outline-offset: 2px;
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .form-group input {
+        border-width: 3px;
+    }
+    
+    .checkout-btn {
+        border: 2px solid #000;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .checkout-header,
+    .progress-container,
+    .checkout-btn,
+    .loading-overlay,
+    .modal {
+        display: none;
+    }
+    
+    .main-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .order-summary {
+        page-break-inside: avoid;
+    }
+}
+/* Add these styles to your payment.css file */
+
+/* Notification animations */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* Notification styles */
+.notification-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+}
+
+.notification-icon {
+    font-size: 1.2rem;
+}
+
+.notification-icon.fa-check-circle {
+    color: var(--success-color);
+}
+
+.notification-icon.fa-exclamation-circle {
+    color: var(--error-color);
+}
+
+.notification-icon.fa-info-circle {
+    color: var(--walmart-blue);
+}
+
+.notification-icon.fa-exclamation-triangle {
+    color: var(--warning-color);
+}
+
+.notification-message {
+    flex: 1;
+    font-weight: 500;
+}
+
+.notification-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    padding: 0.25rem;
+    border-radius: 4px;
+    transition: var(--transition);
+}
+
+.notification-close:hover {
+    background: var(--walmart-light-gray);
+    color: var(--text-primary);
+}
+
+/* Error field styling */
+.form-group input.error {
+    border-color: var(--error-color);
+    background-color: #fff5f5;
+}
+
+.error-message {
+    color: var(--error-color);
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.error-message::before {
+    content: '\f071';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+}
+
+/* Empty cart styling */
+.empty-cart {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-secondary);
+}
+
+.empty-cart i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--walmart-gray);
+}
+
+.empty-cart p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Mobile device specific styles */
+.mobile-device .form-group input {
+    font-size: 16px; /* Prevent zoom on iOS */
+}
+
+.mobile-device .checkout-btn {
+    padding: 1rem;
+    font-size: 1rem;
+}
+
+/* Loading states */
+.processing {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.processing::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid rgba(0, 113, 206, 0.3);
+    border-top: 2px solid var(--walmart-blue);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

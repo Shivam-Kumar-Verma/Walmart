@@ -31,7 +31,7 @@ function navbar() {
         </div>
         <div class="account">
           <span class="material-symbols-outlined">person_outline</span>
-          <a href="signup.html">Sign In Account</a>
+          <span id="us"><a href="signup.html">Sign In Account</a></span>
         </div>
         <div class="cart">
           <a href="CheckoutDetailing/cart.html">
@@ -70,15 +70,19 @@ function navbar() {
   `;
 }
 
-let user = JSON.parse(localStorage.getItem('user_data')) || [];
 function hjjk() {
-  console.log('dssd');
-  if (user.length != 0) {
-    let username = ' ' + user[0].signup_form_fname;
-    let sda = document.querySelector('#us');
-    sda.innerHTML = '';
-    sda.append('Hi,', username);
-  }
+  console.log('Updating user info');
+  // Wait a bit for the navbar to be rendered
+  setTimeout(() => {
+    let user = JSON.parse(localStorage.getItem('user_data')) || [];
+    if (user.length != 0) {
+      let username = ' ' + user[0].signup_form_fname;
+      let userElement = document.querySelector('#us');
+      if (userElement) {
+        userElement.innerHTML = 'Hi, ' + username;
+      }
+    }
+  }, 100);
 }
 
 export { navbar, hjjk };

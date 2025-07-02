@@ -4,126 +4,359 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment</title>
-
+    <title>Secure Checkout - Walmart</title>
+    <link rel="icon" href="https://www.walmart.com/favicon.ico" type="image/x-icon" />
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="payment.css">
-    <!-- <link rel="stylesheet" href="cart.css"> -->
 </head>
 <body>
-    <div id="heading"> <h1 id="Checkout">Checkout</h1> </div>
-    <div id="mainConatiner1">
- <div id="mainContainer">
-    <div id="container">
-    <div id="displayItem">
-        <div id="upperhead"> 
-            <div> <img id="truck"
-                src="https://i5.walmartimages.com/dfw/63fd9f59-1b5e/5452ae02-a31f-4ef1-9a45-62ac0b06c13b/v1/mci-shipping.svg" alt=""></div>
-        
-         <div> <h2 id="freeShip">1. Free shipping, arrives by Fri, Dec 25 &nbsp; <span >  <i class="fa-solid fa-circle-check"></i></span>  </h2></div>
-          <br>
-          
-        </div>
-        <div id="nameaddress">
-            <h3>Rajshree Rajoliya</h3>
-            <h3>Golden Gate Bridge, SF,CA 94016</h3>
-          </div>
-       
-        <hr>
-        <div id="generalinst">
-            <h3>Delivery instructions</h3>
-            <h3>Add gate codes or other useful information.</h3>
-          </div>
-       
-        <hr>
-      
-        <div id="itemDetail">
-           <h3 id="item">Items details (<span id="totalItems"></span>items)</h3>
-           <div id="cartDetails">
-            <!-- //====display ghere -->
-           </div> 
-        </div>
-        
-        
-         
-       </div>
-<!-- /////Displaying here/ -->
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-<div id="payment">
-    <div id="header">
-       <h1 id="paymethod"><span><i class="fa-solid fa-wallet"></i></span>&nbsp; 2. Payment method</h1>
-      
+    <!-- Header -->
+    <header class="checkout-header">
+        <div class="header-content">
+            <div class="header-left">
+                <a href="../index.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Cart</span>
+                </a>
+            </div>
+            <h1 class="checkout-title">
+                <i class="fas fa-shield-alt"></i>
+                Secure Checkout
+            </h1>
+            <div class="security-badge">
+                <i class="fas fa-lock"></i>
+                <span>SSL Secured</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Progress Indicator -->
+    <div class="progress-container">
+        <div class="progress-content">
+            <div class="progress-bar">
+                <div class="progress-step completed">
+                    <div class="step-number">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <span class="step-label">Cart</span>
+                </div>
+                <div class="progress-step active">
+                    <div class="step-number">2</div>
+                    <span class="step-label">Checkout</span>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">3</div>
+                    <span class="step-label">Confirmation</span>
+                </div>
+            </div>
+        </div>
     </div>
-    <h2 id="headcard">Pay with card</h2>
-     <div id="allcards">
-        <img src="https://i5.walmartimages.com/dfw/63fd9f59-7b6d/d53b5a7a-3eca-4b49-a950-838cb87068b9/v1/wallet-capitalone-plcc@1x.png" alt="">
-        <img src="https://i5.walmartimages.com/dfw/63fd9f59-18df/ed0b73d0-0bbd-44dc-8dcc-b835c7588ece/v1/wallet-visa-dark-logo.png" alt="">
-        <img src="https://i5.walmartimages.com/dfw/63fd9f59-18df/ed0b73d0-0bbd-44dc-8dcc-b835c7588ece/v1/wallet-discover-dark-logo.png" alt="">
-        <img src="https://i5.walmartimages.com/dfw/63fd9f59-18df/ed0b73d0-0bbd-44dc-8dcc-b835c7588ece/v1/wallet-master-dark-logo.png" alt="">
-        <img src="https://i5.walmartimages.com/dfw/4ff9c6c9-213b/k2-_d4c88659-0d50-4007-9562-22aa7e463fcb.v1.svg" alt="">
-        <img src="https://i5.walmartimages.com/dfw/63fd9f59-18df/ed0b73d0-0bbd-44dc-8dcc-b835c7588ece/v1/wallet-sams-master-dark-logo.png" alt="">
-        <img src="https://i5.walmartimages.com/dfw/63fd9f59-154b/e8c1d0bf-a4ad-4b20-8eac-939ab7f93063/v1/Gift-Card-Logo.png" alt="">
-        <img src="https://i5.walmartimages.com/dfw/63fd9f59-2845/2044d79e-92d5-4c08-90a2-0480444a877f/v1/EBT-Logo.svg" alt="">
-        <img src="https://i5.walmartimages.com/dfw/63fd9f59-5677/b30375fd-16ce-44d1-b35f-a8c8bb077cc3/v1/wallet-icn-otc.svg" alt="">
-        <img src="https://i5.walmartimages.com/dfw/63fd9f59-9f9b/becea509-597c-48ad-ae23-fed73475118e/v1/wallet-solutran-logo.svg" alt="">
-     </div>
-        <h3 id="line"> Learn more about payment methods we accept.</h3>
-         <h4 id="forinput">* Required field</h4>
-         <input type="text" id="inputbox" placeholder="Card Number">
-         <button id="btn">Continue</button>
-  </div>
-  <div id="contact">
-   <div id="mobilehead">
-    <h1 id="headingtomobile"><span><i class="fa-solid fa-mobile-screen-button"></i></span>&nbsp;&nbsp; 3. Mobile contact   <span id="MobileConnect" > &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa-solid fa-circle-check"></i></span></h1> 
- </div>
 
- <h3 id="line">We'll contact you in case anything comes up with your order.</h3>
- <h4 id="forinput">* Required field</h4>
- <input type="text" id="inputbox2" placeholder="Phone number (10 digits)*">
- <h3 id="chktick"> I want to receive text updates about the status of my order.<input type="checkbox" name="" id="chkbox" ></h3>
+    <!-- Main Content -->
+    <main id="main-content" class="main-container">
+        <!-- Left Column -->
+        <div class="checkout-left">
+            <!-- Shipping Section -->
+            <section class="checkout-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-truck"></i>
+                        1. Shipping Information
+                    </h2>
+                    <div class="section-status completed">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Complete</span>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="shipping-info">
+                        <div class="shipping-icon">
+                            <img src="https://i5.walmartimages.com/dfw/63fd9f59-1b5e/5452ae02-a31f-4ef1-9a45-62ac0b06c13b/v1/mci-shipping.svg" alt="Free Shipping">
+                        </div>
+                        <div class="shipping-details">
+                            <h3>Free shipping, arrives by Fri, Dec 25</h3>
+                            <p>Your order qualifies for free standard shipping</p>
+                        </div>
+                    </div>
+                    
+                    <div class="address-card">
+                        <div class="address-header">
+                            <h4>Delivery Address</h4>
+                            <button class="edit-btn" onclick="editAddress()">
+                                <i class="fas fa-edit"></i>
+                                Edit
+                            </button>
+                        </div>
+                        <div class="address-details">
+                            <p class="recipient-name">Rajshree Rajoliya</p>
+                            <p class="address-line">Golden Gate Bridge, SF, CA 94016</p>
+                        </div>
+                    </div>
+                    
+                    <div class="delivery-instructions">
+                        <h4>Delivery Instructions</h4>
+                        <p>Add gate codes or other useful information</p>
+                        <button class="add-instructions-btn" onclick="addInstructions()">
+                            <i class="fas fa-plus"></i>
+                            Add Instructions
+                        </button>
+                    </div>
+                </div>
+            </section>
 
- <h4 id="messs">Message and data rates may apply. Number and frequency of automated texts may vary based on your order. Consent not required for purchase. By continuing, you agree to our Mobile Alert Terms.</h4>
-  </div>
-  </div>
-<!-- Rajshree -->
+            <!-- Items Section -->
+            <section class="checkout-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-box"></i>
+                        Order Items
+                    </h2>
+                    <div class="items-count">
+                        <span id="totalItems">0</span> items
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div id="cartDetails" class="cart-items">
+                        <!-- Cart items will be populated here -->
+                    </div>
+                </div>
+            </section>
 
-<div id="subtotal">
-   <div id="bonus">
-   
-      <div id="btndiv"> <button id="buttonContinue">Continue to checkout</button></div>
-      
-     
-      <div id="saving">
-          <img src="https://i5.walmartimages.com/dfw/4ff9c6c9-69ed/k2-_c5fc89eb-a765-445a-846c-c88b31ebf4f2.v1.png" alt="">    
-     <p>Items in your cart have reduced prices.
-      <br>
-       Check out now for extra savings! <span><i class="fa-solid fa-x"></i></span>  </p>
-       </div>
-  
-       <div id="summaryoftotal">
-     
-          <h3> Subtotal <span id="totalIteminCart1"></span></h3>
-         <h3 >Savings <span id="saving23"></span></h3>
-    
-      <h3>Shipping  <span id="s">Free
-         </span> </h3>
-  
-      <h3>Taxes   <span>$8.22</span></h3>
-  
-      <h3>Estimated total <span id="estimatedTotal"></span></h3>
-      <h4 id="affirm" href=""><span>$32/mo with&nbsp;</span><img style="width: 37px; height: 18px;" src="https://cdn-assets.affirm.com/images/black_logo-white_bg.jpg" alt="" srcset=""></h4>
-      <a id="learnHow" href="">Learnhow</a>
-      </div>
-      </div>
-      </div>
-  
-</div>
-<!-- ========================================================== -->
+            <!-- Payment Section -->
+            <section class="checkout-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-credit-card"></i>
+                        2. Payment Method
+                    </h2>
+                </div>
+                <div class="section-content">
+                    <div class="payment-methods">
+                        <h3>Choose your payment method</h3>
+                        <div class="payment-options">
+                            <div class="payment-option" onclick="selectPaymentMethod('card')">
+                                <input type="radio" name="payment" id="card-payment" value="card" checked>
+                                <label for="card-payment">
+                                    <i class="fas fa-credit-card"></i>
+                                    Credit/Debit Card
+                                </label>
+                            </div>
+                            <div class="payment-option" onclick="selectPaymentMethod('paypal')">
+                                <input type="radio" name="payment" id="paypal-payment" value="paypal">
+                                <label for="paypal-payment">
+                                    <i class="fab fa-paypal"></i>
+                                    PayPal
+                                </label>
+                            </div>
+                            <div class="payment-option" onclick="selectPaymentMethod('gift')">
+                                <input type="radio" name="payment" id="gift-payment" value="gift">
+                                <label for="gift-payment">
+                                    <i class="fas fa-gift"></i>
+                                    Gift Card
+                                </label>
+                            </div>
+                        </div>
+                    </div>
 
-     </div>
-   
-</div>
+                    <div class="accepted-cards">
+                        <h4>We accept</h4>
+                        <div class="card-logos">
+                            <img src="https://i5.walmartimages.com/dfw/63fd9f59-18df/ed0b73d0-0bbd-44dc-8dcc-b835c7588ece/v1/wallet-visa-dark-logo.png" alt="Visa">
+                            <img src="https://i5.walmartimages.com/dfw/63fd9f59-18df/ed0b73d0-0bbd-44dc-8dcc-b835c7588ece/v1/wallet-master-dark-logo.png" alt="Mastercard">
+                            <img src="https://i5.walmartimages.com/dfw/4ff9c6c9-213b/k2-_d4c88659-0d50-4007-9562-22aa7e463fcb.v1.svg" alt="American Express">
+                            <img src="https://i5.walmartimages.com/dfw/63fd9f59-18df/ed0b73d0-0bbd-44dc-8dcc-b835c7588ece/v1/wallet-discover-dark-logo.png" alt="Discover">
+                            <img src="https://i5.walmartimages.com/dfw/63fd9f59-154b/e8c1d0bf-a4ad-4b20-8eac-939ab7f93063/v1/Gift-Card-Logo.png" alt="Gift Card">
+                        </div>
+                    </div>
+
+                    <div class="card-form" id="cardForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="cardNumber">Card Number *</label>
+                                <div class="input-wrapper">
+                                    <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                                    <i class="fas fa-credit-card input-icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="expiryDate">Expiry Date *</label>
+                                <input type="text" id="expiryDate" placeholder="MM/YY" maxlength="5" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv">CVV *</label>
+                                <div class="input-wrapper">
+                                    <input type="text" id="cvv" placeholder="123" maxlength="4" required>
+                                    <i class="fas fa-question-circle cvv-help" title="3-4 digits on the back of your card"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="cardName">Name on Card *</label>
+                            <input type="text" id="cardName" placeholder="John Doe" required>
+                        </div>
+                    </div>
+
+                    <div class="payment-info">
+                        <p><i class="fas fa-info-circle"></i> Your payment information is encrypted and secure</p>
+                        <a href="#" class="learn-more">Learn more about our security measures</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section class="checkout-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-mobile-alt"></i>
+                        3. Contact Information
+                    </h2>
+                    <div class="section-status completed">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Complete</span>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <p class="contact-info">We'll contact you if anything comes up with your order.</p>
+                    
+                    <div class="form-group">
+                        <label for="phoneNumber">Phone Number *</label>
+                        <div class="phone-input">
+                            <select class="country-code">
+                                <option value="+1">+1</option>
+                                <option value="+44">+44</option>
+                                <option value="+91">+91</option>
+                            </select>
+                            <input type="tel" id="phoneNumber" placeholder="(555) 123-4567" required>
+                        </div>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="smsUpdates" checked>
+                        <label for="smsUpdates">
+                            <i class="fas fa-sms"></i>
+                            I want to receive text updates about my order status
+                        </label>
+                    </div>
+                    
+                    <div class="terms-notice">
+                        <p>Message and data rates may apply. By continuing, you agree to our <a href="#">Mobile Alert Terms</a>.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Right Column - Order Summary -->
+        <div class="checkout-right">
+            <div class="order-summary">
+                <!-- Savings Banner -->
+                <div class="savings-banner" id="savingsBanner">
+                    <div class="savings-content">
+                        <div class="savings-icon">
+                            <img src="https://i5.walmartimages.com/dfw/4ff9c6c9-69ed/k2-_c5fc89eb-a765-445a-846c-c88b31ebf4f2.v1.png" alt="Savings">
+                        </div>
+                        <div class="savings-text">
+                            <h4>Great Savings!</h4>
+                            <p>Items in your cart have reduced prices. Check out now for extra savings!</p>
+                        </div>
+                        <button class="close-savings" onclick="closeSavingsBanner()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Order Summary Details -->
+                <div class="summary-content">
+                    <h3 class="summary-title">Order Summary</h3>
+                    
+                    <div class="summary-row">
+                        <span class="summary-label">Subtotal</span>
+                        <span class="summary-value" id="totalIteminCart1">$0.00</span>
+                    </div>
+                    
+                    <div class="summary-row savings-row">
+                        <span class="summary-label">Savings</span>
+                        <span class="summary-value savings-value" id="saving23">$0.00</span>
+                    </div>
+                    
+                    <div class="summary-row">
+                        <span class="summary-label">Shipping</span>
+                        <span class="summary-value free-shipping">Free</span>
+                    </div>
+                    
+                    <div class="summary-row">
+                        <span class="summary-label">Estimated Tax</span>
+                        <span class="summary-value">$8.22</span>
+                    </div>
+                    
+                    <div class="summary-divider"></div>
+                    
+                    <div class="summary-row total-row">
+                        <span class="summary-label">Estimated Total</span>
+                        <span class="summary-value" id="estimatedTotal">$0.00</span>
+                    </div>
+                    
+                    <div class="financing-info">
+                        <p>
+                            <span>$32/mo with </span>
+                            <img src="https://cdn-assets.affirm.com/images/black_logo-white_bg.jpg" alt="Affirm" class="affirm-logo">
+                        </p>
+                        <a href="#" class="learn-how">Learn how</a>
+                    </div>
+                    
+                    <button class="checkout-btn" id="buttonContinue">
+                        <i class="fas fa-lock"></i>
+                        Complete Order
+                    </button>
+                    
+                    <div class="security-notice">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Your order is protected by SSL encryption</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Processing your order...</p>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fas fa-check-circle success-icon"></i>
+                <h2>Order Placed Successfully!</h2>
+            </div>
+            <div class="modal-body">
+                <p>Thank you for your order. You will receive a confirmation email shortly.</p>
+                <div class="order-number">
+                    <strong>Order #: <span id="orderNumber"></span></strong>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-primary" onclick="goToOrderConfirmation()">View Order Details</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="payment.js"></script>
 </body>
 </html>
-<script src="https://kit.fontawesome.com/2a00a14c7f.js" crossorigin="anonymous"></script>
-<script src="../CheckoutDetailing/payment.js"></script>
-
