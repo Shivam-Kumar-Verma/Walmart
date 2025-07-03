@@ -375,8 +375,8 @@
         /* Hover Card Styles */
         .hover-card {
             position: absolute;
-            top: 0;
-            left: 100%;
+            top: 50%;
+            left: -4%;
             width: 320px;
             background: white;
             border-radius: var(--border-radius);
@@ -384,7 +384,7 @@
             padding: 1rem;
             opacity: 0;
             pointer-events: none;
-            transform: translateX(10px);
+            transform: translateY(-50%) translateX(0);
             transition: opacity 0.3s ease 0.3s, transform 0.3s ease 0.3s;
             z-index: 20;
             display: flex;
@@ -398,7 +398,7 @@
         .product-card.hovered .hover-card {
             opacity: 1;
             pointer-events: auto;
-            transform: translateX(0);
+            transform: translateY(-50%) translateX(-10px);
         }
 
         /* Hover Card for mobile below the card */
