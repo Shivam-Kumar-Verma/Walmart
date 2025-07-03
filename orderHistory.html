@@ -6,226 +6,864 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Order History - Walmart Green Mode Dashboard</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --green: #2e7d32;
-    --green-light: #81c784;
-    --gray-dark: #333;
-    --gray-light: #f5f5f5;
-    --border-radius: 8px;
-    --font-family: 'Inter', sans-serif;
+    --primary-green: #00a651;
+    --secondary-green: #4caf50;
+    --accent-green: #81c784;
+    --light-green: #e8f5e8;
+    --dark-green: #2e7d32;
+    --gray-900: #1a1a1a;
+    --gray-800: #2d2d2d;
+    --gray-700: #404040;
+    --gray-600: #666666;
+    --gray-500: #808080;
+    --gray-400: #999999;
+    --gray-300: #cccccc;
+    --gray-200: #e6e6e6;
+    --gray-100: #f5f5f5;
+    --gray-50: #fafafa;
+    --white: #ffffff;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --border-radius-sm: 6px;
+    --border-radius-md: 12px;
+    --border-radius-lg: 16px;
+    --border-radius-xl: 24px;
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
+
+  * {
+    box-sizing: border-box;
+  }
+
   body {
     margin: 0;
     font-family: var(--font-family);
-    background-color: #fff;
-    color: var(--gray-dark);
+    background: linear-gradient(135deg, var(--gray-50) 0%, var(--light-green) 100%);
+    color: var(--gray-800);
+    line-height: 1.6;
+    min-height: 100vh;
   }
+
+  /* Header Styles */
   header {
+    background: var(--white);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--gray-200);
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-content {
     display: flex;
     align-items: center;
-    padding: 1rem 2rem;
-    border-bottom: 1px solid #ddd;
     justify-content: space-between;
+    padding: 1rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
   }
-  header .logo {
-    font-weight: 700;
-    font-size: 1.5rem;
-    color: var(--green);
-  }
-  header .title {
-    font-weight: 600;
-    font-size: 1.25rem;
-  }
-  nav {
+
+  .logo-section {
     display: flex;
-    gap: 2rem;
-    padding: 0 2rem;
-    border-bottom: 1px solid #ddd;
+    align-items: center;
+    gap: 1rem;
   }
-  nav a {
-    text-decoration: none;
-    color: var(--gray-dark);
-    font-weight: 500;
-    padding: 1rem 0;
-    border-bottom: 3px solid transparent;
-    transition: border-color 0.3s;
+
+  .logo {
+    font-weight: 800;
+    font-size: 1.75rem;
+    background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
-  nav a.active,
-  nav a:hover {
-    border-bottom-color: var(--green);
-    color: var(--green);
-  }
-  .signout {
+
+  .title {
+    font-weight: 600;
+    font-size: 1.125rem;
+    color: var(--gray-700);
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: var(--gray-dark);
-    cursor: pointer;
-    font-weight: 500;
   }
-  .signout i {
-    background-color: var(--gray-light);
+
+  .title::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: var(--primary-green);
     border-radius: 50%;
-    padding: 0.3rem;
+    animation: pulse 2s infinite;
   }
-  main {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
   }
-  .cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
-  .card {
-    background: #f9f9f9;
-    border-radius: var(--border-radius);
-    padding: 1rem 1.5rem;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+
+  .user-section {
     display: flex;
     align-items: center;
     gap: 1rem;
   }
-  .card svg, .card i {
-    flex-shrink: 0;
-    width: 40px;
-    height: 40px;
-    color: var(--green);
+
+  .notifications {
+    position: relative;
+    padding: 0.75rem;
+    border-radius: var(--border-radius-md);
+    background: var(--gray-100);
+    color: var(--gray-600);
+    cursor: pointer;
+    transition: var(--transition);
   }
-  .card .content {
-    flex-grow: 1;
+
+  .notifications:hover {
+    background: var(--light-green);
+    color: var(--primary-green);
   }
-  .card .label {
+
+  .notifications .badge {
+    position: absolute;
+    top: 0.25rem;
+    right: 0.25rem;
+    width: 8px;
+    height: 8px;
+    background: #ff4444;
+    border-radius: 50%;
+  }
+
+  .signout {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.25rem;
+    background: var(--gray-100);
+    border-radius: var(--border-radius-lg);
+    color: var(--gray-700);
+    cursor: pointer;
+    font-weight: 500;
+    transition: var(--transition);
+    border: none;
+    font-family: inherit;
+  }
+
+  .signout:hover {
+    background: var(--primary-green);
+    color: var(--white);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
     font-weight: 600;
-    font-size: 1rem;
-    margin-bottom: 0.25rem;
   }
-  .card .value {
+
+  /* Navigation Styles */
+  nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-200);
+    overflow-x: auto;
+  }
+
+  .nav-content {
+    display: flex;
+    gap: 2rem;
+    padding: 0 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-width: max-content;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: var(--gray-600);
+    font-weight: 500;
+    padding: 1.25rem 0;
+    border-bottom: 3px solid transparent;
+    transition: var(--transition);
+    position: relative;
+    white-space: nowrap;
+  }
+
+  nav a.active,
+  nav a:hover {
+    color: var(--primary-green);
+    border-bottom-color: var(--primary-green);
+  }
+
+  nav a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-green), var(--secondary-green));
+    border-radius: 2px 2px 0 0;
+  }
+
+  /* Main Content */
+  main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  /* Stats Cards */
+  .stats-section {
+    margin-bottom: 3rem;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title {
     font-size: 1.5rem;
     font-weight: 700;
+    color: var(--gray-800);
+    margin: 0;
   }
+
+  .view-all {
+    color: var(--primary-green);
+    text-decoration: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition);
+  }
+
+  .view-all:hover {
+    gap: 0.75rem;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .card {
+    background: var(--white);
+    border-radius: var(--border-radius-lg);
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    transition: var(--transition);
+    border: 1px solid var(--gray-200);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-green), var(--secondary-green));
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+  }
+
+  .card-icon {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    border-radius: var(--border-radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: var(--white);
+    background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+  }
+
+  .card-content {
+    flex-grow: 1;
+  }
+
+  .card-label {
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: var(--gray-600);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .card-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--gray-800);
+    margin-bottom: 0.5rem;
+  }
+
+  .card-change {
+    font-size: 0.875rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .card-change.positive {
+    color: var(--secondary-green);
+  }
+
+  .card-change.negative {
+    color: #ef4444;
+  }
+
+  /* Dashboard Grid */
   .dashboard-grid {
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 2rem;
+    margin-bottom: 3rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
   }
+
   .chart-card, .orders-card {
-    background: #f9f9f9;
-    border-radius: var(--border-radius);
-    padding: 1rem 1.5rem;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    background: var(--white);
+    border-radius: var(--border-radius-lg);
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--gray-200);
   }
-  .chart-card h2, .orders-card h2 {
-    margin-top: 0;
-    font-weight: 600;
-    margin-bottom: 1rem;
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
   }
+
+  .card-header h2 {
+    margin: 0;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--gray-800);
+  }
+
+  /* FIXED CHART CONTAINER */
   .chart-container {
     width: 100%;
-    height: 250px;
+    height: 280px;
+    max-width: 650px;
+    margin: 0 auto;
+    position: relative;
+    background: var(--gray-50);
+    border-radius: var(--border-radius-md);
+    padding: 1rem;
   }
-  .orders-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(120px,1fr));
-    gap: 1rem;
+
+  .chart-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 240px;
   }
-  .order-item {
-    background: white;
-    border-radius: var(--border-radius);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-    padding: 0.5rem;
+
+  .chart-footer {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--gray-200);
+    color: var(--gray-600);
+    font-size: 0.875rem;
     text-align: center;
   }
-  .order-item img {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
-    margin-bottom: 0.5rem;
+
+  /* Orders Section */
+  .orders-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
   }
+
+  .order-item {
+    background: var(--gray-50);
+    border-radius: var(--border-radius-md);
+    padding: 1rem;
+    text-align: center;
+    transition: var(--transition);
+    cursor: pointer;
+    border: 2px solid transparent;
+  }
+
+  .order-item:hover {
+    background: var(--white);
+    border-color: var(--primary-green);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .order-item img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    margin-bottom: 0.75rem;
+    border-radius: var(--border-radius-sm);
+  }
+
   .order-item .name {
     font-weight: 600;
-    font-size: 0.9rem;
-    margin-bottom: 0.25rem;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+    color: var(--gray-800);
+    line-height: 1.4;
   }
+
   .order-item .price {
     font-weight: 700;
     font-size: 1rem;
-    color: var(--green);
+    color: var(--primary-green);
   }
-  @media (max-width: 768px) {
+
+  /* Recent Activity Section */
+  .activity-section {
+    background: var(--white);
+    border-radius: var(--border-radius-lg);
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--gray-200);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .activity-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--gray-50);
+    border-radius: var(--border-radius-md);
+    transition: var(--transition);
+  }
+
+  .activity-item:hover {
+    background: var(--light-green);
+  }
+
+  .activity-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--primary-green);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .activity-content {
+    flex-grow: 1;
+  }
+
+  .activity-title {
+    font-weight: 600;
+    color: var(--gray-800);
+    margin-bottom: 0.25rem;
+  }
+
+  .activity-time {
+    font-size: 0.875rem;
+    color: var(--gray-600);
+  }
+
+  /* Loading States */
+  .loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid var(--gray-300);
+    border-radius: 50%;
+    border-top-color: var(--primary-green);
+    animation: spin 1s ease-in-out infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1200px) {
     .dashboard-grid {
       grid-template-columns: 1fr;
+      max-width: 800px;
     }
-    nav {
-      justify-content: space-around;
+    
+    .cards {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .chart-container {
+      max-width: 100%;
+      height: 260px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .header-content {
+      padding: 1rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .logo-section {
+      order: 1;
+      flex: 1;
+    }
+    
+    .user-section {
+      order: 2;
+    }
+    
+    .title {
+      order: 3;
+      width: 100%;
+      justify-content: center;
+      font-size: 1rem;
+    }
+    
+    .nav-content {
+      padding: 0 1rem;
+      gap: 1rem;
+    }
+    
+    main {
+      padding: 1rem;
+    }
+    
+    .cards {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    
+    .card {
+      padding: 1.5rem;
+    }
+    
+    .card-value {
+      font-size: 1.75rem;
+    }
+    
+    .chart-card, .orders-card {
+      padding: 1.5rem;
+    }
+
+    .chart-container {
+      height: 220px;
+      padding: 0.5rem;
+    }
+
+    .chart-container canvas {
+      max-height: 180px;
+    }
+    
+    .orders-list {
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    }
+    
+    .section-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .header-content {
+      padding: 0.75rem;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+    }
+    
+    .signout {
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+    }
+    
+    .cards {
+      gap: 0.75rem;
+    }
+    
+    .card {
+      padding: 1rem;
+      gap: 1rem;
+    }
+    
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      font-size: 1.25rem;
+    }
+    
+    .card-value {
+      font-size: 1.5rem;
+    }
+
+    .chart-container {
+      height: 200px;
+      padding: 0.25rem;
+    }
+
+    .chart-container canvas {
+      max-height: 160px;
+    }
+    
+    .orders-list {
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 0.75rem;
+    }
+    
+    .order-item {
+      padding: 0.75rem;
+    }
+    
+    .order-item img {
+      width: 48px;
+      height: 48px;
+    }
+  }
+
+  /* Dark mode support */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --gray-900: #f9fafb;
+      --gray-800: #f3f4f6;
+      --gray-700: #e5e7eb;
+      --gray-600: #d1d5db;
+      --gray-500: #9ca3af;
+      --gray-400: #6b7280;
+      --gray-300: #4b5563;
+      --gray-200: #374151;
+      --gray-100: #1f2937;
+      --gray-50: #111827;
+      --white: #1f2937;
+    }
+    
+    body {
+      background: linear-gradient(135deg, var(--gray-50) 0%, #0f2027 100%);
+    }
+  }
+
+  /* Accessibility improvements */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Focus styles */
+  *:focus {
+    outline: 2px solid var(--primary-green);
+    outline-offset: 2px;
+  }
+
+  /* High contrast mode */
+  @media (prefers-contrast: high) {
+    .card {
+      border: 2px solid var(--gray-800);
+    }
+    
+    .order-item:hover {
+      border-width: 3px;
     }
   }
 </style>
 </head>
 <body>
 <header>
-  <div class="logo">Walmart</div>
-  <div class="title">Green Mode Dashboard</div>
-  <div class="signout" tabindex="0" role="button" aria-label="Sign Out">
-    Sign Out <i class="fas fa-user-circle"></i>
+  <div class="header-content">
+    <div class="logo-section">
+      <div class="logo">Walmart</div>
+      <div class="title">
+        <span>Green Mode Dashboard</span>
+      </div>
+    </div>
+    <div class="user-section">
+      <div class="notifications" tabindex="0" role="button" aria-label="Notifications">
+        <i class="fas fa-bell"></i>
+        <div class="badge"></div>
+      </div>
+      <button class="signout" tabindex="0" role="button" aria-label="Sign Out">
+        <span>Sign Out</span>
+        <div class="user-avatar">JD</div>
+      </button>
+    </div>
   </div>
 </header>
+
 <nav aria-label="Primary">
-  <a href="index.html" class="active">Dashboard</a>
-  <a href="#">Impact</a>
-  <a href="#">Account</a>
+  <div class="nav-content">
+    <a href="index.html" class="active">Dashboard</a>
+    <a href="#">Impact</a>
+    <a href="#">Orders</a>
+    <a href="#">Analytics</a>
+    <a href="#">Account</a>
+  </div>
 </nav>
+
 <main>
-  <section class="cards" aria-label="Order summary cards">
-    <article class="card" tabindex="0">
-      <i class="fas fa-leaf" aria-hidden="true"></i>
-      <div class="content">
-        <div class="label">Eco Certified Orders</div>
-        <div class="value" aria-live="polite">24</div>
-      </div>
-    </article>
-    <article class="card" tabindex="0">
-      <i class="fas fa-sync-alt" aria-hidden="true"></i>
-      <div class="content">
-        <div class="label">Refurbished Purchases</div>
-        <div class="value" aria-live="polite">6</div>
-      </div>
-    </article>
-    <article class="card" tabindex="0">
-      <i class="fas fa-cloud" aria-hidden="true"></i>
-      <div class="content">
-        <div class="label">Carbon Emissions Avoided</div>
-        <div class="value" aria-live="polite">47 kg</div>
-      </div>
-    </article>
+  <section class="stats-section" aria-label="Environmental impact statistics">
+    <div class="section-header">
+      <h1 class="section-title">Your Environmental Impact</h1>
+      <a href="#" class="view-all">
+        View Details <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+    <div class="cards">
+      <article class="card" tabindex="0">
+        <div class="card-icon">
+          <i class="fas fa-leaf" aria-hidden="true"></i>
+        </div>
+        <div class="card-content">
+          <div class="card-label">Eco Certified Orders</div>
+          <div class="card-value" aria-live="polite">24</div>
+          <div class="card-change positive">
+            <i class="fas fa-arrow-up"></i>
+            <span>+12% from last month</span>
+          </div>
+        </div>
+      </article>
+      
+      <article class="card" tabindex="0">
+        <div class="card-icon">
+          <i class="fas fa-sync-alt" aria-hidden="true"></i>
+        </div>
+        <div class="card-content">
+          <div class="card-label">Refurbished Purchases</div>
+          <div class="card-value" aria-live="polite">6</div>
+          <div class="card-change positive">
+            <i class="fas fa-arrow-up"></i>
+            <span>+3 this week</span>
+          </div>
+        </div>
+      </article>
+      
+      <article class="card" tabindex="0">
+        <div class="card-icon">
+          <i class="fas fa-cloud" aria-hidden="true"></i>
+        </div>
+        <div class="card-content">
+          <div class="card-label">Carbon Emissions Avoided</div>
+          <div class="card-value" aria-live="polite">47 kg</div>
+          <div class="card-change positive">
+            <i class="fas fa-arrow-up"></i>
+            <span>+8.2 kg this month</span>
+          </div>
+        </div>
+      </article>
+    </div>
   </section>
+
   <section class="dashboard-grid">
-    <article class="chart-card" aria-label="Sales chart">
-      <h2>Selling</h2>
-      <canvas id="salesChart" class="chart-container" role="img" aria-label="Line chart showing sales over the week"></canvas>
-      <p>Your Sales</p>
+    <article class="chart-card" aria-label="Sales analytics">
+      <div class="card-header">
+        <h2>Sustainable Sales Trend</h2>
+      </div>
+      <div class="chart-container">
+        <canvas id="salesChart" role="img" aria-label="Line chart showing sustainable sales over the week"></canvas>
+      </div>
+      <div class="chart-footer">
+        <strong>↗ 23% increase</strong> in eco-friendly purchases this week
+      </div>
     </article>
-    <article class="orders-card" aria-label="Recent orders">
-      <h2>Recent Orders</h2>
+    
+    <article class="orders-card" aria-label="Recent eco-friendly orders">
+      <div class="card-header">
+        <h2>Recent Green Orders</h2>
+      </div>
       <div class="orders-list" id="ordersList" role="list">
         <!-- Order items inserted here -->
       </div>
     </article>
   </section>
+
+  <section class="activity-section" aria-label="Recent sustainability activities">
+    <div class="section-header">
+      <h2 class="section-title">Recent Activity</h2>
+    </div>
+    <div class="activity-list">
+      <div class="activity-item">
+        <div class="activity-icon">
+          <i class="fas fa-recycle"></i>
+        </div>
+        <div class="activity-content">
+          <div class="activity-title">Recycled packaging from 3 orders</div>
+          <div class="activity-time">2 hours ago</div>
+        </div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-icon">
+          <i class="fas fa-leaf"></i>
+        </div>
+        <div class="activity-content">
+          <div class="activity-title">Earned Green Points for eco-friendly choices</div>
+          <div class="activity-time">1 day ago</div>
+        </div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-icon">
+          <i class="fas fa-truck"></i>
+        </div>
+        <div class="activity-content">
+          <div class="activity-title">Chose carbon-neutral delivery</div>
+          <div class="activity-time">3 days ago</div>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
   const orders = [
-    { id: 1, name: "Eco Certifee Shampoo", price: "$9.97", img: "./landing_page/img1.png" },
+    { id: 1, name: "Eco Certified Shampoo", price: "$9.97", img: "./landing_page/img1.png" },
     { id: 2, name: "Reusable Water Bottle", price: "$14.88", img: "./landing_page/img2.png" },
     { id: 3, name: "Plastic-Free Toothpaste", price: "$5.98", img: "./landing_page/img3.png" },
-    { id: 4, name: "Mesh Produce", price: "$10.59", img: "./landing_page/img1.png" },
+    { id: 4, name: "Mesh Produce Bags", price: "$10.59", img: "./landing_page/img1.png" },
     { id: 5, name: "Organic Facial Cream", price: "$11.96", img: "./landing_page/img2.png" },
-    { id: 6, name: "Organic Facial Cream", price: "$11.96", img: "./landing_page/img3.png" }
+    { id: 6, name: "Bamboo Utensil Set", price: "$8.99", img: "./landing_page/img3.png" }
   ];
 
   function renderOrders() {
@@ -237,7 +875,7 @@
       div.setAttribute('role', 'listitem');
       div.tabIndex = 0;
       div.innerHTML = `
-        <img src="${order.img}" alt="${order.name}" />
+        <img src="${order.img}" alt="${order.name}" loading="lazy" />
         <div class="name">${order.name}</div>
         <div class="price">${order.price}</div>
       `;
@@ -245,40 +883,318 @@
     });
   }
 
-  // Chart.js line chart for sales
+  // FIXED Chart.js configuration with proper sizing
   const ctx = document.getElementById('salesChart').getContext('2d');
   const salesChart = new Chart(ctx, {
     type: 'line',
     data: {
       labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
       datasets: [{
-        label: 'Sales',
-        data: [10, 20, 30, 25, 22, 35, 40],
-        borderColor: 'var(--green)',
-        backgroundColor: 'rgba(46, 125, 50, 0.2)',
+        label: 'Eco-Friendly Sales',
+        data: [12, 19, 25, 22, 28, 35, 42],
+        borderColor: '#00a651',
+        backgroundColor: 'rgba(0, 166, 81, 0.1)',
         fill: true,
-        tension: 0.3,
-        pointRadius: 4,
-        pointHoverRadius: 6,
+        tension: 0.4,
+        pointRadius: 5,
+        pointHoverRadius: 7,
+        pointBackgroundColor: '#00a651',
+        pointBorderColor: '#ffffff',
+        pointBorderWidth: 2,
+        borderWidth: 3,
       }]
     },
     options: {
       responsive: true,
+      maintainAspectRatio: true,
+      aspectRatio: 2.2, // Width:Height ratio
       plugins: {
-        legend: { display: false }
+        legend: { 
+          display: false 
+        },
+        tooltip: {
+          backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          titleColor: '#ffffff',
+          bodyColor: '#ffffff',
+          borderColor: '#00a651',
+          borderWidth: 1,
+          cornerRadius: 8,
+          displayColors: false,
+          callbacks: {
+            label: function(context) {
+              return `Sales: $${context.parsed.y}k`;
+            }
+          }
+        }
       },
       scales: {
+        x: {
+          grid: {
+            display: false
+          },
+          ticks: {
+            color: '#666666',
+            font: {
+              family: 'Inter',
+              size: 11
+            }
+          }
+        },
         y: {
           beginAtZero: true,
-          ticks: { stepSize: 5 }
+          max: 50,
+          grid: {
+            color: 'rgba(0, 0, 0, 0.05)'
+          },
+          ticks: {
+            stepSize: 10,
+            color: '#666666',
+            font: {
+              family: 'Inter',
+              size: 11
+            },
+            callback: function(value) {
+              return '$' + value + 'k';
+            }
+          }
+        }
+      },
+      interaction: {
+        intersect: false,
+        mode: 'index'
+      },
+      animation: {
+        duration: 2000,
+        easing: 'easeInOutQuart'
+      },
+      layout: {
+        padding: {
+          top: 10,
+          bottom: 10,
+          left: 10,
+          right: 10
         }
       }
     }
   });
 
+  // Initialize dashboard
   document.addEventListener('DOMContentLoaded', () => {
     renderOrders();
+    
+    // Add loading states with staggered animation
+    const cards = document.querySelectorAll('.card-value');
+    cards.forEach((card, index) => {
+      const originalValue = card.textContent;
+      card.innerHTML = '<div class="loading"></div>';
+      setTimeout(() => {
+        card.textContent = originalValue;
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(10px)';
+        setTimeout(() => {
+          card.style.transition = 'all 0.5s ease';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, 100);
+      }, 800 + (index * 200));
+    });
   });
+
+  // Add interactive features for order items
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('.order-item')) {
+      const item = e.target.closest('.order-item');
+      item.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        item.style.transform = '';
+      }, 150);
+    }
+  });
+
+  // Enhanced notification functionality
+  document.querySelector('.notifications').addEventListener('click', () => {
+    // Create a more sophisticated notification
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #00a651, #4caf50);
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 166, 81, 0.3);
+      z-index: 1000;
+      font-family: Inter, sans-serif;
+      font-weight: 500;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    `;
+    notification.innerHTML = `
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <i class="fas fa-leaf"></i>
+        <span>🌱 New eco-friendly product recommendations available!</span>
+      </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Animate in
+    setTimeout(() => {
+      notification.style.transform = 'translateX(0)';
+    }, 100);
+    
+    // Auto remove after 4 seconds
+    setTimeout(() => {
+      notification.style.transform = 'translateX(100%)';
+      setTimeout(() => {
+        document.body.removeChild(notification);
+      }, 300);
+    }, 4000);
+  });
+
+  // Responsive chart resize handler
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      salesChart.resize();
+    }, 250);
+  });
+
+  // Add smooth scrolling for view-all links
+  document.querySelectorAll('.view-all').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      // Add a subtle animation
+      link.style.transform = 'translateX(5px)';
+      setTimeout(() => {
+        link.style.transform = '';
+      }, 200);
+    });
+  });
+
+  // Add hover effects for activity items
+  document.querySelectorAll('.activity-item').forEach(item => {
+    item.addEventListener('mouseenter', () => {
+      const icon = item.querySelector('.activity-icon');
+      icon.style.transform = 'scale(1.1) rotate(5deg)';
+    });
+    
+    item.addEventListener('mouseleave', () => {
+      const icon = item.querySelector('.activity-icon');
+      icon.style.transform = 'scale(1) rotate(0deg)';
+    });
+  });
+
+  // Add keyboard navigation for cards
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.style.transform = 'translateY(-8px)';
+        setTimeout(() => {
+          card.style.transform = '';
+        }, 200);
+      }
+    });
+  });
+
+  // Performance optimization: Intersection Observer for animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, observerOptions);
+
+  // Observe elements for scroll animations
+  document.querySelectorAll('.card, .activity-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+
+  // Add real-time data simulation
+  function simulateRealTimeUpdates() {
+    const carbonValue = document.querySelector('.card:nth-child(3) .card-value');
+    let currentValue = 47;
+    
+    setInterval(() => {
+      // Randomly increase carbon savings
+      if (Math.random() > 0.7) {
+        currentValue += Math.random() * 0.5;
+        carbonValue.textContent = Math.round(currentValue * 10) / 10 + ' kg';
+        
+        // Add a subtle flash effect
+        carbonValue.style.color = '#00a651';
+        setTimeout(() => {
+          carbonValue.style.color = '';
+        }, 1000);
+      }
+    }, 10000); // Update every 10 seconds
+  }
+
+  // Start real-time updates after page load
+  setTimeout(simulateRealTimeUpdates, 3000);
+
+  // Add chart data update functionality
+  function updateChartData() {
+    const newData = salesChart.data.datasets[0].data.map(value => 
+      value + (Math.random() - 0.5) * 2
+    );
+    
+    salesChart.data.datasets[0].data = newData;
+    salesChart.update('active');
+  }
+
+  // Update chart data every 30 seconds
+  setInterval(updateChartData, 30000);
+
+  // Add error handling for images
+  document.addEventListener('error', (e) => {
+    if (e.target.tagName === 'IMG') {
+      e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0yMCAyMEg0NFY0NEgyMFYyMFoiIHN0cm9rZT0iIzk5OTk5OSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPHBhdGggZD0iTTI4IDI4TDM2IDM2IiBzdHJva2U9IiM5OTk5OTkiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjwvc3ZnPgo=';
+      e.target.alt = 'Product image not available';
+    }
+  }, true);
+
+  // Add accessibility improvements
+  document.addEventListener('keydown', (e) => {
+    // Add escape key functionality
+    if (e.key === 'Escape') {
+      // Remove any active states or modals
+      document.querySelectorAll('.card').forEach(card => {
+        card.style.transform = '';
+      });
+    }
+  });
+
+  // Add focus management
+  document.addEventListener('focusin', (e) => {
+    if (e.target.classList.contains('card')) {
+      e.target.style.boxShadow = '0 20px 25px -5px rgba(0, 166, 81, 0.2), 0 10px 10px -5px rgba(0, 166, 81, 0.1)';
+    }
+  });
+
+  document.addEventListener('focusout', (e) => {
+    if (e.target.classList.contains('card')) {
+      e.target.style.boxShadow = '';
+    }
+  });
+
+  // Console log for debugging
+  console.log('🌱 Walmart Green Mode Dashboard loaded successfully!');
+  console.log('Chart instance:', salesChart);
+  console.log('Orders data:', orders);
 </script>
 </body>
 </html>
