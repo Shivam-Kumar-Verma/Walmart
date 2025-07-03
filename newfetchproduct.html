@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="https://www.walmart.com/favicon.ico" type="image/x-icon" />
+    
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <title>Walmart - Save Money. Live Better.</title>
+    
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --walmart-blue: #0071ce;
+            --walmart-dark-blue: #004c91;
+            --walmart-yellow: #ffc220;
+            --walmart-orange: #ff6900;
+            --walmart-light-gray: #f8f9fa;
+            --walmart-gray: #74767c;
+            --walmart-dark-gray: #46474a;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666;
+            --border-color: #e5e5e5;
+            --shadow-light: 0 2px 8px rgba(0,0,0,0.1);
+            --shadow-medium: 0 4px 16px rgba(0,0,0,0.15);
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Skip Link for Accessibility */
+        .skip-link {
+            position: absolute;
+            top: 0px;
+            left: 6px;
+            background: var(--walmart-blue);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 4px;
+            z-index: 1000;
+        }
+
+        .skip-link:focus {
+            top: 6px;
+        }
+
+        /* Loading Animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .loading-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--walmart-light-gray);
+            border-top: 4px solid var(--walmart-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Hero Slider Section */
+        .hero-section {
+            position: relative;
+            margin-bottom: 2rem;
+            background: var(--walmart-light-gray);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .slider-container {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .slider.active {
+            opacity: 1;
+        }
+
+        .slider img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+        }
+
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--walmart-blue);
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .slider-nav:hover {
+            background: white;
+            box-shadow: var(--shadow-medium);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .slider-nav.prev {
+            left: 20px;
+        }
+
+        .slider-nav.next {
+            right: 20px;
+        }
+
+        .slider-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .indicator.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        .side-banner {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            width: 200px;
+            height: 120px;
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            z-index: 10;
+        }
+
+        .side-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Services Section */
+        .services-section {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-light);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .pickup-delivery {
+            background: linear-gradient(135deg, var(--walmart-blue), var(--walmart-dark-blue));
+            color: white;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+
+        .pickup-delivery h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .pickup-delivery .btn {
+            background: white;
+            color: var(--walmart-blue);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .pickup-delivery .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .popular-services h3 {
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .services-list {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .service-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            cursor: pointer;
+            min-width: 100px;
+        }
+
+        .service-item:hover {
+            background: var(--walmart-light-gray);
+            transform: translateY(-2px);
+        }
+
+        .service-item img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-bottom: 0.5rem;
+            object-fit: cover;
+        }
+
+        .service-item .text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Section Headers */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .view-all {
+            color: var(--walmart-blue);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .view-all:hover {
+            text-decoration: underline;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .product-image {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 1rem;
+        }
+
+        .product-title {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .product-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .product-price {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--walmart-blue);
+            margin-bottom: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--walmart-blue);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: var(--walmart-dark-blue);
+            transform: translateY(-2px);
+        }
+
+        /* Membership Section */
+        .membership-section {
+            background: linear-gradient(135deg, var(--walmart-yellow), var(--walmart-orange));
+            color: var(--text-primary);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .membership-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateX(-50px) translateY(-50px); }
+            100% { transform: translateX(50px) translateY(50px); }
+        }
+
+        .membership-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .membership-logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 1rem;
+        }
+
+        .membership-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .membership-btn {
+            background: var(--walmart-blue);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .membership-btn:hover {
+            background: var(--walmart-dark-blue);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* Department Grid */
+        .department-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .department-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 1rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-light);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .department-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .department-item img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 0.5rem;
+            object-fit: cover;
+        }
+
+        .department-item p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Feedback Section */
+        .feedback-section {
+            background: var(--walmart-light-gray);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .feedback-section p {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .feedback-btn {
+            background: var(--walmart-blue);
+            color: white;
+            border: 2px solid var(--walmart-blue);
+            padding: 0.75rem 2rem;
+            border-radius: 25px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .feedback-btn:hover {
+            background: transparent;
+            color: var(--walmart-blue);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 0.5rem;
+            }
+
+            .slider-container {
+                height: 250px;
+            }
+
+            .side-banner {
+                display: none;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .services-list {
+                justify-content: center;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+            }
+
+            .department-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            }
+
+            .slider-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+
+            .slider-nav.prev {
+                left: 10px;
+            }
+
+            .slider-nav.next {
+                right: 10px;
+            }
+
+            .section-title {
+                font-size: 1.25rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .slider-container {
+                height: 200px;
+            }
+
+            .services-section {
+                padding: 1rem;
+            }
+
+            .membership-section {
+                padding: 1.5rem;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .department-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Accessibility Improvements */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* High Contrast Mode */
+        @media (prefers-contrast: high) {
+            :root {
+                --shadow-light: 0 2px 8px rgba(0,0,0,0.3);
+                --shadow-medium: 0 4px 16px rgba(0,0,0,0.4);
+            }
+        }
+
+        /* Focus Styles */
+        button:focus,
+        a:focus,
+        .product-card:focus {
+            outline: 3px solid var(--walmart-blue);
+            outline-offset: 2px;
+        }
+
+        /* Print Styles */
+        @media print {
+            .slider-nav,
+            .feedback-section,
+            .membership-section {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="navbar-container"></div>
+    <script>
+        // Dynamically load navbar content
+        fetch('nav.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading navbar:', error));
+    </script>
+    <br>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Navigation (placeholder for your existing navbar) -->
+    <div id="navbar-container"></div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <div class="container">
+            <!-- Green Mode and Options Section -->
+    <section class="green-mode-options" style="padding: 1rem; background-color: #f0f9f0; border-bottom: 1px solid #d0e6d0;">
+        <div style="display: flex; align-items: center; gap: 1rem; font-weight: 600; font-size: 1.2rem; color: #2e7d32;">
+            <span>Green Mode</span>
+            <label style="position: relative; display: inline-block; width: 50px; height: 24px;">
+                <input type="checkbox" id="greenModeToggle" style="opacity: 0; width: 0; height: 0;">
+                <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; border-radius: 24px; transition: 0.4s;"></span>
+                <span style="position: absolute; left: 4px; top: 4px; width: 16px; height: 16px; background-color: white; border-radius: 50%; transition: 0.4s;"></span>
+            </label>
+            <span id="greenModeStatus" style="color: #388e3c;">On</span>
+        </div>
+        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+            <div style="flex: 1; background-color: #e6f2e6; border-radius: 8px; padding: 0.5rem 1rem; display: flex; align-items: center; gap: 0.5rem; color: #2e7d32; font-weight: 600; cursor: pointer;">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#2e7d32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+                Refurbished
+            </div>
+            <div style="flex: 1; background-color: #e6f2e6; border-radius: 8px; padding: 0.5rem 1rem; display: flex; align-items: center; gap: 0.5rem; color: #2e7d32; font-weight: 600; cursor: pointer;">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#2e7d32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7z"></path><circle cx="12" cy="9" r="2.5"></circle></svg>
+                Eco Certified
+            </div>
+            <div style="flex: 1; background-color: #e6f2e6; border-radius: 8px; padding: 0.5rem 1rem; display: flex; align-items: center; gap: 0.5rem; color: #2e7d32; font-weight: 600; cursor: pointer;">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#2e7d32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><line x1="1" y1="16" x2="23" y2="16"></line><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="16" x2="12" y2="21"></line></svg>
+                Low Carbon Shipping
+            </div>
+            <div style="flex: 1; background-color: #e6f2e6; border-radius: 8px; padding: 0.5rem 1rem; display: flex; align-items: center; gap: 0.5rem; color: #2e7d32; font-weight: 600; cursor: pointer;">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#2e7d32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="6" x2="12" y2="12"></line><line x1="16" y1="14" x2="12" y2="12"></line></svg>
+                Plastic-Free
+            </div>
+        </div>
+    </section>
+            <!-- Hero Slider Section -->
+            <section class="hero-section" aria-label="Featured promotions">
+                <div class="slider-container">
+                    <div class="slider active">
+                        <img src="./landing_page/img1.png" alt="Holiday savings promotion" />
+                    </div>
+                    <div class="slider">
+                        <img src="./landing_page/img2.png" alt="Electronics deals" />
+                    </div>
+                    <div class="slider">
+                        <img src="./landing_page/img3.png" alt="Fashion collection" />
+                    </div>
+                    
+                    <button class="slider-nav prev" onclick="prevSlide()" aria-label="Previous slide">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="slider-nav next" onclick="nextSlide()" aria-label="Next slide">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    
+                    <div class="slider-indicators">
+                        <span class="indicator active" onclick="currentSlide(1)"></span>
+                        <span class="indicator" onclick="currentSlide(2)"></span>
+                        <span class="indicator" onclick="currentSlide(3)"></span>
+                    </div>
+                </div>
+                
+                <!-- <div class="side-banner">
+                    <img src="https://live.staticflickr.com/65535/49430551203_cfb8646eec_b.jpg" alt="Rollback deals" />
+                </div> -->
+            </section>
+
+            <!-- Services Section -->
+            <section class="services-section">
+                <div class="services-grid">
+                    <div class="pickup-delivery">
+                        <h3>Reserve your pickup & delivery</h3>
+                        <button class="btn" onclick="showReserveModal()">See Items</button>
+                    </div>
+                    
+                    <div class="popular-services">
+                        <h3>Popular services</h3>
+                        <div class="services-list">
+                            <div class="service-item" onclick="navigateToService('pharmacy')">
+                                <img src="https://i5.walmartimages.com/dfw/4ff9c6c9-64d0/k2-_f0d316e7-25a9-4436-a60d-2efd62702aa3.v1.png?odnHeight=90&odnWidth=90&odnBg=FFFFFF" alt="Pharmacy" />
+                                <div class="text">Pharmacy</div>
+                            </div>
+                            <div class="service-item" onclick="navigateToService('auto')">
+                                <img src="https://i5.walmartimages.com/dfw/4ff9c6c9-15ce/k2-_ad628e1a-53e3-4f61-9359-a2660f4792af.v1.png?odnHeight=90&odnWidth=90&odnBg=FFFFFF" alt="Auto Care Center" />
+                                <div class="text">Auto Care Center</div>
+                            </div>
+                            <div class="service-item" onclick="navigateToService('cakes')">
+                                <img src="https://i5.walmartimages.com/dfw/4ff9c6c9-7115/k2-_72d8477e-8b41-404f-b891-c6ee5b6e68ff.v1.png?odnHeight=90&odnWidth=90&odnBg=FFFFFF" alt="Custom Cakes" />
+                                <div class="text">Custom Cakes</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Continue Shopping Section -->
+            <section>
+                <div class="section-header">
+                    <h2 class="section-title">Continue your shopping</h2>
+                    <a href="#" class="view-all">View all</a>
+                </div>
+                <div class="product-grid" id="continue-shopping">
+                    <!-- Products will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Electronics Section -->
+            <section>
+                <div class="section-header">
+                    <h2 class="section-title">Electronics</h2>
+                    <a href="#" class="view-all">View all electronics</a>
+                </div>
+                <div class="product-grid" id="electronics-section">
+                    <!-- Electronics products will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Spooky Savings Section -->
+            <section>
+                <div class="section-header">
+                    <h2 class="section-title">Spooky Savings</h2>
+                    <a href="#" class="view-all">View all deals</a>
+                </div>
+                <div class="product-grid" id="spooky-savings">
+                    <!-- Products will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Membership Section -->
+            <section class="membership-section">
+                <div class="membership-content">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXgAAACGCAMAAADgrGFJAAAAwFBMVEX///8Acc7/wiAAacwAbM0Abs0AaMwAa8wAZstspd+20+//vwB/reKYv+jH3fLE2/J5pN0AddCRuOXk7vnT3/M9h9Vhm9yXt+S81/CsyuwAY8rQ4vTs8/tGkdj4/P7///3W5vb/+ez/8dP/4Z7/9+T/xChKjdcQeNCEsuP/6LT/89r/9+b//PT/03D/zFH/7cf/2Yn/yUL/z14rgdNXl9r/46f/2YP/0mb/1XX/5a3/zVP/xjb/y0ZmoN0AXMihxOnsIWb8AAAPEklEQVR4nO1da2OivBLWAgHFS5XV9YKUbrfi9rbb4tu9dD3+/391uCUzCQHRVjznNc+X3RIhkyfDzGQmQKOhoKCgoKCgQHH1cPfl/uHUUpwdrn4/2RFuH7+cWpLzwsOTfZHAtv85tSxnhceM95j676cW5ozwcAGwf5xamjOCIv5EuHpDxN+cWppzwh9E/O9TC3NO+ImI/3ZqYc4JryiqUZF8jfiBiL8+tTDnhBsg/kIRXyO+AfG3Kl9TI74A8c9XpxbmnPAViP9zalnOCoj4x1PLcla4vmVBza9Ty3JWeGA5A5WqqRdPjHiVj68VLyodfxqwZI3KGNQLlqyx704tynkBcgZfTy3KeYHlDFTGoF58p8S/nVqSMwNL1jyfWpIzA8sZ7JGquVbptPfjmgY1lVM1dy+3zz+kDqHbYbj0Sxo7jtDWh6ZWRSmm0NW8quR1YAIjEUcpYN+MQRIG2dIYaGXpFLOu2DgzoXErtLUIbdJGFcXYsFNm7Yqn1ILujMn1qfyXb3tlDK5f6Ja/+3xj32pSGBuhzYe2pi6qdWjQJnNYSYxornR6CvnfIt5kcu0g/budqHC1Msi3C7bekvgEF7g1Rh7fNtVwo3DegDVZVe3G/z/xjfubP38fv1Xh/eoXqtDKcjtLprlN0+WbxtAUMc83foJJGQjzVYh/AfGV8eUW8X5x8TP/ixXrtWn1+KYAEy/odZcRb4yrCnM+xF/94GiPkI9s+gQ0nnegDua9afKud8MatZxPLsLZEH/3V+TdzhPvgLHWL7mWNkxJTrG9ERC/IwQDnAvxNyLtUuIbQKERcg3AU4IAt7k6nFTVxJ8J8dd/8rxfvEn8cQf4tbiGEWdqmjPsXXvsbtDFILQYZ0E8BJFY4WWB/wTiE867okAzNSmYrCGTVZtWlukMiOeCSEb7m3RvsQvEcyT2ORMfedcVaoRIU69s4s+AeCGITGn/W1SghTUotzxFcWYCbgkVsKO8X/Bcx+n1544rM/yViI+u0Ou7rux4v+/kj+NfuG6v13MkJ0sRXXCeyImIj3rOUHTSvO8UObV8EHlh2y/F5dlLXcriIpsP4Bh1P2Nz1WEHnWlnGRqWRYg1M4LFKregzRPvTim2yWi89jg04wsMll1u6L1WdGVCZs3RypeNwZms1uGARD8hlhksW32RHIf1lJnT6WIwiwSNhewKKhaPdSGlyusMoi5CuXV9eM4Fkfavsqo4DhvRaDPejQ1l3oQht5l5opbfX4UG0Q2IkAxTC4XEWp74/kzL8J+453ag0SsYWhNSQJNQ0+lx09yIpLrdUZOY0HfT0Mlgxf+K9TRLNKUXkOTn5n7Ej5JxG5Z06fJqi7S/lm/mBvVN5UjRyzJk2jSkHMNEg2+dJeObjCyTj4FS8gJO6/PE99gEWhHxmxl3DTJK1cBb88dNg1th+xtLy/fdNAk37X3aU3KLDukV9yO+S1VU6tj+8rTf3uwszIKRR9xSaUyXhpXIA7BIMzX8q5lk5Cn1+K7cQfxaE842k6ydE4q8GAQxP5npTTks7LE44ofsHt+P+DUdptWXtD7irNjbPxXq4RDJI4tNOwk8GsEg7wop4STUmYqUodEjvSsl3muR3MlmtEZwAsmt1ASNc61cM+sFLTEw8W04ZT/iWUJRGkPDcwv2c6UEZmPKhmws2UGdHWHhzYB6AJ9Jmkb+bp4zBsuvRLw5lE2eNUG3I4KOeFkW3G3x6WCLMfHoFvlI4lmZ5KnqBj8HOg4YtxmXkX1hzpdFueBbs5TwgpkeQ9d1jgkUKZUR35TSZ4w2eVLwBRrI36R9826C3RlA/GqILnko8WI9LsHXKIq37Z/Vt/d5oFVMUmo9orn1qcwsQclsk7FGgzdMazDadDqt">
+                    
+
+ </section>
+
+            <!-- Build Your Cart Section -->
+            <section>
+                <div class="section-header">
+                    <h2 class="section-title">Build Your Cart</h2>
+                    <a href="#" class="view-all">View cart</a>
+                </div>
+                <div class="product-grid" id="cart-recommendations">
+                    <!-- Cart recommendations will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Get Gifting Section -->
+            <section>
+                <div class="section-header">
+                    <h2 class="section-title">Get Gifting</h2>
+                    <a href="#" class="view-all">Shop all gifts</a>
+                </div>
+                <div class="product-grid" id="gifting-section">
+                    <!-- Gifting products will be loaded here -->
+                </div>
+            </section>
+
+            <!-- For You Section -->
+            <section>
+                <div class="section-header">
+                    <h2 class="section-title">For You</h2>
+                    <a href="#" class="view-all">See more</a>
+                </div>
+                <div class="product-grid" id="for-you-section">
+                    <!-- Personalized recommendations will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Your Favorite Departments -->
+            <section>
+                <div class="section-header">
+                    <h2 class="section-title">Your favorite departments</h2>
+                    <a href="#" class="view-all">View all departments</a>
+                </div>
+                <div class="department-grid" id="departments">
+                    <!-- Departments will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Rollbacks Section -->
+            <section>
+                <div class="section-header">
+                    <h2 class="section-title">Rollbacks</h2>
+                    <a href="#" class="view-all">See all rollbacks</a>
+                </div>
+                <div class="product-grid" id="rollbacks-section">
+                    <!-- Rollback products will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Sharing Values Section -->
+            <section>
+                <div class="section-header">
+                    <h2 class="section-title">Sharing our values</h2>
+                    <a href="#" class="view-all">Learn more</a>
+                </div>
+                <div class="product-grid" id="values-section">
+                    <!-- Values content will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Feedback Section -->
+            <section class="feedback-section">
+                <p>We'd love to hear what you think!</p>
+                <button class="feedback-btn" onclick="openFeedbackModal()">Give feedback</button>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer (placeholder for your existing footer) -->
+    <div id="footer-container"></div>
+
+    <!-- Modals -->
+    <!-- Reserve Modal -->
+    <div id="reserveModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('reserveModal')">&times;</span>
+            <h2>Reserve Pickup & Delivery</h2>
+            <p>Select your preferred time slot for pickup or delivery.</p>
+            <div class="time-slots">
+                <button class="time-slot">Today 2-3 PM</button>
+                <button class="time-slot">Today 4-5 PM</button>
+                <button class="time-slot">Tomorrow 10-11 AM</button>
+                <button class="time-slot">Tomorrow 2-3 PM</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback Modal -->
+    <div id="feedbackModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('feedbackModal')">&times;</span>
+            <h2>Share Your Feedback</h2>
+            <form id="feedbackForm">
+                <div class="form-group">
+                    <label for="rating">How would you rate your experience?</label>
+                    <div class="star-rating">
+                        <span class="star" data-rating="1">★</span>
+                        <span class="star" data-rating="2">★</span>
+                        <span class="star" data-rating="3">★</span>
+                        <span class="star" data-rating="4">★</span>
+                        <span class="star" data-rating="5">★</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="feedback">Tell us more about your experience:</label>
+                    <textarea id="feedback" rows="4" placeholder="Your feedback helps us improve..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Submit Feedback</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slider');
+        const indicators = document.querySelectorAll('.indicator');
+        let slideInterval;
+
+        // Sample data for products
+        const sampleProducts = {
+            continueShopping: [
+                {
+                    id: 1,
+                    image: "https://i5.walmartimages.com/asr/d40772a4-e87d-4385-a712-b27f1b793697.e046de405bd3e603be4fe45ccce98d5a.jpeg?odnHeight=112&odnWidth=112&odnBg=FFFFFF",
+                    title: "Wireless Headphones",
+                    description: "Premium sound quality with noise cancellation",
+                    price: "$49.99"
+                },
+                {
+                    id: 2,
+                    image: "https://i5.walmartimages.com/asr/104b5bcf-e7da-497b-87f6-0a5a56249d27_1.5c18e44aae7893f3044b2aeeed360603.jpeg?odnHeight=112&odnWidth=112&odnBg=FFFFFF",
+                    title: "Smart Watch",
+                    description: "Track your fitness and stay connected",
+                    price: "$129.99"
+                },
+                {
+                    id: 3,
+                    image: "https://i5.walmartimages.com/asr/61e865fc-df33-4494-ad33-193740b366c5.6c2e4549ab3500f82d172aeb4149c7eb.jpeg?odnHeight=112&odnWidth=112&odnBg=FFFFFF",
+                    title: "Bluetooth Speaker",
+                    description: "Portable speaker with amazing bass",
+                    price: "$39.99"
+                },
+                {
+                    id: 4,
+                    image: "https://i5.walmartimages.com/asr/17187188-5b63-4c91-b9e8-e1d4ed8b1560.e39988e44f9ff3619ecddb8d746ee015.jpeg?odnHeight=112&odnWidth=112&odnBg=FFFFFF",
+                    title: "Phone Case",
+                    description: "Protective case for your smartphone",
+                    price: "$19.99"
+                }
+            ],
+            spookySavings: [
+                {
+                    id: 5,
+                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-3bcd/k2-_c566840d-c66f-4eb2-9c30-fd4dfb83a29e.v1.jpg?odnHeight=112&odnWidth=112&odnBg=FFFFFF",
+                    title: "Flash Picks",
+                    description: "Up to 50% off on flash picks",
+                    price: "From $9.99",
+                    discount: "50% OFF"
+                },
+                {
+                    id: 6,
+                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-fea3/k2-_24a128d5-72fd-42f2-82a8-80b2ed2e3940.v1.jpg?odnHeight=112&odnWidth=112&odnBg=FFFFFF",
+                    title: "Home Essentials",
+                    description: "20% off on home essentials",
+                    price: "From $14.99",
+                    discount: "20% OFF"
+                },
+                {
+                    id: 7,
+                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-42cf/k2-_fbcba533-6996-43ed-8569-239ed21b1775.v1.jpg?odnHeight=112&odnWidth=112&odnBg=FFFFFF",
+                    title: "Home Improvement",
+                    description: "15% off on home improvement",
+                    price: "From $24.99",
+                    discount: "15% OFF"
+                },
+                {
+                    id: 8,
+                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-798b/k2-_f6a53e21-8525-4392-8482-9ab31e7fac28.v1.jpg?odnHeight=112&odnWidth=112&odnBg=FFFFFF",
+                    title: "Fashion",
+                    description: "60% off on fashion items",
+                    price: "From $12.99",
+                    discount: "60% OFF"
+                }
+            ],
+            gifting: [
+                {
+                    id: 9,
+                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-2511/k2-_1f9f86dd-5dd6-4ff4-bdd1-8c8cd96bab6f.v1.jpg?odnHeight=290&odnWidth=290&odnBg=FFFFFF",
+                    title: "Stocking Stuffers",
+                    description: "Perfect small gifts for everyone",
+                    price: "From $2.99"
+                },
+                {
+                    id: 10,
+                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-c327/k2-_92781d27-d929-4650-adb9-f0654ada1138.v1.jpg?odnHeight=290&odnWidth=290&odnBg=FFFFFF",
+                    title: "Toys & Games",
+                    description: "Fun for kids of all ages",
+                    price: "From $9.99"
+                },
+                {
+                    id: 11,
+                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-771e/k2-_b7107582-e998-4ca8-bc08-97d1c1395e8b.v1.jpg?odnHeight=290&odnWidth=290&odnBg=FFFFFF",
+                    title: "Tech & Gaming",
+                    description: "Latest gadgets and gaming gear",
+                    price: "From $29.99"
+                },
+                {
+                    id: 12,
+                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-5093/k2-_84cf0f36-6eef-40e5-a9cd-045f82f70d3e.v1.jpg?odnHeight=290&odnWidth=290&odnBg=FFFFFF",
+                    title: "Fashion Picks",
+                    description: "Stylish clothing and accessories",
+                    price: "From $19.99"
+                }
+            ],
+            forYou: [
+                {
+                    id: 13,
+                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-40b5/k2-_924d4962-ef30-4128-8116-f29696f90e84.v1.jpg?odnHeight=222&odnWidth=395&odnBg=FFFFFF",
+                    title: "Cozy Home Updates",
+                    description: "Save on all you need to create your oasis",
+                    price: "From $15.99"
+                },
+                {
+                    id: 14,
+                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-87ff/k2-_8afdc4b6-1992-4f7c-ad12-9438da56366b.v1.jpg?odnHeight=222&odnWidth=395&odnBg=FFFFFF",
+                    title: "Power Up Your Fun",
+                    description: "Bumper cars, hoverboards & other awesome wheels",
+                    price: "From $89.99"
+                },
+                {
+                    id: 15,
+                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-a5bb/k2-_50e1ca89-0a69-4f85-81fe-bbff5edd0768.v1.jpg?odnHeight=222&odnWidth=395&odnBg=FFFFFF",
+                    title: "Advent Calendars",
+                    description: "Get excited for the holidays & let gifting start early",
+                    price: "From $12.99"
+                }
+            ],
+            departments: [
+                {
+                    id: 16,
+                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-73a1/k2-_2721d0c9-98b3-46c4-9226-b647e5a00836.v1.jpg?odnHeight=120px&odnWidth=120px&odnBg=FFFFFF",
+                    name: "Grocery"
+                },
+                {
+                    id: 17,
+                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-c2cd/k2-_d8aac3aa-e920-427a-b965-49bfce1fed14.v1.jpg?odnHeight=120px&odnWidth=120px&odnBg=FFFFFF",
+                    name: "Electronics"
+                },
+                {
+                    id: 18,
+                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-d05b/k2-_7f3543ee-7c28-488c-9b5a-01f9f60a35e7.v1.jpg?odnHeight=120px&odnWidth=120px&odnBg=FFFFFF",
+                    name: "Pets"
+                },
+                {
+                    id: 19,
+                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-e0ee/k2-_551b401e-73b8-49cc-a5cd-1fcbf0f8ecc8.v1.jpg?odnHeight=120px&odnWidth=120px&odnBg=FFFFFF",
+                    name: "Household Essentials"
+                },
+                {
+                    id: 20,
+                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-362d/k2-_fb442a82-c9c1-410d-b9d9-e9d5fc84ef2d.v1.jpg?odnHeight=120px&odnWidth=120px&odnBg=FFFFFF",
+                    name: "Home"
+                }
+            ],
+            values: [
+                {
+                    id: 21,
+                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-cab4/k2-_ea6b8c8c-36da-4fda-95aa-0bf5bf984a81.v1.jpg?odnHeight=340&odnWidth=604&odnBg=FFFFFF",
+                    title: "Black & Unlimited",
+                    description: "For who you are & who you want to be, we're here",
+                    price: "Learn more"
+                },
+                {
+                    id: 22,
+                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-f786/k2-_0749f48e-82aa-4d92-8ef2-946673f5f5f8.v1.jpg?odnHeight=340&odnWidth=604&odnBg=FFFFFF",
+                    title: "Built for Better",
+                    description: "Built for Better products with environmental certifications",
+                    price: "Learn more"
+                },
+                {
+                    id: 23,
+                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-e607/k2-_18ec31b5-ee4c-4a48-953a-f63433e511a9.v1.png?odnHeight=222&odnWidth=395&odnBg=FFFFFF",
+                    title: "Sustainable Living",
+                    description: "Products designed to help meet your needs & live by your values",
+                    price: "Learn more"
+                }
+            ]
+        };
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            showLoading();
+            initializeSlider();
+            loadAllSections();
+            setupEventListeners();
+            hideLoading();
+        });
+
+        // Loading functions
+        function showLoading() {
+            document.getElementById('loadingOverlay').classList.add('show');
+        }
+
+        function hideLoading() {
+            setTimeout(() => {
+                document.getElementById('loadingOverlay').classList.remove('show');
+            }, 1000);
+        }
+
+        // Slider functions
+        function initializeSlider() {
+            showSlide(0);
+            startAutoSlide();
+        }
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            indicators.forEach(indicator => indicator.classList.remove('active'));
+            
+            if (n >= slides.length) currentSlide = 0;
+            if (n < 0) currentSlide = slides.length - 1;
+            
+            slides[currentSlide].classList.add('active');
+            indicators[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            currentSlide++;
+            showSlide(currentSlide);
+            resetAutoSlide();
+        }
+
+        function prevSlide() {
+            currentSlide--;
+            showSlide(currentSlide);
+            resetAutoSlide();
+        }
+
+        function currentSlideFunc(n) {
+            currentSlide = n - 1;
+            showSlide(currentSlide);
+            resetAutoSlide();
+        }
+
+        function startAutoSlide() {
+            slideInterval = setInterval(() => {
+                currentSlide++;
+                showSlide(currentSlide);
+            }, 5000);
+        }
+
+        function resetAutoSlide() {
+            clearInterval(slideInterval);
+            startAutoSlide();
+        }
+
+        // Product rendering functions
+        function renderProducts(products, containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            container.innerHTML = products.map(product => `
+                <div class="product-card" onclick="viewProduct(${product.id})" tabindex="0" role="button" aria-label="View ${product.title}">
+                    <div class="product-image">
+                        <img src="${product.image}" alt="${product.title}" loading="lazy" />
+                        ${product.discount ? `<div class="discount-badge">${product.discount}</div>` : ''}
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">${product.title}</h3>
+                        <p class="product-description">${product.description}</p>
+                        <div class="product-price">${product.price}</div>
+                        <button class="btn-primary" onclick="addToCart(${product.id}); event.stopPropagation();">
+                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderDepartments(departments, containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            container.innerHTML = departments.map(dept => `
+                <div class="department-item" onclick="navigateToDepartment('${dept.name.toLowerCase()}')" tabindex="0" role="button" aria-label="Shop ${dept.name}">
+                    <img src="${dept.image}" alt="${dept.name}" loading="lazy" />
+                    <p>${dept.name}</p>
+                </div>
+            `).join('');
+        }
+
+        // Load all sections
+        function loadAllSections() {
+            renderProducts(sampleProducts.continueShopping, 'continue-shopping');
+            renderProducts(sampleProducts.spookySavings, 'spooky-savings');
+            renderProducts(sampleProducts.continueShopping, 'cart-recommendations');
+            renderProducts(sampleProducts.gifting, 'gifting-section');
+            renderProducts(sampleProducts.forYou, 'for-you-section');
+            renderDepartments(sampleProducts.departments, 'departments');
+            renderProducts(sampleProducts.spookySavings, 'rollbacks-section');
+            renderProducts(sampleProducts.values, 'values-section');
+
+            // Load electronics products from CSV
+            loadElectronicsProducts();
+        }
+
+        // Function to fetch and parse CSV, then render electronics products
+        async function loadElectronicsProducts() {
+            try {
+                const response = await fetch('synthetic_appliance_carbon_dataset.csv');
+                const csvText = await response.text();
+                const products = parseCSV(csvText);
+                const enrichedProducts = enrichProducts(products);
+                renderProducts(enrichedProducts, 'electronics-section');
+            } catch (error) {
+                console.error('Error loading electronics products:', error);
+            }
+        }
+
+        // Simple CSV parser for this dataset
+        function parseCSV(csvText) {
+            const lines = csvText.trim().split('\n');
+            const headers = lines[0].split(',');
+            const products = [];
+            for (let i = 1; i < lines.length; i++) {
+                const obj = {};
+                const currentline = lines[i].split(',');
+                for (let j = 0; j < headers.length; j++) {
+                    obj[headers[j].trim()] = currentline[j] ? currentline[j].trim() : '';
+                }
+                products.push(obj);
+            }
+            return products;
+        }
+
+        // Provided brands and sizes dictionaries
+        const brands_dict = {
+            "Television (TV)": ["Samsung", "LG", "Sony", "Xiaomi", "OnePlus", "TCL", "Vu"],
+            "Refrigerator (Fridge)": ["LG", "Samsung", "Whirlpool", "Godrej", "Haier", "Panasonic"],
+            "Mixer Grinder": ["Philips", "Bajaj", "Preethi", "Morphy Richards", "Panasonic", "Havells"],
+            "Gas Stove/Cooktop": ["Sunflame", "Prestige", "Pigeon", "Butterfly", "Bajaj", "Elica"],
+            "Fans": ["Crompton", "Orient", "Havells", "Bajaj", "Usha", "Atomberg"],
+            "Washing Machine": ["LG", "Samsung", "Whirlpool", "IFB", "Bosch", "Godrej"],
+            "Air Conditioner (AC)": ["Daikin", "LG", "Voltas", "Blue Star", "Hitachi", "Samsung"],
+            "Cooler": ["Symphony", "Voltas", "Bajaj", "Kenstar", "Crompton", "Havells"],
+            "Water Purifier": ["Kent", "Aquaguard", "Pureit", "Livpure", "Blue Star", "HUL"],
+            "Geyser/Water Heater": ["Racold", "Bajaj", "Crompton", "AO Smith", "Havells", "V-Guard"],
+        };
+
+        const size_dict = {
+            "Television (TV)": ["32 inch", "43 inch", "50 inch", "55 inch", "65 inch", "75 inch"],
+            "Refrigerator (Fridge)": ["190 L", "240 L", "300 L", "340 L", "500 L"],
+            "Mixer Grinder": ["500 W", "750 W", "1000 W"],
+            "Gas Stove/Cooktop": ["2 Burner", "3 Burner", "4 Burner"],
+            "Fans": ["48 inch", "52 inch"],
+            "Washing Machine": ["6 kg", "7 kg", "8 kg", "9 kg"],
+            "Air Conditioner (AC)": ["1 Ton", "1.5 Ton", "2 Ton"],
+            "Cooler": ["20 L", "30 L", "50 L"],
+            "Water Purifier": ["RO+UV+UF", "RO+UV"],
+            "Geyser/Water Heater": ["6 L", "10 L", "15 L"]
+        };
+
+        // Enrich products with brand, size, image URL
+        function enrichProducts(products) {
+            // Mapping of categories to real product image URLs from Google or public sources
+            const categoryImageMap = {
+                "Television (TV)": "https://images.unsplash.com/photo-1587825140408-7a7a1a7a1a7a?auto=format&fit=crop&w=300&q=80",
+                "Refrigerator (Fridge)": "https://images.unsplash.com/photo-1560184897-6a1a1a1a1a1a?auto=format&fit=crop&w=300&q=80",
+                "Mixer Grinder": "https://images.unsplash.com/photo-1586201375761-83865001e1b1?auto=format&fit=crop&w=300&q=80",
+                "Gas Stove/Cooktop": "https://images.unsplash.com/photo-1602524811321-1a1a1a1a1a1a?auto=format&fit=crop&w=300&q=80",
+                "Fans": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=300&q=80",
+                "Washing Machine": "https://images.unsplash.com/photo-1581579183499-1a1a1a1a1a1a?auto=format&fit=crop&w=300&q=80",
+                "Air Conditioner (AC)": "https://images.unsplash.com/photo-1590080877777-1a1a1a1a1a1a?auto=format&fit=crop&w=300&q=80",
+                "Cooler": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=300&q=80",
+                "Water Purifier": "https://images.unsplash.com/photo-1582719478147-1a1a1a1a1a1a?auto=format&fit=crop&w=300&q=80",
+                "Geyser/Water Heater": "https://images.unsplash.com/photo-1582719478147-1a1a1a1a1a1a?auto=format&fit=crop&w=300&q=80"
+            };
+            return products.map(product => {
+                const category = product['Product'] || product['product'] || '';
+                const brandList = brands_dict[category] || [];
+                const sizeList = size_dict[category] || [];
+                const brand = product['Brand'] || (brandList.length > 0 ? brandList[0] : 'Generic');
+                const size = product['Variety/Size'] || (sizeList.length > 0 ? sizeList[0] : '');
+                // Use real image URL from mapping or fallback to placeholder
+                const image = categoryImageMap[category] || `https://via.placeholder.com/300x200.png?text=${encodeURIComponent(category + ' ' + brand)}`;
+                return {
+                    id: product['itemID'] || product['id'] || Math.random().toString(36).substr(2, 9),
+                    image: image,
+                    title: `${brand} ${category} ${size}`,
+                    description: '', // No description field in CSV, so empty
+                    price: product['Price'] ? `$${product['Price']}` : 'Price not available',
+                };
+            });
+        }
+
+        // Event listeners
+        function setupEventListeners() {
+            // Star rating functionality
+            const stars = document.querySelectorAll('.star');
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    const rating = this.dataset.rating;
+                    updateStarRating(rating);
+                });
+            });
+
+            // Feedback form
+            const feedbackForm = document.getElementById('feedbackForm');
+            if (feedbackForm) {
+                feedbackForm.addEventListener('submit', handleFeedbackSubmit);
+            }
+
+            // Keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowLeft') {
+                    prevSlide();
+                } else if (e.key === 'ArrowRight') {
+                    nextSlide();
+                }
+            });
+        }
+
+        // Modal functions
+        function showReserveModal() {
+            document.getElementById('reserveModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function openFeedbackModal() {
+            document.getElementById('feedbackModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Service navigation
+        function navigateToService(service) {
+            console.log(`Navigating to ${service} service`);
+            // Add your navigation logic here
+            showNotification(`Opening ${service} service...`);
+        }
+
+        function navigateToDepartment(department) {
+            console.log(`Navigating to ${department} department`);
+            // Add your navigation logic here
+            showNotification(`Opening ${department} department...`);
+        }
+
+        // Product functions
+        function viewProduct(productId) {
+            console.log(`Viewing product ${productId}`);
+            // Add your product view logic here
+            showNotification(`Opening product details...`);
+        }
+
+async function addToCart(productId) {
+            try {
+                // Fetch product details from backend
+                const productResponse = await fetch(`http://localhost:3000/products/${productId}`);
+                if (!productResponse.ok) {
+                    throw new Error('Product not found');
+                }
+                const product = await productResponse.json();
+
+                // Check if product already in cart
+                const cartResponse = await fetch(`http://localhost:3000/cartItems?id=${productId}`);
+                const cartItems = await cartResponse.json();
+
+                if (cartItems.length > 0) {
+                    // Product exists in cart, update quantity
+                    const cartItem = cartItems[0];
+                    const updatedItem = { ...cartItem, count: cartItem.count + 1 };
+                    await fetch(`http://localhost:3000/cartItems/${cartItem.id}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(updatedItem),
+                    });
+                } else {
+                    // Add new product to cart
+                    const newCartItem = { ...product, count: 1 };
+                    await fetch('http://localhost:3000/cartItems', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(newCartItem),
+                    });
+                }
+
+                showNotification(`Added to cart!`);
+                updateCartCount();
+            } catch (error) {
+                console.error('Error adding to cart:', error);
+                showNotification('Failed to add product to cart.', 'error');
+            }
+        }
+
+        function updateCartCount() {
+            // Simulate cart count update
+            const cartCount = localStorage.getItem('cartCount') || 0;
+            localStorage.setItem('cartCount', parseInt(cartCount) + 1);
+        }
+
+        // Feedback functions
+        function updateStarRating(rating) {
+            const stars = document.querySelectorAll('.star');
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('active');
+                    star.style.color = '#ffc220';
+                } else {
+                    star.classList.remove('active');
+                    star.style.color = '#ccc';
+                }
+            });
+        }
+
+        function handleFeedbackSubmit(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const feedback = {
+                rating: document.querySelectorAll('.star.active').length,
+                message: document.getElementById('feedback').value
+            };
+            
+            console.log('Feedback submitted:', feedback);
+            showNotification('Thank you for your feedback!');
+            closeModal('feedbackModal');
+            e.target.reset();
+            updateStarRating(0);
+        }
+
+        // Notification function
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--walmart-blue);
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                box-shadow: var(--shadow-medium);
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Global function assignments for onclick handlers
+        window.nextSlide = nextSlide;
+        window.prevSlide = prevSlide;
+        window.currentSlide = currentSlideFunc;
+        window.showReserveModal = showReserveModal;
+        window.openFeedbackModal = openFeedbackModal;
+        window.closeModal = closeModal;
+        window.navigateToService = navigateToService;
+        window.navigateToDepartment = navigateToDepartment;
+        window.viewProduct = viewProduct;
+        window.addToCart = addToCart;
+
+        // Performance optimization
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src || img.src;
+                        img.classList.remove('lazy');
+                        observer.unobserve(img);
+                    }
+                });
+            });
+
+            document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+    </script>
+
+    <style>
+        /* Additional styles for new components */
+        .modal {
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+
+        .close:hover {
+            color: var(--text-primary);
+        }
+
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .time-slot {
+            padding: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            background: white;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .time-slot:hover {
+            border-color: var(--walmart-blue);
+            background: var(--walmart-light-gray);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        .star-rating {
+            display: flex;
+            gap: 0.25rem;
+            margin: 0.5rem 0;
+        }
+
+        .star {
+            font-size: 1.5rem;
+            color: #ccc;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .star:hover,
+        .star.active {
+            color: var(--walmart-yellow);
+        }
+
+        .discount-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--walmart-orange);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive modal */
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+
+            .time-slots {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <div id="footer-container"></div>
+    <script>
+        // Dynamically load footer content
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading footer:', error));
+    </script>
+</body>
+</html>
