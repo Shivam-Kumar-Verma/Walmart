@@ -4,38 +4,58 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>OrderConfirm</title>
+    <title>Order Confirmation | Your Order at Walmart</title>
     <link rel="stylesheet" href="orderconfirm.css" />
+    <!-- Load Font Awesome for icons -->
+    <link rel="stylesheet" href="https://kit.fontawesome.com/2a00a14c7f.css" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
   </head>
   <body>
-    <center><h1 id="head">Order Confirmation</h1></center>
-    <div id="main">
-      <div id="thanks">
-        <h1 id="regards">
-          <b>
-            <span> <i class="fa-solid fa-grip-lines-vertical"></i></span>
-            <span><i class="fa-solid fa-circle-check"></i></span> Thank You.
-          </b>
-          Your order has been placed and a confirmed email has been sent.
-        </h1>
+    <div class="confirmation-container">
+      <header class="confirmation-header">
+        <img src="logo-removebg-preview.png" alt="Walmart Logo" class="logo" />
+      </header>
+
+      <div class="confirmation-content">
+        <div class="confirmation-message">
+          <i class="fa-solid fa-circle-check check-icon"></i>
+          <h1>Order Confirmed</h1>
+          <p>Your order has been successfully placed!</p>
+        </div>
+
+        <div class="order-summary">
+          <div class="summary-details">
+            <span class="label">Order Number:</span>
+            <span id="orderNumber" class="value">#WM-2025-000001</span>
+          </div>
+          <div class="summary-details">
+            <span class="label">Estimated Delivery:</span>
+            <span class="value">3-5 Business Days</span>
+          </div>
+          <div class="summary-details">
+            <span class="label">Tracking:</span>
+            <span class="value">Tracking info will be updated shortly</span>
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <button id="continueShopping" class="btn primary">
+            <i class="fa-solid fa-store"></i>
+            Continue Shopping
+          </button>
+          <button id="viewDetails" class="btn secondary">
+            <i class="fa-solid fa-file-invoice"></i>
+            View Order Details
+          </button>
+        </div>
       </div>
 
-      <button id="continue"><a href="../index.html">Continue Shopping</a></button>
-
-      <!-- <div id="token">
-        <h2>Charge will apply to:</h2>
-        <h1>Mastercard</h1>
-        <h2>ending in</h2>
-        <div id="btndiv">
-          <button id="buttonContinue">Continue Shopping</button>
-        </div>
-      </div> -->
+      <footer class="confirmation-footer">
+        <p>Thank you for shopping with us!</p>
+      </footer>
     </div>
+
+    <script src="orderconfirm.js"></script>
   </body>
 </html>
-
-<script src="https://kit.fontawesome.com/2a00a14c7f.js" crossorigin="anonymous">
-  document.getElementById("buttonContinue").addEventListener("click" , () =>{
-  window.location.href = "index.html";
-  });
-</script>
