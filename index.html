@@ -665,7 +665,16 @@
 
     <!-- Navigation (placeholder for your existing navbar) -->
     <div id="navbar-container"></div>
-
+    <script>
+        // Dynamically load navbar content
+        fetch('nav.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading navbar:', error));
+    </script>
+    <br>
     <!-- Main Content -->
     <main id="main-content">
         <div class="container">
@@ -824,17 +833,20 @@
                     <!-- Values content will be loaded here -->
                 </div>
             </section>
-
-            <!-- Feedback Section -->
-            <section class="feedback-section">
-                <p>We'd love to hear what you think!</p>
-                <button class="feedback-btn" onclick="openFeedbackModal()">Give feedback</button>
-            </section>
         </div>
     </main>
 
     <!-- Footer (placeholder for your existing footer) -->
     <div id="footer-container"></div>
+    <script>
+        // Dynamically load footer content
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading footer:', error));
+    </script>
 
     <!-- Modals -->
     <!-- Reserve Modal -->
