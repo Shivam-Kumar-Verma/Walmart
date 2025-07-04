@@ -37,6 +37,15 @@
             --shadow-medium: 0 4px 16px rgba(0,0,0,0.15);
             --border-radius: 8px;
             --transition: all 0.3s ease;
+            
+            /* Green Mode Variables */
+            --eco-primary: #22c55e;
+            --eco-secondary: #16a34a;
+            --eco-light: #dcfce7;
+            --eco-dark: #15803d;
+            --eco-gradient: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            --eco-shadow: 0 4px 20px rgba(34, 197, 94, 0.15);
+            --eco-glow: 0 0 20px rgba(34, 197, 94, 0.3);
         }
 
         body {
@@ -105,6 +114,344 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 1rem;
+        }
+
+        /* Modern Green Mode Section */
+        .green-mode-section {
+            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+            border: 1px solid rgba(34, 197, 94, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 1rem 0 2rem 0;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .green-mode-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--eco-gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .green-mode-section.active::before {
+            opacity: 1;
+        }
+
+        .green-mode-section::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(34, 197, 94, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(180deg); }
+        }
+
+        .green-mode-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .green-mode-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--eco-dark);
+        }
+
+        .eco-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--eco-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.875rem;
+            box-shadow: var(--eco-shadow);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Modern Toggle Switch */
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .modern-toggle {
+            position: relative;
+            width: 64px;
+            height: 32px;
+            background: #e5e7eb;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .modern-toggle.active {
+            background: var(--eco-gradient);
+            box-shadow: var(--eco-shadow), inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 28px;
+            height: 28px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+        }
+
+        .modern-toggle.active .toggle-slider {
+            transform: translateX(32px);
+            color: var(--eco-secondary);
+        }
+
+        .toggle-status {
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--eco-dark);
+            min-width: 60px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-status.active {
+            color: var(--eco-secondary);
+        }
+
+        /* Modern Options Grid */
+        .eco-options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .eco-option-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(34, 197, 94, 0.15);
+            border-radius: 12px;
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .eco-option-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .eco-option-card:hover::before {
+            left: 100%;
+        }
+
+        .eco-option-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--eco-shadow);
+            border-color: var(--eco-primary);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .eco-option-card.active {
+            background: var(--eco-light);
+            border-color: var(--eco-primary);
+            box-shadow: var(--eco-glow);
+        }
+
+        .option-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .option-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--eco-gradient);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+        }
+
+        .option-title {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--eco-dark);
+            line-height: 1.2;
+        }
+
+        .option-description {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            margin-top: 0.5rem;
+        }
+
+        .option-badge {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: var(--eco-primary);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+        }
+
+        .eco-option-card.active .option-badge {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Impact Stats */
+        .impact-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 12px;
+            border: 1px solid rgba(34, 197, 94, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--eco-secondary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 0.25rem;
+        }
+
+        /* Responsive Design for Green Mode */
+        @media (max-width: 768px) {
+            .green-mode-section {
+                padding: 1rem;
+                margin: 0.5rem 0 1.5rem 0;
+            }
+
+            .green-mode-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .toggle-container {
+                align-self: flex-end;
+            }
+
+            .eco-options-grid {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+
+            .eco-option-card {
+                padding: 1rem;
+            }
+
+            .impact-stats {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .stat-item {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .green-mode-title {
+                font-size: 1.125rem;
+            }
+
+            .eco-options-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .option-header {
+                gap: 0.5rem;
+            }
+
+            .option-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 0.875rem;
+            }
         }
 
         /* Hero Slider Section */
@@ -680,36 +1027,96 @@
     <!-- Main Content -->
     <main id="main-content">
         <div class="container">
-            <!-- Green Mode and Options Section -->
-    <section class="green-mode-options" style="padding: 1rem; background-color: #f0f9f0; border-bottom: 1px solid #d0e6d0;">
-        <div style="display: flex; align-items: center; gap: 1rem; font-weight: 600; font-size: 1.2rem; color: #2e7d32;">
-            <span>Green Mode</span>
-            <label style="position: relative; display: inline-block; width: 50px; height: 24px;">
-                <input type="checkbox" id="greenModeToggle" style="opacity: 0; width: 0; height: 0;">
-                <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; border-radius: 24px; transition: 0.4s;"></span>
-                <span style="position: absolute; left: 4px; top: 4px; width: 16px; height: 16px; background-color: white; border-radius: 50%; transition: 0.4s;"></span>
-            </label>
-            <span id="greenModeStatus" style="color: #388e3c;">On</span>
-        </div>
-        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-            <div style="flex: 1; background-color: #e6f2e6; border-radius: 8px; padding: 0.5rem 1rem; display: flex; align-items: center; gap: 0.5rem; color: #2e7d32; font-weight: 600; cursor: pointer;">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#2e7d32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
-                Refurbished
-            </div>
-            <div style="flex: 1; background-color: #e6f2e6; border-radius: 8px; padding: 0.5rem 1rem; display: flex; align-items: center; gap: 0.5rem; color: #2e7d32; font-weight: 600; cursor: pointer;">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#2e7d32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7z"></path><circle cx="12" cy="9" r="2.5"></circle></svg>
-                Eco Certified
-            </div>
-            <div style="flex: 1; background-color: #e6f2e6; border-radius: 8px; padding: 0.5rem 1rem; display: flex; align-items: center; gap: 0.5rem; color: #2e7d32; font-weight: 600; cursor: pointer;">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#2e7d32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><line x1="1" y1="16" x2="23" y2="16"></line><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="16" x2="12" y2="21"></line></svg>
-                Low Carbon Shipping
-            </div>
-            <div style="flex: 1; background-color: #e6f2e6; border-radius: 8px; padding: 0.5rem 1rem; display: flex; align-items: center; gap: 0.5rem; color: #2e7d32; font-weight: 600; cursor: pointer;">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#2e7d32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="6" x2="12" y2="12"></line><line x1="16" y1="14" x2="12" y2="12"></line></svg>
-                Plastic-Free
-            </div>
-        </div>
-    </section>
+            <!-- Modern Green Mode and Options Section -->
+            <section class="green-mode-section active" id="greenModeSection">
+                <div class="green-mode-header">
+                    <div class="green-mode-title">
+                        <div class="eco-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <span>Eco-Friendly Shopping</span>
+                    </div>
+                    <div class="toggle-container">
+                        <div class="modern-toggle active" id="greenModeToggle" onclick="toggleGreenMode()">
+                            <div class="toggle-slider">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                        </div>
+                        <div class="toggle-status active" id="toggleStatus">Active</div>
+                    </div>
+                </div>
+                <!-- Eco Options Grid -->
+                <div class="eco-options-grid">
+                    <div class="eco-option-card active" onclick="toggleOption(this, 'refurbished')">
+                        <div class="option-header">
+                            <div class="option-icon">
+                                <i class="fas fa-recycle"></i>
+                            </div>
+                            <div class="option-title">Refurbished Products</div>
+                        </div>
+                        <div class="option-description">
+                            Choose certified pre-owned items that reduce waste and save money.
+                        </div>
+                        <div class="option-badge">Active</div>
+                    </div>
+                    <div class="eco-option-card active" onclick="toggleOption(this, 'certified')">
+                        <div class="option-header">
+                            <div class="option-icon">
+                                <i class="fas fa-certificate"></i>
+                            </div>
+                            <div class="option-title">Eco Certified</div>
+                        </div>
+                        <div class="option-description">
+                            Products with environmental certifications and sustainable materials.
+                        </div>
+                        <div class="option-badge">Active</div>
+                    </div>
+                    <div class="eco-option-card active" onclick="toggleOption(this, 'shipping')">
+                        <div class="option-header">
+                            <div class="option-icon">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <div class="option-title">Carbon-Neutral Shipping</div>
+                        </div>
+                        <div class="option-description">
+                            Delivery options that offset carbon emissions through green initiatives.
+                        </div>
+                        <div class="option-badge">Active</div>
+                    </div>
+                    <div class="eco-option-card active" onclick="toggleOption(this, 'packaging')">
+                        <div class="option-header">
+                            <div class="option-icon">
+                                <i class="fas fa-box-open"></i>
+                            </div>
+                            <div class="option-title">Plastic-Free Packaging</div>
+                        </div>
+                        <div class="option-description">
+                            Biodegradable and recyclable packaging materials only.
+                        </div>
+                        <div class="option-badge">Active</div>
+                    </div>
+                </div>
+                <!-- Impact Stats -->
+                <div class="impact-stats">
+                    <div class="stat-item">
+                        <span class="stat-value" id="carbonSaved">2.4kg</span>
+                        <span class="stat-label">CO₂ Saved</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="treesPlanted">12</span>
+                        <span class="stat-label">Trees Planted</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="wasteReduced">85%</span>
+                        <span class="stat-label">Waste Reduced</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="energySaved">1.2kWh</span>
+                        <span class="stat-label">Energy Saved</span>
+                    </div>
+                </div>
+            </section>
+            <!-- The rest of your main content continues here as before -->
             <!-- Hero Slider Section -->
             <section class="hero-section" aria-label="Featured promotions">
                 <div class="slider-container">
@@ -722,26 +1129,19 @@
                     <div class="slider">
                         <img src="./landing_page/img3.png" alt="Fashion collection" />
                     </div>
-                    
                     <button class="slider-nav prev" onclick="prevSlide()" aria-label="Previous slide">
                         <i class="fas fa-chevron-left"></i>
                     </button>
                     <button class="slider-nav next" onclick="nextSlide()" aria-label="Next slide">
                         <i class="fas fa-chevron-right"></i>
                     </button>
-                    
                     <div class="slider-indicators">
                         <span class="indicator active" onclick="currentSlide(1)"></span>
                         <span class="indicator" onclick="currentSlide(2)"></span>
                         <span class="indicator" onclick="currentSlide(3)"></span>
                     </div>
                 </div>
-                
-                <!-- <div class="side-banner">
-                    <img src="https://live.staticflickr.com/65535/49430551203_cfb8646eec_b.jpg" alt="Rollback deals" />
-                </div> -->
             </section>
-
             <!-- Services Section -->
             <section class="services-section">
                 <div class="services-grid">
@@ -749,7 +1149,6 @@
                         <h3>Reserve your pickup & delivery</h3>
                         <button class="btn" onclick="showReserveModal()">See Items</button>
                     </div>
-                    
                     <div class="popular-services">
                         <h3>Popular services</h3>
                         <div class="services-list">
@@ -769,7 +1168,6 @@
                     </div>
                 </div>
             </section>
-
             <!-- Continue Shopping Section -->
             <section>
                 <div class="section-header">
@@ -780,7 +1178,6 @@
                     <!-- Products will be loaded here -->
                 </div>
             </section>
-
             <!-- Electronics Section -->
             <section>
                 <div class="section-header">
@@ -791,7 +1188,6 @@
                     <!-- Electronics products will be loaded here -->
                 </div>
             </section>
-
             <!-- Spooky Savings Section -->
             <section>
                 <div class="section-header">
@@ -802,14 +1198,12 @@
                     <!-- Products will be loaded here -->
                 </div>
             </section>
-
             <!-- Membership Section -->
             <section class="membership-section">
                 <div class="membership-content">
                     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXgAAACGCAMAAADgrGFJAAAAwFBMVEX///8Acc7/wiAAacwAbM0Abs0AaMwAa8wAZstspd+20+//vwB/reKYv+jH3fLE2/J5pN0AddCRuOXk7vnT3/M9h9Vhm9yXt+S81/CsyuwAY8rQ4vTs8/tGkdj4/P7///3W5vb/+ez/8dP/4Z7/9+T/xChKjdcQeNCEsuP/6LT/89r/9+b//PT/03D/zFH/7cf/2Yn/yUL/z14rgdNXl9r/46f/2YP/0mb/1XX/5a3/zVP/xjb/y0ZmoN0AXMihxOnsIWb8AAAPEklEQVR4nO1da2OivBLWAgHFS5XV9YKUbrfi9rbb4tu9dD3+/391uCUzCQHRVjznNc+X3RIhkyfDzGQmQKOhoKCgoKCgQHH1cPfl/uHUUpwdrn4/2RFuH7+cWpLzwsOTfZHAtv85tSxnhceM95j676cW5ozwcAGwf5xamjOCIv5EuHpDxN+cWppzwh9E/O9TC3NO+ImI/3ZqYc4JryiqUZF8jfiBiL8+tTDnhBsg/kIRXyO+AfG3Kl9TI74A8c9XpxbmnPAViP9zalnOCoj4x1PLcla4vmVBza9Ty3JWeGA5A5WqqRdPjHiVj68VLyodfxqwZI3KGNQLlqyx704tynkBcgZfTy3KeYHlDFTGoF58p8S/nVqSMwNL1jyfWpIzA8sZ7JGquVbptPfjmgY1lVM1dy+3zz+kDqHbYbj0Sxo7jtDWh6ZWRSmm0NW8quR1YAIjEUcpYN+MQRIG2dIYaGXpFLOu2DgzoXErtLUIbdJGFcXYsFNm7Yqn1ILujMn1qfyXb3tlDK5f6Ja/+3xj32pSGBuhzYe2pi6qdWjQJnNYSYxornR6CvnfIt5kcu0g/budqHC1Msi3C7bekvgEF7g1Rh7fNtVwo3DegDVZVe3G/z/xjfubP38fv1Xh/eoXqtDKcjtLprlN0+WbxtAUMc83foJJGQjzVYh/AfGV8eUW8X5x8TP/ixXrtWn1+KYAEy/odZcRb4yrCnM+xF/94GiPkI9s+gQ0nnegDua9afKud8MatZxPLsLZEH/3V+TdzhPvgLHWL7mWNkxJTrG9ERC/IwQDnAvxNyLtUuIbQKERcg3AU4IAt7k6nFTVxJ8J8dd/8rxfvEn8cQf4tbiGEWdqmjPsXXvsbtDFILQYZ0E8BJFY4WWB/wTiE867okAzNSmYrCGTVZtWlukMiOeCSEb7m3RvsQvEcyT2ORMfedcVaoRIU69s4s+AeCGITGn/W1SghTUotzxFcWYCbgkVsKO8X/Bcx+n1544rM/yViI+u0Ou7rux4v+/kj+NfuG6v13MkJ0sRXXCeyImIj3rOUHTSvO8UObV8EHlh2y/F5dlLXcriIpsP4Bh1P2Nz1WEHnWlnGRqWRYg1M4LFKregzRPvTim2yWi89jg04wsMll1u6L1WdGVCZs3RypeNwZms1uGARD8hlhksW32RHIf1lJnT6WIwiwSNhewKKhaPdSGlyusMoi5CuXV9eM4Fkfavsqo4DhvRaDPejQ1l3oQht5l5opbfX4UG0Q2IkAxTC4XEWp74/kzL8J+453ag0SsYWhNSQJNQ0+lx09yIpLrdUZOY0HfT0Mlgxf+K9TRLNKUXkOTn5n7Ej5JxG5Z06fJqi7S/lm/mBvVN5UjRyzJk2jSkHMNEg2+dJeObjCyTj4FS8gJO6/PE99gEWhHxmxl3DTJK1cBb88dNg1th+xtLy/fdNAk37X3aU3KLDukV9yO+S1VU6tj+8rTf3uwszIKRR9xSaUyXhpXIA7BIMzX8q5lk5Cn1+K7cQfxaE842k6ydE4q8GAQxP5npTTks7LE44ofsHt+P+DUdptWXtD7irNjbPxXq4RDJI4tNOwk8GsEg7wop4STUmYqUodEjvSsl3muR3MlmtEZwAsmt1ASNc61cM+sFLTEw8W04ZT/iWUJRGkPDcwv2c6UEZmPKhmws2UGdHWHhzYB6AJ9Jmkb+bp4zBsuvRLw5lE2eNUG3I4KOeFkW3G3x6WCLMfHoFvlI4lmZ5KnqBj8HOg4YtxmXkX1hzpdFueBbs5TwgpkeQ9d1jgkUKZUR35TSZ4w2eVLwBRrI36R9826C3RlA/GqILnko8WI9LsHXKIq37Z/Vt/d5oFVMUmo9orn1qcwsQclsk7FGgzdMazDadDqt">
-                    
-
- </section>
+                </div>
+            </section>
 
             <!-- Build Your Cart Section -->
             <section>
