@@ -98,14 +98,64 @@
       const cart = JSON.parse(localStorage.getItem('walmartCart')) || [];
       const count = cart.reduce((acc, item) => acc + item.count, 0);
       const cartCountElement = document.querySelector('.cart-count');
+      
+      // Enable/disable checkout button based on cart items
+      const checkoutBtn = document.getElementById('checkout-btn');
+      if (checkoutBtn) {
+        checkoutBtn.disabled = count === 0;
+        if (count > 0) {
+          checkoutBtn.addEventListener('click', proceedToCheckout);
+        }
+      }
       if (cartCountElement) {
         cartCountElement.textContent = count;
       }
     }
 
+    // Function to handle checkout process
+    function proceedToCheckout() {
+      // Save cart data to localStorage for the payment page
+      const cart = JSON.parse(localStorage.getItem('walmartCart')) || [];
+      if (cart.length === 0) {
+        alert('Your cart is empty. Please add items to proceed to checkout.');
+        return;
+      }
+      
+      // Calculate order summary
+      const subtotal = cart.reduce((acc, item) => {
+        const price = item.price ? parseFloat(item.price.replace(/[^0-9.-]+/g, '')) : 
+                     (item.Sale_Price ? parseFloat(item.Sale_Price.replace(/[^0-9.-]+/g, '')) : 0);
+        return acc + (price * (item.count || 1));
+      }, 0);
+      
+      const shipping = subtotal >= 35 ? 0 : 6.99;
+      const tax = subtotal * 0.08; // Assuming 8% tax rate
+      const total = subtotal + shipping + tax;
+      
+      // Save order summary to localStorage
+      const orderSummary = {
+        subtotal: subtotal.toFixed(2),
+        shipping: shipping.toFixed(2),
+        tax: tax.toFixed(2),
+        total: total.toFixed(2),
+        itemCount: cart.reduce((acc, item) => acc + (item.count || 1), 0)
+      };
+      
+      localStorage.setItem('orderSummary', JSON.stringify(orderSummary));
+      
+      // Redirect to payment page
+      window.location.href = 'payment.html';
+    }
+    
     document.addEventListener('DOMContentLoaded', () => {
       fetchCartItems();
       updateNavbarCartCount();
+      
+      // Add event listener to checkout button
+      const checkoutBtn = document.getElementById('checkout-btn');
+      if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', proceedToCheckout);
+      }
     });
 
     function fetchCartItems() {
