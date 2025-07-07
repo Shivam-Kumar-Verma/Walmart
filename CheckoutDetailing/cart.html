@@ -93,36 +93,54 @@
     fetch('../nav.html').then(res => res.text()).then(html => document.getElementById('navbar-container').innerHTML = html);
     fetch('../footer.html').then(res => res.text()).then(html => document.getElementById('footer-container').innerHTML = html);
 
-    document.addEventListener('DOMContentLoaded', fetchCartItems);
-
-    async function fetchCartItems() {
-      try {
-        const response = await fetch('http://localhost:3000/cartItems');
-        if (!response.ok) throw new Error('Failed to fetch items');
-        const cart = await response.json();
-        if (cart.length === 0) return window.location.href = 'emptycart.html';
-        renderCart(cart);
-      } catch (err) {
-        alert('Failed to load cart');
-        console.error(err);
+    // Update cart count in navbar
+    function updateNavbarCartCount() {
+      const cart = JSON.parse(localStorage.getItem('walmartCart')) || [];
+      const count = cart.reduce((acc, item) => acc + item.count, 0);
+      const cartCountElement = document.querySelector('.cart-count');
+      if (cartCountElement) {
+        cartCountElement.textContent = count;
       }
     }
 
-    async function updateItem(id, delta) {
-      const res = await fetch(`http://localhost:3000/cartItems?id=${id}`);
-      const [item] = await res.json();
-      const count = item.count + delta;
-      if (count < 1) return;
-      await fetch(`http://localhost:3000/cartItems/${id}`, {
-        method: 'PUT',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({...item, count})
-      });
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchCartItems();
+      updateNavbarCartCount();
+    });
+
+    function fetchCartItems() {
+      const cart = JSON.parse(localStorage.getItem('walmartCart')) || [];
+      if (cart.length === 0) {
+        window.location.href = 'emptycart.html';
+        return;
+      }
+      renderCart(cart);
+    }
+
+    function updateItem(id, delta) {
+      const cart = JSON.parse(localStorage.getItem('walmartCart')) || [];
+      // Convert id to number if it's a numeric string for comparison
+      const itemIndex = cart.findIndex(item => item.id == id);
+      
+      if (itemIndex === -1) return;
+      
+      cart[itemIndex].count += delta;
+      
+      if (cart[itemIndex].count < 1) {
+        cart.splice(itemIndex, 1);
+      }
+      
+      localStorage.setItem('walmartCart', JSON.stringify(cart));
+      updateNavbarCartCount();
       fetchCartItems();
     }
 
-    async function removeItem(id) {
-      await fetch(`http://localhost:3000/cartItems/${id}`, { method: 'DELETE' });
+    function removeItem(id) {
+      const cart = JSON.parse(localStorage.getItem('walmartCart')) || [];
+      // Convert id to number if it's a numeric string for comparison
+      const newCart = cart.filter(item => item.id != id);
+      localStorage.setItem('walmartCart', JSON.stringify(newCart));
+      updateNavbarCartCount();
       fetchCartItems();
     }
 
@@ -139,25 +157,41 @@
       let subtotal = 0, count = 0;
 
       cart.forEach(item => {
-        subtotal += item.count * parseFloat(item.Sale_Price);
+        // Handle both old and new property names
+        let price = 0;
+        if (item.price) {
+            price = typeof item.price === 'string' 
+                ? parseFloat(item.price.replace(/[^0-9.-]+/g, '')) 
+                : item.price;
+        } else if (item.Sale_Price) {
+            price = typeof item.Sale_Price === 'string'
+                ? parseFloat(item.Sale_Price.replace(/[^0-9.-]+/g, ''))
+                : item.Sale_Price;
+        }
+        
+        const name = item.title || item.Product_Name || 'Product';
+        const image = item.image || item.Product_imgUrl || 'https://via.placeholder.com/100';
+        const brand = item.brand || item.Brand || '';
+        
+        subtotal += item.count * price;
         count += item.count;
 
         const div = document.createElement('div');
         div.className = 'flex gap-4 bg-gray-50 rounded p-4 shadow';
         div.innerHTML = `
-          <img src="${item.Product_imgUrl}" alt="${item.Product_Name}" class="w-24 h-24 object-cover rounded">
+          <img src="${image}" alt="${name}" class="w-24 h-24 object-cover rounded">
           <div class="flex-grow">
-            <h4 class="font-semibold text-gray-800">${item.Product_Name}</h4>
-            <p class="text-sm text-gray-600">${item.Brand}</p>
+            <h4 class="font-semibold text-gray-800">${name}</h4>
+            ${brand ? `<p class="text-sm text-gray-600">${brand}</p>` : ''}
             <p class="text-sm text-green-600">Free shipping on orders over $35</p>
             <div class="flex justify-between items-center mt-2">
               <div class="flex gap-2 text-sm">
-                <button onclick="removeItem(${item.id})" class="text-red-500 hover:underline">Remove</button>
-                <button onclick="updateItem(${item.id}, -1)" class="px-2 bg-gray-200 rounded hover:bg-gray-300">-</button>
+                <button onclick="removeItem('${item.id}')" class="text-red-500 hover:underline">Remove</button>
+                <button onclick="updateItem('${item.id}', -1)" class="px-2 bg-gray-200 rounded hover:bg-gray-300">-</button>
                 <span>${item.count}</span>
-                <button onclick="updateItem(${item.id}, 1)" class="px-2 bg-gray-200 rounded hover:bg-gray-300">+</button>
+                <button onclick="updateItem('${item.id}', 1)" class="px-2 bg-gray-200 rounded hover:bg-gray-300">+</button>
               </div>
-              <span class="text-lg font-semibold text-gray-900">$${(item.count * parseFloat(item.Sale_Price)).toFixed(2)}</span>
+              <span class="text-lg font-semibold text-gray-900">$${(item.count * price).toFixed(2)}</span>
             </div>
           </div>`;
 
