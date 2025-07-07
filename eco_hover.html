@@ -110,114 +110,6 @@
         /* Hero Slider Section */
         .hero-section {
             display: none;
-            position: relative;
-            margin-bottom: 2rem;
-            background: var(--walmart-light-gray);
-            border-radius: var(--border-radius);
-            overflow: hidden;
-        }
-
-        .slider-container {
-            position: relative;
-            height: 400px;
-            overflow: hidden;
-        }
-
-        .slider {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-        }
-
-        .slider.active {
-            opacity: 1;
-        }
-
-        .slider img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: var(--border-radius);
-        }
-
-        .slider-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.9);
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            color: var(--walmart-blue);
-            transition: var(--transition);
-            z-index: 10;
-        }
-
-        .slider-nav:hover {
-            background: white;
-            box-shadow: var(--shadow-medium);
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .slider-nav.prev {
-            left: 20px;
-        }
-
-        .slider-nav.next {
-            right: 20px;
-        }
-
-        .slider-indicators {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 10px;
-            z-index: 10;
-        }
-
-        .indicator {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .indicator.active {
-            background: white;
-            transform: scale(1.2);
-        }
-
-        .side-banner {
-            position: absolute;
-            right: 20px;
-            top: 20px;
-            width: 200px;
-            height: 120px;
-            background: white;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: var(--shadow-light);
-            z-index: 10;
-        }
-
-        .side-banner img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
         }
 
         /* Services Section */
@@ -552,14 +444,6 @@
                 padding: 0 0.5rem;
             }
 
-            .slider-container {
-                height: 250px;
-            }
-
-            .side-banner {
-                display: none;
-            }
-
             .services-grid {
                 grid-template-columns: 1fr;
                 gap: 1rem;
@@ -576,20 +460,6 @@
 
             .department-grid {
                 grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            }
-
-            .slider-nav {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
-            }
-
-            .slider-nav.prev {
-                left: 10px;
-            }
-
-            .slider-nav.next {
-                right: 10px;
             }
 
             .section-title {
@@ -738,9 +608,6 @@
                     </div>
                 </div>
                 
-                <!-- <div class="side-banner">
-                    <img src="https://live.staticflickr.com/65535/49430551203_cfb8646eec_b.jpg" alt="Rollback deals" />
-                </div> -->
             </section>
 
             <!-- Services Section -->
