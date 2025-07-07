@@ -1,7 +1,8 @@
 // Global variables
-let cartValue = JSON.parse(localStorage.getItem("product_added")) || [];
+let cartValue = JSON.parse(localStorage.getItem("walmartCart")) || [];
 let selectedPaymentMethod = 'card';
 let isProcessing = false;
+let orderSummary = JSON.parse(localStorage.getItem('orderSummary')) || {};
 
 // Initialize page when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
@@ -61,9 +62,12 @@ function setupEventListeners() {
 // Display cart items
 function displayCartItems() {
     const cartDetailsContainer = document.getElementById('cartDetails');
-    if (!cartDetailsContainer) return;
+    const orderItemsContainer = document.getElementById('order-items');
+    
+    if (!cartDetailsContainer || !orderItemsContainer) return;
 
     cartDetailsContainer.innerHTML = '';
+    orderItemsContainer.innerHTML = '';
 
     if (cartValue.length === 0) {
         cartDetailsContainer.innerHTML = `
@@ -73,34 +77,80 @@ function displayCartItems() {
                 <a href="../index.html" class="btn-primary">Continue Shopping</a>
             </div>
         `;
+        document.getElementById('checkout-form').style.display = 'none';
         return;
     }
 
+    let subtotal = 0;
+    
     cartValue.forEach((item, index) => {
-        const cartItem = createCartItemElement(item, index);
+        const price = item.price ? parseFloat(item.price.replace(/[^0-9.-]+/g, '')) : 
+                     (item.Sale_Price ? parseFloat(item.Sale_Price.replace(/[^0-9.-]+/g, '')) : 0);
+        const itemTotal = price * (item.count || 1);
+        subtotal += itemTotal;
+
+        // Cart item for details
+        const cartItem = createCartItemElement(item, index, itemTotal);
         cartDetailsContainer.appendChild(cartItem);
+        
+        // Order item for summary
+        const orderItem = document.createElement('div');
+        orderItem.className = 'order-item';
+        orderItem.innerHTML = `
+            <span class="item-name">${item.title || item.Product_Name || 'Product'} x${item.count || 1}</span>
+            <span class="item-price">$${itemTotal.toFixed(2)}</span>
+        `;
+        orderItemsContainer.appendChild(orderItem);
     });
 
-    // Update total items count
-    document.getElementById('totalItems').textContent = cartValue.length;
+    // Calculate totals
+    const shipping = subtotal >= 35 ? 0 : 6.99;
+    const tax = subtotal * 0.08; // 8% tax
+    const total = subtotal + shipping + tax;
+
+    // Update order summary
+    orderSummary = {
+        subtotal: subtotal.toFixed(2),
+        shipping: shipping.toFixed(2),
+        tax: tax.toFixed(2),
+        total: total.toFixed(2),
+        itemCount: cartValue.reduce((acc, item) => acc + (item.count || 1), 0)
+    };
+    
+    // Save to localStorage for order confirmation
+    localStorage.setItem('orderSummary', JSON.stringify(orderSummary));
+
+    // Update UI
+    document.getElementById('totalItems').textContent = orderSummary.itemCount;
+    document.getElementById('subtotal-amount').textContent = `$${orderSummary.subtotal}`;
+    document.getElementById('shipping-amount').textContent = orderSummary.shipping === '0.00' ? 'FREE' : `$${orderSummary.shipping}`;
+    document.getElementById('tax-amount').textContent = `$${orderSummary.tax}`;
+    document.getElementById('estimatedTotal').textContent = `$${orderSummary.total}`;
 }
 
 // Create cart item element
-function createCartItemElement(item, index) {
+function createCartItemElement(item, index, itemTotal) {
     const div = document.createElement('div');
     div.className = 'cart-item';
+    const price = item.price ? parseFloat(item.price.replace(/[^0-9.-]+/g, '')) : 
+                 (item.Sale_Price ? parseFloat(item.Sale_Price.replace(/[^0-9.-]+/g, '')) : 0);
+    
     div.innerHTML = `
-        <img src="${item.Product_imgUrl || 'https://via.placeholder.com/80x80'}" 
-             alt="${item.Product_name || 'Product'}" 
-             class="item-image"
-             onerror="this.src='https://via.placeholder.com/80x80'">
-        <div class="item-details">
-            <h4 class="item-name">${item.Product_name || 'Product Name'}</h4>
-            <div class="item-price">$${parseFloat(item.List_Price || 0).toFixed(2)}</div>
-            <div class="item-quantity">
-                <span>Qty:</span>
-                <span class="qty-badge">${item.count || 1}</span>
+        <div class="flex items-center space-x-4">
+            <img src="${item.image || item.Product_imgUrl || 'https://via.placeholder.com/80x80'}" 
+                 alt="${item.title || item.Product_Name || 'Product'}" 
+                 class="w-20 h-20 object-cover rounded"
+                 onerror="this.src='https://via.placeholder.com/80x80'">
+            <div class="flex-1">
+                <h4 class="font-medium text-gray-900">${item.title || item.Product_Name || 'Product Name'}</h4>
+                <p class="text-sm text-gray-500">${item.brand || ''}</p>
+                <div class="flex items-center mt-1">
+                    <span class="text-sm text-gray-600">Qty: ${item.count || 1}</span>
+                    <span class="mx-2 text-gray-300">|</span>
+                    <span class="text-sm font-medium">$${price.toFixed(2)} each</span>
+                </div>
             </div>
+            <div class="font-medium">$${itemTotal.toFixed(2)}</div>
         </div>
     `;
     return div;
@@ -391,18 +441,35 @@ async function processPayment() {
     // Simulate API call delay
     await new Promise(resolve => setTimeout(resolve, 2000));
     
-    // In a real application, you would:
-    // 1. Send payment data to your backend
-    // 2. Process payment with payment gateway
-    // 3. Handle response and errors
-    
-    // For demo, we'll just simulate success
-    const orderNumber = generateOrderNumber();
-    
-    // Clear cart after successful payment
-    localStorage.removeItem('product_added');
-    
-    return { success: true, orderNumber };
+    try {
+        // In a real application, you would:
+        // 1. Send payment data to your backend
+        // 2. Process payment with payment gateway
+        // 3. Handle response and errors
+        
+        // For demo, we'll just simulate success
+        const orderNumber = generateOrderNumber();
+        
+        // Save order to order history
+        const orders = JSON.parse(localStorage.getItem('orderHistory') || '[]');
+        const order = {
+            id: orderNumber,
+            date: new Date().toISOString(),
+            items: [...cartValue],
+            total: orderSummary.total,
+            status: 'Processing'
+        };
+        orders.unshift(order);
+        localStorage.setItem('orderHistory', JSON.stringify(orders));
+        
+        // Clear cart after successful payment
+        localStorage.removeItem('walmartCart');
+        
+        return { success: true, orderNumber };
+    } catch (error) {
+        console.error('Error processing payment:', error);
+        throw error;
+    }
 }
 
 function generateOrderNumber() {
