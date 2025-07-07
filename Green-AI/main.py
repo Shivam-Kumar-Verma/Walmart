@@ -6,12 +6,12 @@ from Ecommender import EcoCartRecommender, RewardEngine
 app = FastAPI()
 
 recommender = EcoCartRecommender(
-    product_file="",
-    event_file="",
-    profile_file=""
+    product_file="Dataset/products_catalog.csv",
+    event_file="Dataset/user_events.csv",
+    profile_file="Dataset/user_profiles.csv"
 )
 
-reward_engine = RewardEngine("")
+reward_engine = RewardEngine("Dataset/user_green_engagement_logs.csv")
 
 @app.get("/")
 def root():
