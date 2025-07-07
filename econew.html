@@ -109,6 +109,7 @@
 
         /* Hero Slider Section */
         .hero-section {
+            display: none;
             position: relative;
             margin-bottom: 2rem;
             background: var(--walmart-light-gray);
@@ -1346,10 +1347,10 @@
             </section>
 
             <!-- Feedback Section -->
-            <section class="feedback-section">
+            <!-- <section class="feedback-section">
                 <p>We'd love to hear what you think!</p>
                 <button class="feedback-btn" onclick="openFeedbackModal()">Give feedback</button>
-            </section>
+            </section> -->
         </div>
     </main>
 
@@ -1581,6 +1582,8 @@
             initializeSlider();
             loadAllSections();
             setupEventListeners();
+            setupHoverCardListeners();
+            updateCartCount(); // Initialize cart count on page load
             hideLoading();
         });
 
@@ -1648,7 +1651,7 @@
             if (!container) return;
 
             container.innerHTML = products.map(product => `
-                <div class="product-card" tabindex="0" role="button" aria-label="View ${product.title}">
+                <div class="product-card" tabindex="0" role="button" aria-label="View ${product.title}" data-product-id="${product.id}">
                     <div class="product-image">
                         <img src="${product.image}" alt="${product.title}" loading="lazy" />
                         ${product.discount ? `<div class="discount-badge">${product.discount}</div>` : ''}
@@ -1687,7 +1690,7 @@
                         <div class="action-icons" role="group" aria-label="Product actions">
                             <span class="action-icon wishlist" title="Add to Wishlist" tabindex="0" role="button" aria-pressed="false" aria-label="Add to Wishlist"><i class="fas fa-heart"></i></span>
                             <span class="action-icon share" title="Share" tabindex="0" role="button" aria-label="Share"><i class="fas fa-share-alt"></i></span>
-                            <span class="action-icon add-cart" title="Add to Cart" tabindex="0" role="button" aria-label="Add to Cart"><i class="fas fa-cart-plus"></i></span>
+                            <span class="action-icon add-cart" title="Add to Cart" tabindex="0" role="button" aria-label="Add to Cart" onclick="event.stopPropagation(); addToCart(${product.id})"><i class="fas fa-cart-plus"></i></span>
                         </div>
                     </div>
                 </div>
@@ -1759,15 +1762,37 @@
                 // For desktop: show hover card on mouseenter with delay
                 card.addEventListener('mouseenter', () => {
                     hoverTimeout = setTimeout(() => {
-                        card.classList.add('hovered');
-                        animateHoverCard(hoverCard);
-                    }, 300);
+                        // Only show hover card if not hovering over the add to cart button
+                        if (!card.matches(':hover .btn-primary, :hover .add-cart')) {
+                            card.classList.add('hovered');
+                            animateHoverCard(hoverCard);
+                        }
+                    }, 1000); // Increased delay to 1 second to allow clicking add to cart
                 });
 
                 card.addEventListener('mouseleave', () => {
                     clearTimeout(hoverTimeout);
                     card.classList.remove('hovered');
                     resetHoverCard(hoverCard);
+                });
+
+                // Prevent hover card from showing when interacting with buttons
+                const buttons = card.querySelectorAll('.btn-primary, .action-icons .add-cart');
+                buttons.forEach(button => {
+                    button.addEventListener('mouseenter', () => {
+                        clearTimeout(hoverTimeout);
+                    });
+                    
+                    // Add click handler for the add to cart button in the hover card
+                    if (button.classList.contains('add-cart')) {
+                        button.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            const productId = button.closest('.product-card').dataset.productId;
+                            if (productId) {
+                                addToCart(parseInt(productId));
+                            }
+                        });
+                    }
                 });
 
                 // For mobile: toggle hover card on click/tap
@@ -1875,50 +1900,61 @@
             showNotification(`Opening product details...`);
         }
 
-async function addToCart(productId) {
-            try {
-                // Fetch product details from backend
-                const productResponse = await fetch(`http://localhost:3000/products/${productId}`);
-                if (!productResponse.ok) {
-                    throw new Error('Product not found');
+        function addToCart(productId) {
+            // Search for product in all sections
+            let product = null;
+            
+            // Check each section for the product
+            for (const section in sampleProducts) {
+                if (Array.isArray(sampleProducts[section])) {
+                    product = sampleProducts[section].find(p => p.id === productId);
+                    if (product) break;
                 }
-                const product = await productResponse.json();
-
-                // Check if product already in cart
-                const cartResponse = await fetch(`http://localhost:3000/cartItems?id=${productId}`);
-                const cartItems = await cartResponse.json();
-
-                if (cartItems.length > 0) {
-                    // Product exists in cart, update quantity
-                    const cartItem = cartItems[0];
-                    const updatedItem = { ...cartItem, count: cartItem.count + 1 };
-                    await fetch(`http://localhost:3000/cartItems/${cartItem.id}`, {
-                        method: 'PUT',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(updatedItem),
-                    });
-                } else {
-                    // Add new product to cart
-                    const newCartItem = { ...product, count: 1 };
-                    await fetch('http://localhost:3000/cartItems', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(newCartItem),
-                    });
-                }
-
-                showNotification(`Added to cart!`);
-                updateCartCount();
-            } catch (error) {
-                console.error('Error adding to cart:', error);
-                showNotification('Failed to add product to cart.', 'error');
             }
+            
+            if (!product) {
+                console.error('Product not found:', productId);
+                showNotification('Product not found!', 'error');
+                return;
+            }
+
+            // Get current cart from localStorage or initialize new cart
+            let cart = JSON.parse(localStorage.getItem('walmartCart')) || [];
+            
+            // Check if product already exists in cart
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.count += 1;
+            } else {
+                cart.push({
+                    ...product,
+                    count: 1
+                });
+            }
+            
+            // Save updated cart
+            localStorage.setItem('walmartCart', JSON.stringify(cart));
+            
+            // Update cart count in navbar
+            updateCartCount();
+            
+            // Show success notification with product name
+            showNotification(`${product.title} added to cart!`);
         }
 
         function updateCartCount() {
-            // Simulate cart count update
-            const cartCount = localStorage.getItem('cartCount') || 0;
-            localStorage.setItem('cartCount', parseInt(cartCount) + 1);
+            const cart = JSON.parse(localStorage.getItem('walmartCart')) || [];
+            const totalItems = cart.reduce((total, item) => total + (item.count || 0), 0);
+            
+            // Update the cart badge in the navbar
+            const cartBadge = document.getElementById('cartBadge');
+            if (cartBadge) {
+                cartBadge.textContent = totalItems;
+                cartBadge.style.display = totalItems > 0 ? 'flex' : 'none';
+            }
+            
+            return totalItems;
         }
 
         // Feedback functions
