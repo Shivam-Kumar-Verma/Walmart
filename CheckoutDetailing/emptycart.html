@@ -16,6 +16,21 @@
                 document.getElementById('navbar-container').innerHTML = data;
             })
             .catch(error => console.error('Error loading navbar:', error));
+
+        // Check cart status
+        function checkCartStatus() {
+            try {
+                const cart = JSON.parse(localStorage.getItem('walmartCart')) || [];
+                if (cart.length > 0) {
+                    window.location.href = 'cart.html';
+                }
+            } catch (error) {
+                console.error('Error checking cart:', error);
+            }
+        }
+
+        // Check cart status on page load
+        document.addEventListener('DOMContentLoaded', checkCartStatus);
     </script>
     <div class="container">
         <!-- Cart Empty Section -->
