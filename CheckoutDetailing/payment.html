@@ -276,36 +276,36 @@
                         </button>
                     </div>
                 </div>
-
                 <!-- Order Summary Details -->
                 <div class="summary-content">
                     <h3 class="summary-title">Order Summary</h3>
                     
-                    <div class="summary-row">
-                        <span class="summary-label">Subtotal</span>
-                        <span class="summary-value" id="totalIteminCart1">$0.00</span>
+                    <!-- Cart Items -->
+                    <div id="order-items" class="order-items">
+                        <!-- Items will be dynamically inserted here -->
+                    </div>
+                    <div class="summary-divider"></div>
+                    
+                    <div class="order-summary-row">
+                        <span class="summary-label">Subtotal (<span id="item-count">0</span> items)</span>
+                        <span class="summary-value" id="subtotal-amount">$0.00</span>
                     </div>
                     
-                    <div class="summary-row savings-row">
-                        <span class="summary-label">Savings</span>
-                        <span class="summary-value savings-value" id="saving23">$0.00</span>
-                    </div>
-                    
-                    <div class="summary-row">
+                    <div class="order-summary-row savings-row">
                         <span class="summary-label">Shipping</span>
-                        <span class="summary-value free-shipping">Free</span>
+                        <span class="summary-value" id="shipping-amount">$0.00</span>
                     </div>
                     
-                    <div class="summary-row">
+                    <div class="order-summary-row">
                         <span class="summary-label">Estimated Tax</span>
-                        <span class="summary-value">$8.22</span>
+                        <span class="summary-value" id="tax-amount">$0.00</span>
                     </div>
                     
                     <div class="summary-divider"></div>
                     
-                    <div class="summary-row total-row">
+                    <div class="order-summary-row total-row">
                         <span class="summary-label">Estimated Total</span>
-                        <span class="summary-value" id="estimatedTotal">$0.00</span>
+                        <span class="summary-value" id="estimated-total">$0.00</span>
                     </div>
                     
                     <div class="financing-info">
@@ -338,6 +338,95 @@
         </div>
     </div>
 
+    <script>
+        // Load cart items and update order summary
+        document.addEventListener('DOMContentLoaded', function() {
+            const cart = JSON.parse(localStorage.getItem('walmartCart')) || [];
+            const orderItemsContainer = document.getElementById('order-items');
+            const itemCountElement = document.getElementById('item-count');
+            const subtotalElement = document.getElementById('subtotal-amount');
+            const shippingElement = document.getElementById('shipping-amount');
+            const taxElement = document.getElementById('tax-amount');
+            const totalElement = document.getElementById('estimated-total');
+            
+            let subtotal = 0;
+            let itemCount = 0;
+            
+            // Clear existing items
+            orderItemsContainer.innerHTML = '';
+            
+            if (cart.length === 0) {
+                const emptyCart = document.createElement('div');
+                emptyCart.className = 'empty-cart-message';
+                emptyCart.textContent = 'Your cart is empty';
+                orderItemsContainer.appendChild(emptyCart);
+            } else {
+                // Add each cart item to the order summary
+                cart.forEach(item => {
+                    // Calculate price (handle both price and Sale_Price properties)
+                    let price = 0;
+                    if (item.price) {
+                        price = typeof item.price === 'string' 
+                            ? parseFloat(item.price.replace(/[^0-9.-]+/g, '')) 
+                            : item.price;
+                    } else if (item.Sale_Price) {
+                        price = typeof item.Sale_Price === 'string'
+                            ? parseFloat(item.Sale_Price.replace(/[^0-9.-]+/g, ''))
+                            : item.Sale_Price;
+                    }
+                    
+                    const name = item.title || item.Product_Name || 'Product';
+                    const image = item.image || item.Product_imgUrl || 'https://via.placeholder.com/100';
+                    const quantity = item.count || 1;
+                    const itemTotal = price * quantity;
+                    
+                    subtotal += itemTotal;
+                    itemCount += quantity;
+                    
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'order-item';
+                    itemElement.innerHTML = `
+                        <div class="order-item-image">
+                            <img src="${image}" alt="${name}">
+                            <span class="item-quantity">${quantity}</span>
+                        </div>
+                        <div class="order-item-details">
+                            <h4>${name}</h4>
+                            <div class="item-price">$${price.toFixed(2)} × ${quantity}</div>
+                        </div>
+                        <div class="order-item-total">$${itemTotal.toFixed(2)}</div>
+                    `;
+                    orderItemsContainer.appendChild(itemElement);
+                });
+            }
+            
+            // Update summary
+            itemCountElement.textContent = itemCount;
+            subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+            
+            // Calculate shipping (free over $35)
+            const shipping = subtotal >= 35 ? 0 : 6.99;
+            shippingElement.textContent = `$${shipping.toFixed(2)}`;
+            
+            // Calculate tax (estimate 8% for demo)
+            const tax = subtotal * 0.08;
+            taxElement.textContent = `$${tax.toFixed(2)}`;
+            
+            // Calculate total
+            const total = subtotal + shipping + tax;
+            totalElement.textContent = `$${total.toFixed(2)}`;
+            
+            // Update the button text if cart is empty
+            if (itemCount === 0) {
+                const checkoutBtn = document.getElementById('buttonContinue');
+                if (checkoutBtn) {
+                    checkoutBtn.disabled = true;
+                    checkoutBtn.textContent = 'Your cart is empty';
+                }
+            }
+        });
+    </script>
+    
     <!-- Success Modal -->
     <div class="modal" id="successModal">
         <div class="modal-content">
