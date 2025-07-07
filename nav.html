@@ -811,12 +811,8 @@
 
         // Initialize navigation functionality
         function initializeNavigation() {
-            // Load cart count from localStorage
-            const savedCartCount = localStorage.getItem('cartCount');
-            if (savedCartCount) {
-                cartCount = parseInt(savedCartCount);
-                updateCartBadge();
-            }
+            // Initialize cart count from walmartCart in localStorage
+            updateCartCount();
 
             // Setup search functionality
             setupSearchFunctionality();
@@ -974,16 +970,18 @@
 
         // Cart functionality
         function updateCartCount() {
-            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-            cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-            updateCartBadge();
+            const cartItems = JSON.parse(localStorage.getItem('walmartCart')) || [];
+            const totalItems = cartItems.reduce((sum, item) => sum + (item.count || 0), 0);
+            updateCartBadge(totalItems);
+            return totalItems;
         }
 
-        function updateCartBadge() {
+        function updateCartBadge(count) {
             const cartBadge = document.getElementById('cartBadge');
-            cartBadge.textContent = cartCount;
-            cartBadge.style.display = cartCount > 0 ? 'flex' : 'none';
-            localStorage.setItem('cartCount', cartCount.toString());
+            if (cartBadge) {
+                cartBadge.textContent = count;
+                cartBadge.style.display = count > 0 ? 'flex' : 'none';
+            }
         }
 
         // Event listeners
