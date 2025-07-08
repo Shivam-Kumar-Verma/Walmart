@@ -11,7 +11,7 @@ document.getElementById("continueShopping").addEventListener("click", function (
   // Add loading indicator if desired
   this.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Redirecting...';
   setTimeout(function () {
-    window.location.href = "../index.html";
+    window.location.href = "../econew.html";
   }, 1000);
 });
 
@@ -19,7 +19,7 @@ document.getElementById("continueShopping").addEventListener("click", function (
 document.getElementById("viewDetails").addEventListener("click", function () {
   this.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Loading...';
   setTimeout(function () {
-    window.location.href = "../orders/order-details.html";
+    window.location.href = "../orderHistory.html";
   }, 1000);
 });
 
