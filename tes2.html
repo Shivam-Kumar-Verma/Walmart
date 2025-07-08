@@ -334,7 +334,7 @@
         /* Product Grid */
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: 1fr 1fr 1fr 1fr;
             gap: 1.5rem;
             margin-bottom: 2rem;
             position: relative; /* For hover card positioning */
@@ -649,7 +649,8 @@
         /* Department Grid */
         .department-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            /* grid-template-rows: repeat(auto-fit); */
             gap: 1rem;
             margin-bottom: 2rem;
         }
@@ -1130,94 +1131,7 @@
     <main id="main-content">
         <div class="container">
             <!-- Modern Green Mode and Options Section -->
-            <section class="green-mode-section active" id="greenModeSection">
-                <div class="green-mode-header">
-                    <div class="green-mode-title">
-                        <div class="eco-icon">
-                            <i class="fas fa-leaf"></i>
-                        </div>
-                        <span>Eco-Friendly Shopping</span>
-                    </div>
-                    <div class="toggle-container">
-                        <div class="modern-toggle active" id="greenModeToggle" onclick="toggleGreenMode()">
-                            <div class="toggle-slider">
-                                <i class="fas fa-leaf"></i>
-                            </div>
-                        </div>
-                        <div class="toggle-status active" id="toggleStatus">Active</div>
-                    </div>
-                </div>
-                <!-- Eco Options Grid -->
-                <div class="eco-options-grid">
-                    <div class="eco-option-card active" onclick="toggleOption(this, 'refurbished')">
-                        <div class="option-header">
-                            <div class="option-icon">
-                                <i class="fas fa-recycle"></i>
-                            </div>
-                            <div class="option-title">Refurbished Products</div>
-                        </div>
-                        <div class="option-description">
-                            Choose certified pre-owned items that reduce waste and save money.
-                        </div>
-                        <div class="option-badge">Active</div>
-                    </div>
-                    <div class="eco-option-card active" onclick="toggleOption(this, 'certified')">
-                        <div class="option-header">
-                            <div class="option-icon">
-                                <i class="fas fa-certificate"></i>
-                            </div>
-                            <div class="option-title">Eco Certified</div>
-                        </div>
-                        <div class="option-description">
-                            Products with environmental certifications and sustainable materials.
-                        </div>
-                        <div class="option-badge">Active</div>
-                    </div>
-                    <div class="eco-option-card active" onclick="toggleOption(this, 'shipping')">
-                        <div class="option-header">
-                            <div class="option-icon">
-                                <i class="fas fa-truck"></i>
-                            </div>
-                            <div class="option-title">Carbon-Neutral Shipping</div>
-                        </div>
-                        <div class="option-description">
-                            Delivery options that offset carbon emissions through green initiatives.
-                        </div>
-                        <div class="option-badge">Active</div>
-                    </div>
-                    <div class="eco-option-card active" onclick="toggleOption(this, 'packaging')">
-                        <div class="option-header">
-                            <div class="option-icon">
-                                <i class="fas fa-box-open"></i>
-                            </div>
-                            <div class="option-title">Plastic-Free Packaging</div>
-                        </div>
-                        <div class="option-description">
-                            Biodegradable and recyclable packaging materials only.
-                        </div>
-                        <div class="option-badge">Active</div>
-                    </div>
-                </div>
-                <!-- Impact Stats -->
-                <div class="impact-stats">
-                    <div class="stat-item">
-                        <span class="stat-value" id="carbonSaved">2.4kg</span>
-                        <span class="stat-label">CO₂ Saved</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-value" id="treesPlanted">12</span>
-                        <span class="stat-label">Trees Planted</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-value" id="wasteReduced">85%</span>
-                        <span class="stat-label">Waste Reduced</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-value" id="energySaved">1.2kWh</span>
-                        <span class="stat-label">Energy Saved</span>
-                    </div>
-                </div>
-            </section>
+
             <!-- Hero Slider Section -->
             <section class="hero-section" aria-label="Featured promotions">
                 <div class="slider-container">
@@ -1245,12 +1159,11 @@
                     </div>
                 </div>
                 
-                <!-- <div class="side-banner">
-                    <img src="https://live.staticflickr.com/65535/49430551203_cfb8646eec_b.jpg" alt="Rollback deals" />
-                </div> -->
+
             </section>
 
-            <!-- Continue Shopping Section -->
+
+
             <section>
                 <div class="section-header">
                     <h2 class="section-title">Continue your shopping</h2>
@@ -1261,96 +1174,26 @@
                 </div>
             </section>
 
-            <!-- Spooky Savings Section -->
-            <section>
-                <div class="section-header">
-                    <h2 class="section-title">Spooky Savings</h2>
-                    <a href="#" class="view-all">View all deals</a>
-                </div>
-                <div class="product-grid" id="spooky-savings">
-                    <!-- Products will be loaded here -->
-                </div>
-            </section>
+            <!-- <section id="recommendations-container">
 
-            <!-- Membership Section -->
-            <section class="membership-section">
-                <div class="membership-content">
-                    <img src="data:image/png;base64,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">
-                    
+            </section> -->
 
- </section>
-
-            <!-- Build Your Cart Section -->
-            <section>
-                <div class="section-header">
-                    <h2 class="section-title">Build Your Cart</h2>
-                    <a href="#" class="view-all">View cart</a>
-                </div>
-                <div class="product-grid" id="cart-recommendations">
-                    <!-- Cart recommendations will be loaded here -->
-                </div>
-            </section>
-
-            <!-- Get Gifting Section -->
-            <section>
-                <div class="section-header">
-                    <h2 class="section-title">Get Gifting</h2>
-                    <a href="#" class="view-all">Shop all gifts</a>
-                </div>
-                <div class="product-grid" id="gifting-section">
-                    <!-- Gifting products will be loaded here -->
-                </div>
-            </section>
-
-            <!-- For You Section -->
-            <section>
-                <div class="section-header">
-                    <h2 class="section-title">For You</h2>
-                    <a href="#" class="view-all">See more</a>
-                </div>
-                <div class="product-grid" id="for-you-section">
-                    <!-- Personalized recommendations will be loaded here -->
-                </div>
-            </section>
-
+            <button onclick="addtv()">Click here</button>
+            
             <!-- Your Favorite Departments -->
-            <section>
+            <!-- <section>
                 <div class="section-header">
                     <h2 class="section-title">Your favorite departments</h2>
                     <a href="#" class="view-all">View all departments</a>
                 </div>
-                <div class="department-grid" id="departments">
+                <div class="department-grid" id="departments"> -->
                     <!-- Departments will be loaded here -->
-                </div>
-            </section>
-
-            <!-- Rollbacks Section -->
-            <section>
-                <div class="section-header">
-                    <h2 class="section-title">Rollbacks</h2>
-                    <a href="#" class="view-all">See all rollbacks</a>
-                </div>
-                <div class="product-grid" id="rollbacks-section">
-                    <!-- Rollback products will be loaded here -->
-                </div>
-            </section>
-
-            <!-- Sharing Values Section -->
-            <section>
-                <div class="section-header">
-                    <h2 class="section-title">Sharing our values</h2>
-                    <a href="#" class="view-all">Learn more</a>
-                </div>
-                <div class="product-grid" id="values-section">
-                    <!-- Values content will be loaded here -->
-                </div>
-            </section>
-
-            <!-- Feedback Section -->
-            <!-- <section class="feedback-section">
-                <p>We'd love to hear what you think!</p>
-                <button class="feedback-btn" onclick="openFeedbackModal()">Give feedback</button>
+                <!-- </div>
             </section> -->
+
+            
+
+            
         </div>
     </main>
 
@@ -1398,6 +1241,8 @@
         </div>
     </div>
 
+    
+
     <script>
         // Global variables
         let currentSlide = 0;
@@ -1435,9 +1280,7 @@
                     title: "Phone Case",
                     description: "Protective case for your smartphone",
                     price: "$19.99"
-                }
-            ],
-            spookySavings: [
+                },
                 {
                     id: 5,
                     image: "https://i5.walmartimages.com/dfw/4ff9c6c9-3bcd/k2-_c566840d-c66f-4eb2-9c30-fd4dfb83a29e.v1.jpg?odnHeight=112&odnWidth=112&odnBg=FFFFFF",
@@ -1470,109 +1313,6 @@
                     price: "From $12.99",
                     discount: "60% OFF"
                 }
-            ],
-            gifting: [
-                {
-                    id: 9,
-                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-2511/k2-_1f9f86dd-5dd6-4ff4-bdd1-8c8cd96bab6f.v1.jpg?odnHeight=290&odnWidth=290&odnBg=FFFFFF",
-                    title: "Stocking Stuffers",
-                    description: "Perfect small gifts for everyone",
-                    price: "From $2.99"
-                },
-                {
-                    id: 10,
-                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-c327/k2-_92781d27-d929-4650-adb9-f0654ada1138.v1.jpg?odnHeight=290&odnWidth=290&odnBg=FFFFFF",
-                    title: "Toys & Games",
-                    description: "Fun for kids of all ages",
-                    price: "From $9.99"
-                },
-                {
-                    id: 11,
-                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-771e/k2-_b7107582-e998-4ca8-bc08-97d1c1395e8b.v1.jpg?odnHeight=290&odnWidth=290&odnBg=FFFFFF",
-                    title: "Tech & Gaming",
-                    description: "Latest gadgets and gaming gear",
-                    price: "From $29.99"
-                },
-                {
-                    id: 12,
-                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-5093/k2-_84cf0f36-6eef-40e5-a9cd-045f82f70d3e.v1.jpg?odnHeight=290&odnWidth=290&odnBg=FFFFFF",
-                    title: "Fashion Picks",
-                    description: "Stylish clothing and accessories",
-                    price: "From $19.99"
-                }
-            ],
-            forYou: [
-                {
-                    id: 13,
-                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-40b5/k2-_924d4962-ef30-4128-8116-f29696f90e84.v1.jpg?odnHeight=222&odnWidth=395&odnBg=FFFFFF",
-                    title: "Cozy Home Updates",
-                    description: "Save on all you need to create your oasis",
-                    price: "From $15.99"
-                },
-                {
-                    id: 14,
-                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-87ff/k2-_8afdc4b6-1992-4f7c-ad12-9438da56366b.v1.jpg?odnHeight=222&odnWidth=395&odnBg=FFFFFF",
-                    title: "Power Up Your Fun",
-                    description: "Bumper cars, hoverboards & other awesome wheels",
-                    price: "From $89.99"
-                },
-                {
-                    id: 15,
-                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-a5bb/k2-_50e1ca89-0a69-4f85-81fe-bbff5edd0768.v1.jpg?odnHeight=222&odnWidth=395&odnBg=FFFFFF",
-                    title: "Advent Calendars",
-                    description: "Get excited for the holidays & let gifting start early",
-                    price: "From $12.99"
-                }
-            ],
-            departments: [
-                {
-                    id: 16,
-                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-73a1/k2-_2721d0c9-98b3-46c4-9226-b647e5a00836.v1.jpg?odnHeight=120px&odnWidth=120px&odnBg=FFFFFF",
-                    name: "Grocery"
-                },
-                {
-                    id: 17,
-                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-c2cd/k2-_d8aac3aa-e920-427a-b965-49bfce1fed14.v1.jpg?odnHeight=120px&odnWidth=120px&odnBg=FFFFFF",
-                    name: "Electronics"
-                },
-                {
-                    id: 18,
-                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-d05b/k2-_7f3543ee-7c28-488c-9b5a-01f9f60a35e7.v1.jpg?odnHeight=120px&odnWidth=120px&odnBg=FFFFFF",
-                    name: "Pets"
-                },
-                {
-                    id: 19,
-                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-e0ee/k2-_551b401e-73b8-49cc-a5cd-1fcbf0f8ecc8.v1.jpg?odnHeight=120px&odnWidth=120px&odnBg=FFFFFF",
-                    name: "Household Essentials"
-                },
-                {
-                    id: 20,
-                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-362d/k2-_fb442a82-c9c1-410d-b9d9-e9d5fc84ef2d.v1.jpg?odnHeight=120px&odnWidth=120px&odnBg=FFFFFF",
-                    name: "Home"
-                }
-            ],
-            values: [
-                {
-                    id: 21,
-                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-cab4/k2-_ea6b8c8c-36da-4fda-95aa-0bf5bf984a81.v1.jpg?odnHeight=340&odnWidth=604&odnBg=FFFFFF",
-                    title: "Black & Unlimited",
-                    description: "For who you are & who you want to be, we're here",
-                    price: "Learn more"
-                },
-                {
-                    id: 22,
-                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-f786/k2-_0749f48e-82aa-4d92-8ef2-946673f5f5f8.v1.jpg?odnHeight=340&odnWidth=604&odnBg=FFFFFF",
-                    title: "Built for Better",
-                    description: "Built for Better products with environmental certifications",
-                    price: "Learn more"
-                },
-                {
-                    id: 23,
-                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-e607/k2-_18ec31b5-ee4c-4a48-953a-f63433e511a9.v1.png?odnHeight=222&odnWidth=395&odnBg=FFFFFF",
-                    title: "Sustainable Living",
-                    description: "Products designed to help meet your needs & live by your values",
-                    price: "Learn more"
-                }
             ]
         };
 
@@ -1591,68 +1331,63 @@
         });
 
         // Inside your renderProducts function, before mapping:
-        function renderProducts(products, containerId) {
-            const container = document.getElementById(containerId);
-            if (!container) return;
+                const API_BASE_URL = 'http://127.0.0.1:8000'; // Make sure this matches your FastAPI server address
+        const USER_ID = 101; // Example user ID
 
-            // Map backend product structure to frontend product structure if necessary
-            const formattedProducts = products.map(product => ({
-                id: product.id,
-                image: product.image_url || 'placeholder.jpg', // Assuming backend returns image_url
-                title: product.name,
-                description: product.description,
-                price: `$${product.price.toFixed(2)}`, // Format price
-                discount: product.discount_percentage ? `${product.discount_percentage}% OFF` : ''
-                // Add other fields as needed
-            }));
+        // Function to fetch and display recommendations
+        async function fetchRecommendations(item) {
+            // const container = document.getElementById('recommendations-container');
+            // container.innerHTML = '<p>Loading recommendations...</p>'; // Show loading message
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/recommend?user_id=${USER_ID}&top_n=20&green_mode=true&search_query=${item}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const products = await response.json();
+
+                if (products.length === 0) {
+                    container.innerHTML = '<p>No recommendations found.</p>';
+                    return;
+                }
+                // console.log(products[0]['price']);
+                for(let i=0;i<products.length;i++){
+                    sampleProducts.continueShopping.push({
+                        title: products[i].Product,
+                        description: products[i].Brand+" "+products[i]['Variety/Size'],
+                        image: "https://i5.walmartimages.com/asr/d40772a4-e87d-4385-a712-b27f1b793697.e046de405bd3e603be4fe45ccce98d5a.jpeg?odnHeight=112&odnWidth=112&odnBg=FFFFFF" ,
+                        price: "From $"+products[i].price,
+                        id: products[i].itemID
+                    })
+                }
+
+                // let htmlContent = '';
+                // products.forEach(product => {
+                //     htmlContent += `
+                //         <div class="product-card">
+                //             <h3>${product.Product} - ${product['Variety/Size']}</h3>
+                //             <p><strong>Brand:</strong> ${product.Brand}</p>
+                //             <p class="price"><strong>Price:</strong> $${product.price.toFixed(2)}</p>
+                //             <p class="eco-score"><strong>Eco Score (kg CO2e):</strong> ${product['Total(kg CO2e)'].toFixed(2)}</p>
+                //             <p><strong>Refurbished Available:</strong> ${product.refurbished_available ? 'Yes' : 'No'}</p>
+                //             <p><strong>Item ID:</strong> ${product.itemID}</p>
+                //         </div>
+                //     `;
+                // });
+                // container.innerHTML = htmlContent;
+
+            } catch (error) {
+                console.error('Error fetching recommendations:', error);
+                // container.innerHTML = `<p style="color: red;">Failed to load recommendations: ${error.message}</p>`;
+            }
+        }
 
 
-        container.innerHTML = formattedProducts.map(product => `
-            <div class="product-card" tabindex="0" role="button" aria-label="View ${product.title}" data-product-id="${product.id}">
-            <div class="product-image">
-                <img src="${product.image}" alt="${product.title}" loading="lazy" />
-                ${product.discount ? `<div class="discount-badge">${product.discount}</div>` : ''}
-            </div>
-            <div class="product-info">
-                <h3 class="product-title">${product.title}</h3>
-                <p class="product-description">${product.description}</p>
-                <div class="product-price">${product.price}</div>
-                <button class="btn-primary" onclick="addToCart(${product.id}); event.stopPropagation();">
-                    <i class="fas fa-cart-plus"></i> Add to Cart
-                </button>
-            </div>
-            <div class="hover-card" aria-hidden="true">
-                <img class="hover-card-image" src="${product.image}" alt="${product.title}" />
-                <div class="hover-card-title">${product.title}</div>
-                <div class="hover-card-description">${product.description}</div>
-                <div class="hover-card-price">${product.price}</div>
-                <div class="review-badges">
-                    <div class="badge" title="Quality">✅ Quality</div>
-                    <div class="badge" title="Eco-Friendly">🌱 Eco-Friendly</div>
-                    <div class="badge" title="Best Seller">🔥 Best Seller</div>
-                    <div class="badge" title="Health">❌ Health</div>
-                </div>
-                <div class="carbon-chart">
-                    <div class="carbon-labels">
-                        <span>Fast Delivery</span>
-                        <span>Eco Mode</span>
-                    </div>
-                    <div class="carbon-bar-container">
-                        <div class="carbon-bar fast-delivery"></div>
-                    </div>
-                    <div class="carbon-bar-container">
-                        <div class="carbon-bar eco-mode"></div>
-                    </div>
-                </div>
-                <div class="action-icons" role="group" aria-label="Product actions">
-                    <span class="action-icon wishlist" title="Add to Wishlist" tabindex="0" role="button" aria-pressed="false" aria-label="Add to Wishlist"><i class="fas fa-heart"></i></span>
-                    <span class="action-icon share" title="Share" tabindex="0" role="button" aria-label="Share"><i class="fas fa-share-alt"></i></span>
-                    <span class="action-icon add-cart" title="Add to Cart" tabindex="0" role="button" aria-label="Add to Cart" onclick="event.stopPropagation(); addToCart(${product.id})"><i class="fas fa-cart-plus"></i></span>
-                </div>
-            </div>
-        </div>
-        `).join('');
-    }
+
+        async function addtv(){
+            await fetchRecommendations('Television (TV)');
+            renderProducts(sampleProducts.continueShopping,'continue-shopping')
+        }
 
 
 
@@ -1779,16 +1514,17 @@
             `).join('');
         }
 
+    
         // Load all sections
         function loadAllSections() {
             renderProducts(sampleProducts.continueShopping, 'continue-shopping');
-            renderProducts(sampleProducts.spookySavings, 'spooky-savings');
-            renderProducts(sampleProducts.continueShopping, 'cart-recommendations');
-            renderProducts(sampleProducts.gifting, 'gifting-section');
-            renderProducts(sampleProducts.forYou, 'for-you-section');
-            renderDepartments(sampleProducts.departments, 'departments');
-            renderProducts(sampleProducts.spookySavings, 'rollbacks-section');
-            renderProducts(sampleProducts.values, 'values-section');
+            // renderProducts(sampleProducts.spookySavings, 'spooky-savings');
+            // renderProducts(sampleProducts.continueShopping, 'cart-recommendations');
+            // renderProducts(sampleProducts.gifting, 'gifting-section');
+            // renderProducts(sampleProducts.forYou, 'for-you-section');
+            // renderDepartments(sampleProducts.departments, 'departments');
+            // renderProducts(sampleProducts.spookySavings, 'rollbacks-section');
+            // renderProducts(sampleProducts.values, 'values-section');
         }
 
         // Event listeners

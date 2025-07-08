@@ -65,7 +65,7 @@ class EcoCartRecommender:
 
     def recommend_for_user(self, user_id, top_n=10, green_mode=True, search_query=None):
         user_profile = self.profiles[self.profiles['user_id'] == user_id].squeeze()
-        reward_engine = RewardEngine("Dataset/Synthetic_Dataset/user_green_engagement_logs.csv")
+        reward_engine = RewardEngine("Dataset/user_green_engagement_logs.csv")
         user_tier = reward_engine.get_user_tier(user_id)
 
         # Filter products by search query if provided

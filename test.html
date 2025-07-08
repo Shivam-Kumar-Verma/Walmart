@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoCart Recommendations</title>
+    <!-- <link rel="stylesheet" href="your_styles.css"> Link to your CSS file -->
+    <style>
+        /* Basic styling for demonstration */
+        #recommendations-container {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 15px;
+            min-height: 100px;
+            background-color: #f9f9f9;
+        }
+        .product-card {
+            border: 1px solid #eee;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .product-card h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .product-card p {
+            margin: 5px 0;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .product-card .price {
+            font-weight: bold;
+            color: #007bff;
+        }
+        .product-card .eco-score {
+            color: #28a745;
+        }
+        .hover-trigger {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .hover-trigger:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <!-- Your header content, potentially from nav.html -->
+        <h1>Welcome to EcoCart</h1>
+    </header>
+
+    <main>
+        <h2>Product Recommendations</h2>
+
+        <!-- Element to trigger the fetch on hover -->
+        <div id="hoverTrigger" class="hover-trigger">Hover over me for recommendations!</div>
+
+        <!-- Container to display recommendations -->
+        <div id="recommendations-container">
+            <p>Recommendations will appear here...</p>
+        </div>
+
+        <h2>Your Reward Tier</h2>
+        <div id="reward-tier-container">
+            <p>Loading reward tier...</p>
+        </div>
+
+        <h2>Your Reward Perks</h2>
+        <div id="reward-perks-container">
+            <p>Loading reward perks...</p>
+        </div>
+    </main>
+
+    <footer>
+        <!-- Your footer content, potentially from footer.html -->
+        <p>&copy; 2023 EcoCart</p>
+    </footer>
+
+    <script>
+        // JavaScript code will go here
+        const API_BASE_URL = 'http://127.0.0.1:8000'; // Make sure this matches your FastAPI server address
+        const USER_ID = 101; // Example user ID
+
+        // Function to fetch and display recommendations
+        async function fetchRecommendations() {
+            const container = document.getElementById('recommendations-container');
+            container.innerHTML = '<p>Loading recommendations...</p>'; // Show loading message
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/recommend?user_id=${USER_ID}&top_n=20&green_mode=true`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const products = await response.json();
+
+                if (products.length === 0) {
+                    container.innerHTML = '<p>No recommendations found.</p>';
+                    return;
+                }
+
+                let htmlContent = '';
+                products.forEach(product => {
+                    htmlContent += `
+                        <div class="product-card">
+                            <h3>${product.Product} - ${product['Variety/Size']}</h3>
+                            <p><strong>Brand:</strong> ${product.Brand}</p>
+                            <p class="price"><strong>Price:</strong> $${product.price.toFixed(2)}</p>
+                            <p class="eco-score"><strong>Eco Score (kg CO2e):</strong> ${product['Total(kg CO2e)'].toFixed(2)}</p>
+                            <p><strong>Refurbished Available:</strong> ${product.refurbished_available ? 'Yes' : 'No'}</p>
+                            <p><strong>Item ID:</strong> ${product.itemID}</p>
+                        </div>
+                    `;
+                });
+                container.innerHTML = htmlContent;
+
+            } catch (error) {
+                console.error('Error fetching recommendations:', error);
+                container.innerHTML = `<p style="color: red;">Failed to load recommendations: ${error.message}</p>`;
+            }
+        }
+
+        // Function to fetch and display reward tier
+        async function fetchRewardTier() {
+            const container = document.getElementById('reward-tier-container');
+            container.innerHTML = '<p>Loading reward tier...</p>';
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/reward-tier?user_id=${USER_ID}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                container.innerHTML = `<p>Your current reward tier is: <strong>${data.tier}</strong></p>`;
+            } catch (error) {
+                console.error('Error fetching reward tier:', error);
+                container.innerHTML = `<p style="color: red;">Failed to load reward tier: ${error.message}</p>`;
+            }
+        }
+
+        // Function to fetch and display reward perks
+        async function fetchRewardPerks() {
+            const container = document.getElementById('reward-perks-container');
+            container.innerHTML = '<p>Loading reward perks...</p>';
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/reward-perks?user_id=${USER_ID}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                let perksHtml = `<p>Your tier (${data.tier}) perks:</p><ul>`;
+                if (data.perks && data.perks.length > 0) {
+                    data.perks.forEach(perk => {
+                        perksHtml += `<li>${perk}</li>`;
+                    });
+                } else {
+                    perksHtml += `<li>No specific perks for this tier yet.</li>`;
+                }
+                perksHtml += `</ul>`;
+                container.innerHTML = perksHtml;
+            } catch (error) {
+                console.error('Error fetching reward perks:', error);
+                container.innerHTML = `<p style="color: red;">Failed to load reward perks: ${error.message}</p>`;
+            }
+        }
+
+        // Event listener for hover effect
+        const hoverTrigger = document.getElementById('hoverTrigger');
+        let recommendationsLoaded = false; // Flag to prevent multiple fetches on hover
+
+        hoverTrigger.addEventListener('mouseenter', () => {
+            if (!recommendationsLoaded) {
+                fetchRecommendations();
+                recommendationsLoaded = true; // Set flag after first fetch
+            }
+        });
+
+        // Fetch reward tier and perks when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchRewardTier();
+            fetchRewardPerks();
+        });
+
+    </script>
+</body>
+</html>
