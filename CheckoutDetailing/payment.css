@@ -716,6 +716,7 @@ body {
     background: rgba(255, 255, 255, 0.3);
 }
 
+
 /* Summary Content */
 .summary-content {
     padding: 20px;
@@ -781,7 +782,10 @@ body {
     margin: 0 0 4px 0;
     line-height: 1.3;
     display: -webkit-box;
+    display: -ms-flexbox;
     -webkit-line-clamp: 2;
+    -ms-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -972,33 +976,519 @@ body {
     color: var(--text-primary);
 }
 
-.total-row .summary-value {
-    color: var(--walmart-blue);
-    font-size: 1.2rem;
+/* Delivery Options */
+/* ===== Eco Delivery Card ===== */
+.eco-delivery-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 0;
+    margin: 20px 0;
+    position: relative;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 }
 
-.savings-row .summary-value {
-    color: var(--success-color);
+.eco-delivery-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: #4CAF50;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    .order-items-container {
-        padding: 1rem;
-    }
-    
-    .order-item {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    .item-price {
-        margin-top: 0.5rem;
-        text-align: left;
-        width: 100%;
-        padding-left: 0.5rem;
-    }
+.eco-delivery-header {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid #f0f0f0;
 }
+
+.eco-radio {
+    position: relative;
+    margin-right: 12px;
+    cursor: pointer;
+}
+
+.eco-radio input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    z-index: 1;
+}
+
+.radio-custom {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #bdbdbd;
+    border-radius: 50%;
+    background: white;
+    transition: all 0.2s;
+}
+
+.eco-radio input[type="radio"]:checked + .radio-custom {
+    border-color: #4CAF50;
+    background-color: #4CAF50;
+}
+
+.radio-custom::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: white;
+    transition: transform 0.2s;
+}
+
+.eco-radio input[type="radio"]:checked + .radio-custom::after {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.eco-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    display: flex;
+    align-items: center;
+}
+
+.eco-title i {
+    color: #4CAF50;
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+.eco-delivery-time {
+    font-size: 14px;
+    color: #666;
+    font-weight: 400;
+    margin-left: 8px;
+}
+
+.eco-price-tag {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.eco-original-price {
+    text-decoration: line-through;
+    color: #9e9e9e;
+    font-size: 14px;
+}
+
+.eco-discount {
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.eco-benefits {
+    padding: 16px 16px 20px 52px;
+}
+
+.eco-benefit-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.4;
+}
+
+.eco-benefit-item:last-child {
+    margin-bottom: 0;
+}
+
+.eco-benefit-item i {
+    color: #4CAF50;
+    margin-right: 12px;
+    margin-top: 2px;
+    font-size: 16px;
+    min-width: 16px;
+}
+
+.ecopoints-badge {
+    display: inline-flex;
+    align-items: center;
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: 8px;
+}
+
+.ecopoints-badge i {
+    color: #4CAF50;
+    font-size: 12px;
+    margin-right: 4px;
+}
+
+.eco-savings {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #2e7d32;
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background: #f1f8e9;
+    border-radius: 6px;
+}
+
+.eco-savings i {
+    margin-right: 8px;
+    color: #4CAF50;
+}
+
+/* ===== Tree Donation Card ===== */
+.donation-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 16px;
+    margin: 16px 0;
+    background: white;
+    display: flex;
+    align-items: flex-start;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.donation-checkbox {
+    position: relative;
+    margin-right: 12px;
+    margin-top: 2px;
+    cursor: pointer;
+}
+
+.donation-checkbox input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    z-index: 1;
+}
+
+.checkmark {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #bdbdbd;
+    border-radius: 4px;
+    background: white;
+    transition: all 0.2s;
+}
+
+.donation-checkbox input[type="checkbox"]:checked + .checkmark {
+    background: #4CAF50;
+    border-color: #4CAF50;
+}
+
+.checkmark::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    transition: transform 0.2s;
+}
+
+.donation-checkbox input[type="checkbox"]:checked + .checkmark::after {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.donation-content {
+    flex: 1;
+}
+
+.donation-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.donation-title i {
+    color: #4CAF50;
+    margin-right: 0;
+}
+
+.donation-subtitle {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.4;
+    margin-top: 4px;
+}
+
+/* ===== EcoPoints Summary ===== */
+.ecopoints-summary {
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 16px;
+    margin: 20px 0;
+    background: #f8f9fa;
+}
+
+.ecopoints-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.ecopoints-header i {
+    color: #4CAF50;
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.ecopoints-header h4 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.ecopoints-details {
+    font-size: 14px;
+}
+
+.ecopoints-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.ecopoints-amount {
+    color: #2e7d32;
+    font-weight: 600;
+}
+
+.ecopoints-total {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed #ddd;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    color: #1a1a1a;
+}
+
+.ecopoints-total .ecopoints-amount {
+    font-size: 15px;
+    color: #1b5e20;
+}
+
+/* Batch Delivery Option */
+/* .batch-delivery {
+    margin: 15px 0;
+    padding: 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.batch-delivery label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    margin-bottom: 0;
+}
+
+.batch-delivery input[type="checkbox"] {
+    margin-right: 12px;
+    width: 18px;
+    height: 18px;
+}
+
+.batch-delivery i.fa-boxes {
+    color: #4CAF50;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.batch-details {
+    margin-top: 12px;
+    margin-left: 40px;
+    font-size: 13px;
+    color: #666;
+}
+
+.batch-details p {
+    margin: 6px 0;
+    display: flex;
+    align-items: center;
+}
+
+.batch-details i {
+    margin-right: 8px;
+    color: #4CAF50;
+    font-size: 12px;
+    min-width: 16px;
+    text-align: center;
+} */
+.batch-delivery-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 0;
+    margin: 20px 0;
+    position: relative;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.batch-delivery-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: #4CAF50;
+}
+
+.batch-delivery-header {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.batch-radio {
+    position: relative;
+    margin-right: 12px;
+    cursor: pointer;
+}
+
+.batch-radio input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;  /* ⬅️ THIS IS MISSING */
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    z-index: 1;
+}
+
+.radio-custom {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #bdbdbd;
+    border-radius: 4px;
+    background: white;
+    transition: all 0.2s;
+}
+
+.batch-radio input[type="checkbox"]:checked + .radio-custom {
+    border-color: #4CAF50;
+    background-color: #4CAF50;
+}
+
+.radio-custom::after {
+    content: '\2713';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    color: white;
+    font-size: 12px;
+    transition: transform 0.2s ease;
+}
+
+.batch-radio input[type="checkbox"]:checked + .radio-custom::after {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.batch-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    display: flex;
+    align-items: center;
+}
+
+.batch-title i {
+    color: #4CAF50;
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+.batch-price-tag {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.batch-discount {
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.batch-benefits {
+    padding: 16px 16px 20px 52px;
+}
+
+.batch-benefit-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.4;
+}
+
+.batch-benefit-item:last-child {
+    margin-bottom: 0;
+}
+
+.batch-benefit-item i {
+    color: #4CAF50;
+    margin-right: 12px;
+    margin-top: 2px;
+    font-size: 16px;
+    min-width: 16px;
+}
+
+.info-tooltip {
+    margin-left: 8px;
+    color: #9e9e9e;
+    font-size: 14px;
+    cursor: pointer;
+}
+
 
 .checkout-btn {
     background: var(--walmart-blue);
