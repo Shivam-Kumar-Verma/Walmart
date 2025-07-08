@@ -1576,6 +1576,31 @@
             ]
         };
 
+        async function fetchAndRenderRecommendations(userId, containerId, greenMode = true, searchQuery = null) {
+            const baseUrl = 'http://localhost:8000'; // backend URL
+            let url = `${baseUrl}/recommend?user_id=${userId}&top_n=10&green_mode=${greenMode}`;
+            if (searchQuery) {
+                url += `&search_query=${encodeURIComponent(searchQuery)}`;
+            }
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const products = await response.json();
+                renderProducts(products, containerId); 
+            } catch (error) {
+                console.error('Error fetching recommendations:', error);
+                
+                if (containerId === 'for-you-section') {
+                    renderProducts(sampleProducts.forYou, containerId);
+                }
+                
+            }
+        }
+
+
+
         // Initialize page
         document.addEventListener('DOMContentLoaded', function() {
             showLoading();
@@ -1584,8 +1609,76 @@
             setupEventListeners();
             setupHoverCardListeners();
             updateCartCount(); // Initialize cart count on page load
+            const currentUserId = 1; // Replace with dynamic user ID
+            fetchAndRenderRecommendations(currentUserId, 'for-you-section', true);
             hideLoading();
         });
+
+        // Inside your renderProducts function, before mapping:
+function renderProducts(products, containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    // Map backend product structure to frontend product structure if necessary
+    const formattedProducts = products.map(product => ({
+        id: product.id,
+        image: product.image_url || 'placeholder.jpg', // Assuming backend returns image_url
+        title: product.name,
+        description: product.description,
+        price: `$${product.price.toFixed(2)}`, // Format price
+        discount: product.discount_percentage ? `${product.discount_percentage}% OFF` : ''
+        // Add other fields as needed
+    }));
+
+    container.innerHTML = formattedProducts.map(product => `
+        <div class="product-card" tabindex="0" role="button" aria-label="View ${product.title}" data-product-id="${product.id}">
+            <div class="product-image">
+                <img src="${product.image}" alt="${product.title}" loading="lazy" />
+                ${product.discount ? `<div class="discount-badge">${product.discount}</div>` : ''}
+            </div>
+            <div class="product-info">
+                <h3 class="product-title">${product.title}</h3>
+                <p class="product-description">${product.description}</p>
+                <div class="product-price">${product.price}</div>
+                <button class="btn-primary" onclick="addToCart(${product.id}); event.stopPropagation();">
+                    <i class="fas fa-cart-plus"></i> Add to Cart
+                </button>
+            </div>
+            <div class="hover-card" aria-hidden="true">
+                <img class="hover-card-image" src="${product.image}" alt="${product.title}" />
+                <div class="hover-card-title">${product.title}</div>
+                <div class="hover-card-description">${product.description}</div>
+                <div class="hover-card-price">${product.price}</div>
+                <div class="review-badges">
+                    <div class="badge" title="Quality">✅ Quality</div>
+                    <div class="badge" title="Eco-Friendly">🌱 Eco-Friendly</div>
+                    <div class="badge" title="Best Seller">🔥 Best Seller</div>
+                    <div class="badge" title="Health">❌ Health</div>
+                </div>
+                <div class="carbon-chart">
+                    <div class="carbon-labels">
+                        <span>Fast Delivery</span>
+                        <span>Eco Mode</span>
+                    </div>
+                    <div class="carbon-bar-container">
+                        <div class="carbon-bar fast-delivery"></div>
+                    </div>
+                    <div class="carbon-bar-container">
+                        <div class="carbon-bar eco-mode"></div>
+                    </div>
+                </div>
+                <div class="action-icons" role="group" aria-label="Product actions">
+                    <span class="action-icon wishlist" title="Add to Wishlist" tabindex="0" role="button" aria-pressed="false" aria-label="Add to Wishlist"><i class="fas fa-heart"></i></span>
+                    <span class="action-icon share" title="Share" tabindex="0" role="button" aria-label="Share"><i class="fas fa-share-alt"></i></span>
+                    <span class="action-icon add-cart" title="Add to Cart" tabindex="0" role="button" aria-label="Add to Cart" onclick="event.stopPropagation(); addToCart(${product.id})"><i class="fas fa-cart-plus"></i></span>
+                </div>
+            </div>
+        </div>
+        `).join('');
+    }
+
+
+
 
         // Loading functions
         function showLoading() {
