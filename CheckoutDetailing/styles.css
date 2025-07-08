@@ -54,6 +54,9 @@ body {
     transition: background-color 0.3s ease;
     margin-bottom: 2rem;
     font-size: 1.1rem;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
 }
 
 .sign-in-text {
