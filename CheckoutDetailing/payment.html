@@ -23,7 +23,7 @@
     <header class="checkout-header">
         <div class="header-content">
             <div class="header-left">
-                <a href="../index.html" class="back-link">
+                <a href="../econew.html" class="back-link">
                     <i class="fas fa-arrow-left"></i>
                     <span>Back to Cart</span>
                 </a>
@@ -215,7 +215,146 @@
                     </div>
                 </div>
             </section>
+             <!-- Delivery Preferences Section -->
+             <section class="checkout-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-truck"></i>
+                        Delivery Preferences
+                    </h2>
+                </div>
+                <div class="section-content">
+                    <div class="delivery-options">
+                        <h3>Choose your delivery speed</h3>
+                        
+                        <!-- Delivery Options Container -->
+                        <div class="delivery-options-container">
+                            <!-- Standard Delivery Option -->
+                            <div class="delivery-option" id="standardDelivery">
+                                <input type="radio" name="deliveryOption" id="standard" value="standard">
+                                <label for="standard">
+                                    <span class="option-title">Standard Delivery</span>
+                                    <span class="option-price">Free</span>
+                                    <span class="delivery-time">3-5 business days</span>
+                                </label>
+                                <div class="option-details">
+                                    <p>Regular shipping with standard carbon footprint</p>
+                                </div>
+                            </div>
 
+                            <!-- Eco Delivery Card -->
+                            <div class="eco-delivery-card">
+                                <div class="eco-delivery-header">
+                                    <label class="eco-radio">
+                                        <input type="radio" name="deliveryOption" id="eco" value="eco">
+                                        <span class="radio-custom"></span>
+                                    </label>
+                                <div class="eco-title">
+                                    <i class="fas fa-leaf"></i> Eco-Delivery
+                                    <span class="eco-delivery-time">(5-8 business days)</span>
+                                </div>
+                                <div class="eco-price-tag">
+                                    <span class="eco-original-price">$1 </span>
+                                    <span class="eco-discount">FREE</span>
+                                </div>
+                            </div>
+                            <div class="eco-benefits">
+                                <div class="eco-benefit-item">
+                                    <i class="fas fa-leaf"></i>
+                                    <div>40% lower carbon footprint</div>
+                                </div>
+                                <div class="eco-benefit-item">
+                                    <i class="fas fa-truck"></i>
+                                    <div>Road transport only</div>
+                                </div>
+                                <div class="eco-benefit-item">
+                                    <i class="fas fa-gift"></i>
+                                    <div>
+                                        Earn <span class="ecopoints-badge"><i class="fas fa-award"></i> 50 EcoPoints</span>
+                                    </div>
+                                </div>
+                                <div class="eco-savings">
+                                    <i class="fas fa-tag"></i> $1 Discount Applied (was $1 )
+                                </div>
+                            </div>
+                        </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Tree Donation Card -->
+                        <div class="donation-card">
+                            <div class="donation-checkbox">
+                                <input type="checkbox" id="treeDonation">
+                                <span class="checkmark"></span>
+                            </div>
+                            <div class="donation-content">
+                                <div class="donation-title">
+                                    <i class="fas fa-tree"></i> Donate $1 to plant a tree
+                                    <span class="ecopoints-badge"><i class="fas fa-award"></i> +30 EcoPoints</span>
+                                </div>
+                                <div class="donation-subtitle">
+                                    Your $1 helps reforest India. Join the change!
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Batch Delivery Option -->
+                        <div class="batch-delivery-card">
+                            <div class="batch-delivery-header">
+                              <label class="batch-radio">
+                                <input type="checkbox" id="batchDelivery">
+                                <span class="radio-custom"></span>
+                              </label>
+                              <div class="batch-title">
+                                <i class="fas fa-boxes"></i> Combine with Future Orders
+                              </div>
+                              <div class="batch-price-tag">
+                                <span class="batch-discount">+25 EcoPoints</span>
+                                <span class="info-tooltip" title="Save on packaging and reduce carbon emissions by combining multiple orders into one delivery">
+                                  <i class="fas fa-info-circle"></i>
+                                </span>
+                              </div>
+                            </div>
+                          
+                            <div class="batch-benefits">
+                              <div class="batch-benefit-item">
+                                <i class="fas fa-leaf"></i>
+                                <div>Reduces packaging waste by up to 30%</div>
+                              </div>
+                              <div class="batch-benefit-item">
+                                <i class="fas fa-coins"></i>
+                                <div>Earn <span class="ecopoints-badge"><i class="fas fa-award"></i> 25 EcoPoints</span></div>
+                              </div>
+                            </div>
+                          </div>
+                                                 
+                        <!-- EcoPoints Summary -->
+                        <div class="ecopoints-summary">
+                            <div class="ecopoints-header">
+                                <i class="fas fa-award"></i>
+                                <h4>EcoPoints Earned This Order</h4>
+                            </div>
+                            <div class="ecopoints-details">
+                                <div class="ecopoints-row">
+                                    <span>Eco-Delivery:</span>
+                                    <span class="ecopoints-amount" id="ecodelivery-points">+50</span>
+                                </div>
+                                <div class="ecopoints-row">
+                                    <span>Tree Donation:</span>
+                                    <span class="ecopoints-amount" id="donation-points">+30</span>
+                                </div>
+                                <div class="ecopoints-row">
+                                    <span>Batch Delivery:</span>
+                                    <span class="ecopoints-amount" id="batch-points">+25</span>
+                                  </div>
+                                <div class="ecopoints-total">
+                                    <span>Total:</span>
+                                    <span class="ecopoints-amount" id="total-ecopoints">80 EcoPoints</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </section>
             <!-- Contact Section -->
             <section class="checkout-section">
                 <div class="section-header">

@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     displayCartItems();
     calculateTotals();
     setupFormValidation();
+    setupEcoFeatures(); // Initialize eco features
 });
 
 // Initialize page functionality
@@ -41,6 +42,18 @@ function setupEventListeners() {
     if (checkoutBtn) {
         checkoutBtn.addEventListener('click', handleCheckout);
     }
+    
+    // Eco delivery option
+    const ecoDelivery = document.getElementById('eco');
+    if (ecoDelivery) {
+        ecoDelivery.addEventListener('change', updateEcoPoints);
+    }
+    
+    // Tree donation option
+    const treeDonation = document.getElementById('treeDonation');
+    if (treeDonation) {
+        treeDonation.addEventListener('change', updateEcoPoints);
+    }
 
     // Close savings banner
     const closeSavingsBtn = document.querySelector('.close-savings');
@@ -51,7 +64,9 @@ function setupEventListeners() {
     // Form inputs for real-time validation
     const inputs = document.querySelectorAll('input');
     inputs.forEach(input => {
-        input.addEventListener('blur', validateField);
+        input.addEventListener('blur', function() {
+            validateField(this);
+        });
         input.addEventListener('input', clearFieldError);
     });
 
@@ -117,15 +132,20 @@ function displayCartItems() {
         itemCount: cartValue.reduce((acc, item) => acc + (item.count || 1), 0)
     };
     
-    // Save to localStorage for order confirmation
+    // Save to localStorage for order summary
     localStorage.setItem('orderSummary', JSON.stringify(orderSummary));
 
-    // Update UI
-    document.getElementById('totalItems').textContent = orderSummary.itemCount;
-    document.getElementById('subtotal-amount').textContent = `$${orderSummary.subtotal}`;
-    document.getElementById('shipping-amount').textContent = orderSummary.shipping === '0.00' ? 'FREE' : `$${orderSummary.shipping}`;
-    document.getElementById('tax-amount').textContent = `$${orderSummary.tax}`;
-    document.getElementById('estimatedTotal').textContent = `$${orderSummary.total}`;
+    // Safely update UI elements if they exist
+    const updateIfExists = (id, value) => {
+        const element = document.getElementById(id);
+        if (element) element.textContent = value;
+    };
+
+    updateIfExists('totalItems', orderSummary.itemCount);
+    updateIfExists('subtotal-amount', `$${orderSummary.subtotal}`);
+    updateIfExists('shipping-amount', orderSummary.shipping === '0.00' ? 'FREE' : `$${orderSummary.shipping}`);
+    updateIfExists('tax-amount', `$${orderSummary.tax}`);
+    updateIfExists('estimatedTotal', `$${orderSummary.total}`);
 }
 
 // Create cart item element
@@ -158,37 +178,230 @@ function createCartItemElement(item, index, itemTotal) {
 
 // Calculate totals
 function calculateTotals() {
-    const subtotal = cartValue.reduce((acc, item) => {
-        return acc + (parseFloat(item.List_Price || 0) * parseInt(item.count || 1));
+    const subtotal = cartValue.reduce((sum, item) => {
+        const price = item.price ? parseFloat(item.price.replace(/[^0-9.-]+/g, '')) : 0;
+        return sum + (price * (item.count || 1));
     }, 0);
+    
+    // Check for eco delivery discount
+    const ecoDelivery = document.getElementById('eco');
+    const isEcoDelivery = ecoDelivery && ecoDelivery.checked;
+    
+    // Check for tree donation
+    const treeDonation = document.getElementById('treeDonation');
+    const hasTreeDonation = treeDonation && treeDonation.checked;
+    
+    // Check for combine orders
+    const batchDelivery = document.getElementById('batchDelivery');
+    const hasBatchDelivery = batchDelivery && batchDelivery.checked;
 
-    const originalTotal = cartValue.reduce((acc, item) => {
-        return acc + (parseFloat(item.Sale_Price || item.List_Price || 0) * parseInt(item.count || 1));
-    }, 0);
-
-    const savings = Math.max(0, originalTotal - subtotal);
-    const tax = 8.22; // Fixed tax for demo
-    const estimatedTotal = subtotal + tax;
-
-    // Update UI
-    updateTotalDisplay('totalIteminCart1', subtotal);
-    updateTotalDisplay('saving23', savings);
-    updateTotalDisplay('estimatedTotal', estimatedTotal);
-
-    // Show/hide savings banner based on savings amount
-    const savingsBanner = document.getElementById('savingsBanner');
-    if (savingsBanner) {
-        savingsBanner.style.display = savings > 0 ? 'block' : 'none';
+    // Calculate shipping (free for orders over $35, eco delivery is free)
+    let shipping = subtotal >= 35 || isEcoDelivery ? 0 : 5.99;
+    
+    // Add donation amount if selected
+    const donationAmount = hasTreeDonation ? 1 : 0;
+    
+    // Apply eco delivery discount
+    const ecoDiscount = isEcoDelivery ? 1 : 0;
+    
+    // Calculate tax (10% on subtotal after eco discount, before donation)
+    const discountedSubtotal = Math.max(0, subtotal - ecoDiscount);
+    const tax = (discountedSubtotal) * 0.1; // 10% tax on items after discount
+    
+    // Calculate final total (subtotal - discount + shipping + tax + donation)
+    const finalTotal = discountedSubtotal + shipping + tax + donationAmount;
+    
+    // Debug log to verify calculations
+    console.log({
+        subtotal,
+        ecoDiscount,
+        discountedSubtotal,
+        shipping,
+        tax,
+        donationAmount,
+        finalTotal
+    });
+    
+    // Update order summary
+    orderSummary = {
+        subtotal: subtotal.toFixed(2), // Show original subtotal before any discounts
+        shipping: shipping.toFixed(2),
+        tax: tax.toFixed(2),
+        total: finalTotal.toFixed(2),
+        itemCount: cartValue.reduce((acc, item) => acc + (item.count || 1), 0),
+        isEcoDelivery,
+        hasTreeDonation,
+        donationAmount: donationAmount.toFixed(2),
+        hasBatchDelivery,
+        ecoDiscount: ecoDiscount.toFixed(2),
+        originalSubtotal: subtotal.toFixed(2) // Keep track of original subtotal
+    };
+    
+    // Save to localStorage for order summary
+    localStorage.setItem('orderSummary', JSON.stringify(orderSummary));
+    
+    // Update UI with proper number formatting and ensure 2 decimal places
+    const formatCurrency = (amount) => {
+        return `$${parseFloat(amount).toFixed(2)}`;
+    };
+    
+    updateTotalDisplay('subtotal-amount', formatCurrency(orderSummary.subtotal));
+    updateTotalDisplay('shipping-amount', orderSummary.shipping === '0.00' ? 'FREE' : formatCurrency(orderSummary.shipping));
+    updateTotalDisplay('tax-amount', formatCurrency(orderSummary.tax));
+    updateTotalDisplay('estimated-total', formatCurrency(orderSummary.total));
+    
+    // Add or update eco discount line
+    if (isEcoDelivery) {
+        let ecoDiscountLine = document.getElementById('eco-discount-line');
+        if (!ecoDiscountLine) {
+            const orderSummary = document.querySelector('.order-summary-row');
+            if (orderSummary) {
+                const shippingRow = document.querySelector('.order-summary-row.savings-row');
+                if (shippingRow) {
+                    ecoDiscountLine = document.createElement('div');
+                    ecoDiscountLine.className = 'order-summary-row eco-discount';
+                    ecoDiscountLine.id = 'eco-discount-line';
+                    ecoDiscountLine.innerHTML = `
+                        <span class="summary-label">Eco Delivery Discount</span>
+                        <span class="summary-value eco-text">-$${ecoDiscount.toFixed(2)}</span>
+                    `;
+                    shippingRow.after(ecoDiscountLine);
+                }
+            }
+        } else {
+            ecoDiscountLine.querySelector('.summary-value').textContent = `-$${ecoDiscount.toFixed(2)}`;
+        }
+    } else {
+        const ecoDiscountLine = document.getElementById('eco-discount-line');
+        if (ecoDiscountLine) {
+            ecoDiscountLine.remove();
+        }
     }
+    
+    // Add or update tree donation line if applicable
+    if (hasTreeDonation) {
+        let donationLine = document.getElementById('donation-line');
+        if (!donationLine) {
+            const orderSummary = document.querySelector('.order-summary-row');
+            if (orderSummary) {
+                const ecoLine = document.getElementById('eco-discount-line') || 
+                              document.querySelector('.order-summary-row.savings-row');
+                if (ecoLine) {
+                    donationLine = document.createElement('div');
+                    donationLine.className = 'order-summary-row';
+                    donationLine.id = 'donation-line';
+                    donationLine.innerHTML = `
+                        <span class="summary-label">Tree Donation</span>
+                        <span class="summary-value eco-donation">+$${donationAmount.toFixed(2)}</span>
+                    `;
+                    ecoLine.after(donationLine);
+                }
+            }
+        } else {
+            donationLine.querySelector('.summary-value').textContent = `+$${donationAmount.toFixed(2)}`;
+        }
+    } else {
+        const donationLine = document.getElementById('donation-line');
+        if (donationLine) {
+            donationLine.remove();
+        }
+    }
+    
+
+    
+    updateTotalDisplay('estimatedTotal', `$${orderSummary.total}`);
+    
+    // Update EcoPoints
+    updateEcoPoints();
 }
 
 // Update total display
 function updateTotalDisplay(elementId, amount) {
     const element = document.getElementById(elementId);
     if (element) {
-        element.textContent = `$${amount.toFixed(2)}`;
+        element.textContent = typeof amount === 'string' ? amount : `$${amount.toFixed(2)}`;
     }
 }
+
+// Setup eco features
+function setupEcoFeatures() {
+    // Initialize event listeners for eco options
+    const ecoDelivery = document.getElementById('eco');
+    const treeDonation = document.getElementById('treeDonation');
+    const batchDelivery = document.getElementById('batchDelivery'); 
+    
+    if (ecoDelivery) {
+        ecoDelivery.addEventListener('change', calculateTotals);
+    }
+    
+    if (treeDonation) {
+        treeDonation.addEventListener('change', calculateTotals);
+    }
+    if (batchDelivery) {
+        batchDelivery.addEventListener('change', calculateTotals);
+    }
+    
+    // Initialize EcoPoints display
+    updateEcoPoints();
+}
+
+// Update EcoPoints display
+function updateEcoPoints() {
+    const ecoDelivery = document.getElementById('eco');
+    const treeDonation = document.getElementById('treeDonation');
+    const batchDelivery = document.getElementById('batchDelivery');
+    
+    // Only add EcoPoints if Eco-Delivery is selected
+    const ecoDeliveryPoints = ecoDelivery && ecoDelivery.checked ? 50 : 0;
+    const donationPoints = treeDonation && treeDonation.checked ? 30 : 0;
+    const batchPoints = batchDelivery && batchDelivery.checked ? 25 : 0;
+    
+    const totalPoints = ecoDeliveryPoints + donationPoints + batchPoints;
+
+    // Update points display
+    const ecoDeliveryEl = document.getElementById('ecodelivery-points');
+    const donationEl = document.getElementById('donation-points');
+    const batchEl = document.getElementById('batch-points');
+    const totalEl = document.getElementById('total-ecopoints');
+    
+    if (ecoDeliveryEl) ecoDeliveryEl.textContent = `+${ecoDeliveryPoints}`;
+    if (donationEl) donationEl.textContent = `+${donationPoints}`;
+    if (batchEl) batchEl.textContent = `+${batchPoints}`;
+    if (totalEl) totalEl.textContent = `${totalPoints} EcoPoints`;
+    
+    // Show/hide points rows based on selection
+    const ecoRow = document.querySelector('.ecopoints-row:nth-child(1)');
+    const donationRow = document.querySelector('.ecopoints-row:nth-child(2)');
+    const batchRow = document.getElementById('batch-row');
+    
+    if (ecoRow) ecoRow.style.display = ecoDeliveryPoints > 0 ? 'flex' : 'none';
+    if (donationRow) donationRow.style.display = donationPoints > 0 ? 'flex' : 'none';
+    if (batchRow) batchRow.style.display = batchPoints > 0 ? 'flex' : 'none';
+    
+    // Show notification for points earned
+    if (ecoDelivery && ecoDelivery.checked) {
+        showNotification('You\'ve selected Eco-Delivery and earned 50 EcoPoints!', 'success');
+    } 
+    if (treeDonation && treeDonation.checked) {
+        showNotification('Thank you for your donation! You\'ve earned 30 EcoPoints!', 'success');
+    } 
+    if (batchDelivery && batchDelivery.checked) {
+        showNotification('Thank you for combining orders! You\'ve earned 25 EcoPoints!', 'success');
+    }
+}
+
+// Add event listeners for delivery options
+document.addEventListener('DOMContentLoaded', function() {
+    const deliveryOptions = document.querySelectorAll('input[name="deliveryOption"]');
+    deliveryOptions.forEach(option => {
+        option.addEventListener('change', function() {
+            // If standard delivery is selected, ensure EcoPoints are updated
+            if (this.id === 'standard' && this.checked) {
+                updateEcoPoints();
+            }
+        });
+    });
+});
 
 // Setup payment methods
 function setupPaymentMethods() {
@@ -289,9 +502,12 @@ function setupFormValidation() {
 }
 
 function validateField(field) {
-    const value = field.value.trim();
-    const fieldType = field.type;
-    const fieldId = field.id;
+    // Return true if field is undefined or null
+    if (!field) return true;
+    
+    const value = field.value ? field.value.trim() : '';
+    const fieldType = field.type || '';
+    const fieldId = field.id || '';
     
     // Remove existing error styling
     field.classList.remove('error');
