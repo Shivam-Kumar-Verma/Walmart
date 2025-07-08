@@ -955,8 +955,37 @@ body {
 .order-summary-row {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 0.75rem;
-    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+/* Eco discount line */
+.eco-discount {
+    color: #4CAF50;
+    font-weight: 500;
+}
+
+.eco-discount .summary-value {
+    color: #4CAF50;
+    font-weight: 600;
+}
+
+/* Tree donation line */
+#donation-line .summary-value {
+    color: #388E3C;
+    font-weight: 500;
+}
+
+/* Eco text for positive values */
+.eco-text {
+    color: #4CAF50 !important;
+    font-weight: 600;
+}
+
+/* Eco donation for tree donation */
+.eco-donation {
+    color: #388E3C !important;
+    font-weight: 500;
 }
 
 .order-summary-row.total-row {
