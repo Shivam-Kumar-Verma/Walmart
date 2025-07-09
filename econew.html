@@ -1527,18 +1527,18 @@
             departments: [
                 {
                     id: 16,
-                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-73a1/k2-_2721d0c9-98b3-46c4-9226-b647e5a00836.v1.jpg?odnHeight=120px&odnWidth=120px&odnBg=FFFFFF",
-                    name: "Grocery"
+                    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS73g--k2FJdDcqf_eZ3g90kzOyEiafiJJe_w&s",
+                    name: "Television"
                 },
                 {
                     id: 17,
-                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-c2cd/k2-_d8aac3aa-e920-427a-b965-49bfce1fed14.v1.jpg?odnHeight=120px&odnWidth=120px&odnBg=FFFFFF",
-                    name: "Electronics"
+                    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUZY_XY3y-zPgmfdOoi2Sh6LbU8rbmh5c7hQ&s",
+                    name: "Refrigerator"
                 },
                 {
                     id: 18,
-                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-d05b/k2-_7f3543ee-7c28-488c-9b5a-01f9f60a35e7.v1.jpg?odnHeight=120px&odnWidth=120px&odnBg=FFFFFF",
-                    name: "Pets"
+                    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbZWhdEyp4mWcIGOieM0GnXU0bS2_2OMrs4w&s",
+                    name: "Air Conditioner"
                 },
                 {
                     id: 19,
@@ -1958,10 +1958,24 @@
         }
 
         function navigateToDepartment(department) {
-            console.log(`Navigating to ${department} department`);
-            // Add your navigation logic here
-            showNotification(`Opening ${department} department...`);
+            
+            localStorage.setItem("search_query",department);
+            window.location.href="tes2.html";
+
+            
+            // console.log(`Navigating to ${department} department`);
+            // // Add your navigation logic here
+            // showNotification(`Opening ${department} department...`);
         }
+
+
+    
+
+
+
+
+
+
 
         // Product functions
         function viewProduct(productId) {

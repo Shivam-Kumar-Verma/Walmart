@@ -1178,7 +1178,7 @@
 
             </section> -->
 
-            <button onclick="addtv()">Click here</button>
+            <!-- <button onclick="addtv()">Click here</button> -->
             
             <!-- Your Favorite Departments -->
             <!-- <section>
@@ -1253,66 +1253,7 @@
         // Sample data for products
         const sampleProducts = {
             continueShopping: [
-                {
-                    id: 1,
-                    image: "https://i5.walmartimages.com/asr/d40772a4-e87d-4385-a712-b27f1b793697.e046de405bd3e603be4fe45ccce98d5a.jpeg?odnHeight=112&odnWidth=112&odnBg=FFFFFF",
-                    title: "Wireless Headphones",
-                    description: "Premium sound quality with noise cancellation",
-                    price: "$49.99"
-                },
-                {
-                    id: 2,
-                    image: "https://i5.walmartimages.com/asr/104b5bcf-e7da-497b-87f6-0a5a56249d27_1.5c18e44aae7893f3044b2aeeed360603.jpeg?odnHeight=112&odnWidth=112&odnBg=FFFFFF",
-                    title: "Smart Watch",
-                    description: "Track your fitness and stay connected",
-                    price: "$129.99"
-                },
-                {
-                    id: 3,
-                    image: "https://i5.walmartimages.com/asr/61e865fc-df33-4494-ad33-193740b366c5.6c2e4549ab3500f82d172aeb4149c7eb.jpeg?odnHeight=112&odnWidth=112&odnBg=FFFFFF",
-                    title: "Bluetooth Speaker",
-                    description: "Portable speaker with amazing bass",
-                    price: "$39.99"
-                },
-                {
-                    id: 4,
-                    image: "https://i5.walmartimages.com/asr/17187188-5b63-4c91-b9e8-e1d4ed8b1560.e39988e44f9ff3619ecddb8d746ee015.jpeg?odnHeight=112&odnWidth=112&odnBg=FFFFFF",
-                    title: "Phone Case",
-                    description: "Protective case for your smartphone",
-                    price: "$19.99"
-                },
-                {
-                    id: 5,
-                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-3bcd/k2-_c566840d-c66f-4eb2-9c30-fd4dfb83a29e.v1.jpg?odnHeight=112&odnWidth=112&odnBg=FFFFFF",
-                    title: "Flash Picks",
-                    description: "Up to 50% off on flash picks",
-                    price: "From $9.99",
-                    discount: "50% OFF"
-                },
-                {
-                    id: 6,
-                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-fea3/k2-_24a128d5-72fd-42f2-82a8-80b2ed2e3940.v1.jpg?odnHeight=112&odnWidth=112&odnBg=FFFFFF",
-                    title: "Home Essentials",
-                    description: "20% off on home essentials",
-                    price: "From $14.99",
-                    discount: "20% OFF"
-                },
-                {
-                    id: 7,
-                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-42cf/k2-_fbcba533-6996-43ed-8569-239ed21b1775.v1.jpg?odnHeight=112&odnWidth=112&odnBg=FFFFFF",
-                    title: "Home Improvement",
-                    description: "15% off on home improvement",
-                    price: "From $24.99",
-                    discount: "15% OFF"
-                },
-                {
-                    id: 8,
-                    image: "https://i5.walmartimages.com/dfw/4ff9c6c9-798b/k2-_f6a53e21-8525-4392-8482-9ab31e7fac28.v1.jpg?odnHeight=112&odnWidth=112&odnBg=FFFFFF",
-                    title: "Fashion",
-                    description: "60% off on fashion items",
-                    price: "From $12.99",
-                    discount: "60% OFF"
-                }
+
             ]
         };
 
@@ -1350,13 +1291,24 @@
                     container.innerHTML = '<p>No recommendations found.</p>';
                     return;
                 }
+                let img="";
                 // console.log(products[0]['price']);
+                if(item=='air conditioner'){
+                    img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbZWhdEyp4mWcIGOieM0GnXU0bS2_2OMrs4w&s"
+                }
+                else if(item=='refrigerator'){
+                    img='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUZY_XY3y-zPgmfdOoi2Sh6LbU8rbmh5c7hQ&s'
+                }
+                else if(item=='television'){
+                    img='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS73g--k2FJdDcqf_eZ3g90kzOyEiafiJJe_w&s'
+                }
+                else img='https://i5.walmartimages.com/asr/d40772a4-e87d-4385-a712-b27f1b793697.e046de405bd3e603be4fe45ccce98d5a.jpeg?odnHeight=112&odnWidth=112&odnBg=FFFFFF'
                 for(let i=0;i<products.length;i++){
                     sampleProducts.continueShopping.push({
                         title: products[i].Product,
                         description: products[i].Brand+" "+products[i]['Variety/Size'],
-                        image: "https://i5.walmartimages.com/asr/d40772a4-e87d-4385-a712-b27f1b793697.e046de405bd3e603be4fe45ccce98d5a.jpeg?odnHeight=112&odnWidth=112&odnBg=FFFFFF" ,
-                        price: "From $"+products[i].price,
+                        image: img,
+                        price: "From $"+((products[i].price)/80).toFixed(),
                         id: products[i].itemID
                     })
                 }
@@ -1384,10 +1336,13 @@
 
 
 
-        async function addtv(){
-            await fetchRecommendations('Television (TV)');
+        async function loader(){
+            const dep=localStorage.getItem("search_query");
+            console.log(dep);
+            await fetchRecommendations(dep);
             renderProducts(sampleProducts.continueShopping,'continue-shopping')
         }
+        loader();
 
 
 
