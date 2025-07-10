@@ -341,54 +341,36 @@
         }
 
         .product-card {
-            background: #fff;
+            background: white;
             border-radius: var(--border-radius);
             overflow: visible; /* Allow hover card to overflow */
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+            box-shadow: var(--shadow-light);
             transition: var(--transition);
             cursor: pointer;
             position: relative;
             z-index: 1;
-            padding: 1.25rem 1.25rem 1.5rem 1.25rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            border: 1px solid transparent;
-            background: linear-gradient(135deg, #f9fdf9, #e6f4e6);
         }
 
         .product-card:hover {
-            transform: translateY(-8px) scale(1.03);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
             z-index: 10; /* Bring to front on hover */
-            border-color: var(--walmart-blue);
-            background: linear-gradient(135deg, #e6f4e6, #d1ecd1);
         }
 
         .product-image {
             position: relative;
-            overflow: visible;
-            border-radius: var(--border-radius);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 1rem;
-            padding: 0.5rem;
-            background: #f9f9f9;
+            overflow: hidden;
         }
 
         .product-image img {
             width: 100%;
-            height: auto;
-            max-height: 220px;
-            object-fit: contain;
+            height: 200px;
+            object-fit: cover;
             transition: var(--transition);
-            border-radius: var(--border-radius);
-            background: white;
-            display: block;
-            margin: 0 auto;
         }
 
         .product-card:hover .product-image img {
-            transform: scale(1.07);
+            transform: scale(1.05);
         }
 
         /* Hover Card Styles */
@@ -559,59 +541,45 @@
         }
 
         .product-info {
-            padding: 0;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            gap: 0.25rem; /* reduce vertical spacing */
+            padding: 1rem;
         }
 
         .product-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 0.3rem;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
             color: var(--text-primary);
-            line-height: 1.2;
-            letter-spacing: 0.02em;
-            text-transform: capitalize;
         }
 
         .product-description {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--text-secondary);
-            margin-bottom: 0.75rem;
+            margin-bottom: 1rem;
             line-height: 1.4;
-            min-height: 40px;
-            font-weight: 500;
         }
 
         .product-price {
-            font-size: 1.3rem;
-            font-weight: 700;
+            font-size: 1.1rem;
+            font-weight: 600;
             color: var(--walmart-blue);
-            margin-bottom: 0.75rem;
-            letter-spacing: 0.03em;
+            margin-bottom: 1rem;
         }
 
         .btn-primary {
             background: var(--walmart-blue);
             color: white;
             border: none;
-            padding: 0.85rem 1.5rem;
-            border-radius: 30px;
-            font-weight: 700;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 500;
             cursor: pointer;
             transition: var(--transition);
             width: 100%;
-            box-shadow: 0 6px 16px rgba(0, 113, 206, 0.5);
-            letter-spacing: 0.03em;
         }
 
         .btn-primary:hover {
             background: var(--walmart-dark-blue);
-            transform: translateY(-4px) scale(1.05);
-            box-shadow: 0 8px 24px rgba(0, 76, 145, 0.7);
+            transform: translateY(-2px);
         }
 
         /* Membership Section */
@@ -1138,49 +1106,7 @@
 
 <body>
     <div id="navbar-container"></div>
-    
-    <!-- Eco-Friendly Shopping Banner -->
-    <div class="eco-banner">
-        <div class="eco-banner-content">
-            <div class="eco-icon">
-                <i class="fas fa-leaf"></i>
-            </div>
-            <div class="eco-text">
-                <h3>Eco-Friendly Shopping</h3>
-                <p>Make sustainable choices while shopping</p>
-            </div>
-        </div>
-        <label class="eco-toggle">
-            <input type="checkbox" id="eco-mode-toggle" checked>
-            <span class="eco-toggle-slider"></span>
-            <span class="toggle-text">Active</span>
-        </label>
-    </div>
-    
     <script>
-        // Handle eco mode toggle
-        document.addEventListener('DOMContentLoaded', function() {
-            const toggle = document.getElementById('eco-mode-toggle');
-            const toggleContainer = toggle.closest('.eco-toggle');
-            const toggleText = toggleContainer.querySelector('.toggle-text');
-            
-            // Update toggle state on page load
-            updateToggleState();
-            
-            // Add event listener for toggle changes
-            toggle.addEventListener('change', updateToggleState);
-            
-            function updateToggleState() {
-                if (toggle.checked) {
-                    toggleText.textContent = 'Active';
-                    toggleContainer.classList.remove('inactive');
-                } else {
-                    toggleText.textContent = 'Inactive';
-                    toggleContainer.classList.add('inactive');
-                }
-            }
-        });
-
         // Dynamically load navbar content
         fetch('nav.html')
             .then(response => response.text())
@@ -1367,57 +1293,27 @@
                     container.innerHTML = '<p>No recommendations found.</p>';
                     return;
                 }
-                let img="";
+                sampleProducts.continueShopping = [];
+                for(let i=0; i<products.length; i++){
+                    const product = products[i];
+                    const category = product.Product;
+                    const brand = product.Brand;
+                    let img = 'https://i5.walmartimages.com/asr/d40772a4-e87d-4385-a712-b27f1b793697.e046de405bd3e603be4fe45ccce98d5a.jpeg?odnHeight=112&odnWidth=112&odnBg=FFFFFF'; // default image
 
-                let obj={
-                    Television :{
-                        'Samsung': './product-images/Television/1.png',
-                        'LG': './product-images/Television/2.png',
-                        'Sony': './product-images/Television/3.png',
-                        'Xiaomi': './product-images/Television/4.png',
-                        'OnePlus': './product-images/Television/5.png',
-                        'Vu': './product-images/Television/6.png',
-                        'TCL': './product-images/Television/7.png'
-                    },
-                    Air :{
-                        'Daikin': './product-images/Air/1.png',
-                        'Blue Star': './product-images/Air/4.png',
-                        'Voltas': './product-images/Air/3.png',
-                        'LG': './product-images/Air/2.png',
-                        'Samsung': './product-images/Air/6.png',
-                        'Hitachi': './product-images/Air/5.png'
-                    },
-                    Cooler: {
-                        'Kenstar': './product-images/Cooler/4.png',
-                        'Havells': '',
-                        'Voltas': '',
-                        'Crompton': '',
-                        'Bajaj': './product-images/Cooler/3.png',
-                        'Symphony': './product-images/Cooler/1.png'
-                    },
-                    Fans: {
-                        'Crompton': './product-images/Fans/1.png',
-                        'Bajaj': './product-images/Fans/4.png',
-                        'Usha': './product-images/Fans/5.png',
-                        
+                    // Normalize keys for matching
+                    const normalizedCategory = category.trim();
+                    const normalizedBrand = brand.trim();
+
+                    if(productImages[normalizedCategory] && productImages[normalizedCategory][normalizedBrand]){
+                        img = productImages[normalizedCategory][normalizedBrand];
                     }
 
-
-                    
-
-                }
-                
-
-                sampleProducts.continueShopping=[];
-                for(let i=0;i<products.length;i++){
-                    console.log(products[i].Product+" "+products[i].Brand);
                     sampleProducts.continueShopping.push({
                         title: product.Product,
                         description: product.Brand + " " + product['Variety/Size'],
-                        image: obj[products[i].Product.split(' ')[0]][products[i].Brand],
+                        image: img,
                         price: "From $" + (product.price / 80).toFixed(),
-                        id: product.itemID,
-                        total: product['Total(kg CO2e)']
+                        id: product.itemID
                     });
                 }
 
@@ -1534,37 +1430,16 @@
             const container = document.getElementById(containerId);
             if (!container) return;
 
-            // Calculate min and max CO2 emission for normalization
-            let minCO2 = Infinity;
-            let maxCO2 = -Infinity;
-            products.forEach(p => {
-                if (p.total < minCO2) minCO2 = p.total;
-                if (p.total > maxCO2) maxCO2 = p.total;
-            });
-
-            container.innerHTML = products.map(product => {
-                let ecoPoints = 0;
-                if (maxCO2 !== minCO2) {
-                    ecoPoints = 20 + Math.round(((maxCO2 - product.total) / (maxCO2 - minCO2)) * (50 - 20));
-                } else {
-                    ecoPoints = 50; // If all emissions are same, assign max points
-                }
-                ecoPoints = Math.max(20, ecoPoints); // Ensure minimum is 20
-
-                return `
+            container.innerHTML = products.map(product => `
                 <div class="product-card" tabindex="0" role="button" aria-label="View ${product.title}" data-product-id="${product.id}">
                     <div class="product-image">
                         <img src="${product.image}" alt="${product.title}" loading="lazy" />
                         ${product.discount ? `<div class="discount-badge">${product.discount}</div>` : ''}
-                        <div class="carbon-badge" title="Carbon Emission">
-                            <i class="fas fa-leaf"></i> CO₂: ${product.total.toFixed(0)}kg
-                        </div>
                     </div>
                     <div class="product-info">
                         <h3 class="product-title">${product.title}</h3>
                         <p class="product-description">${product.description}</p>
                         <div class="product-price">${product.price}</div>
-                        <div class="eco-points"><i class="fas fa-seedling"></i> Earn ${ecoPoints} Eco Points</div>
                         <button class="btn-primary" onclick="addToCart(${product.id}); event.stopPropagation();">
                             <i class="fas fa-cart-plus"></i> Add to Cart
                         </button>
@@ -1576,7 +1451,7 @@
                         <div class="hover-card-price">${product.price}</div>
                         <div class="review-badges">
                             <div class="badge" title="Quality">✅ Quality</div>
-                            <div class="badge" title="Eco-Friendly">🍃 Eco-Friendly</div>
+                            <div class="badge" title="Eco-Friendly">🌱 Eco-Friendly</div>
                             <div class="badge" title="Best Seller">🔥 Best Seller</div>
                             <div class="badge" title="Health">❌ Health</div>
                         </div>
@@ -1599,8 +1474,7 @@
                         </div>
                     </div>
                 </div>
-                `;
-            }).join('');
+            `).join('');
         }
 
         function renderDepartments(departments, containerId) {
@@ -2085,8 +1959,8 @@
             }
         }
 
-/* Responsive modal */
-@media (max-width: 768px) {
+        /* Responsive modal */
+        @media (max-width: 768px) {
             .modal-content {
                 width: 95%;
                 padding: 1.5rem;
@@ -2096,160 +1970,6 @@
             .time-slots {
                 grid-template-columns: 1fr;
             }
-        }
-
-        /* Carbon Badge Styles */
-        .carbon-badge {
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            background-color: #c6f0d9; /* light greenish */
-            color: #15803d; /* darker green text */
-            font-weight: 700;
-            font-size: 0.9rem;
-            padding: 0.3rem 0.8rem;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            box-shadow: 0 3px 10px rgba(34, 197, 94, 0.4);
-            z-index: 10;
-            font-family: 'Inter', sans-serif;
-            letter-spacing: 0.02em;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        .carbon-badge i.fas.fa-leaf {
-            color: #4ade80; /* lighter green leaf icon */
-            font-size: 1.1rem;
-        }
-
-        /* Eco Banner Styles */
-        .eco-banner {
-            background: linear-gradient(135deg, #f0f9f0, #e0f3e0);
-            border-radius: 12px;
-            padding: 16px 24px;
-            margin: 16px auto;
-            max-width: 1200px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e0e0e0;
-        }
-
-        .eco-banner-content {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .eco-icon {
-            background-color: #4caf50;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 20px;
-        }
-
-        .eco-text h3 {
-            margin: 0;
-            color: #2e7d32;
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .eco-text p {
-            margin: 4px 0 0;
-            color: #4caf50;
-            font-size: 14px;
-            font-weight: 400;
-        }
-
-        .eco-toggle {
-            position: relative;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-        }
-
-        .eco-toggle input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-            position: absolute;
-        }
-
-        /* Fixing slider class conflict */
-        .eco-toggle-slider {
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 24px;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 24px;
-            vertical-align: middle;
-            margin: 0 8px;
-        }
-
-        .eco-toggle-slider:before {
-            position: absolute;
-            content: "";
-            height: 18px;
-            width: 18px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-
-        .eco-toggle input:checked + .eco-toggle-slider {
-            background-color: #4caf50;
-        }
-        
-        .eco-toggle:not(.inactive) input:not(:checked) + .eco-toggle-slider {
-            background-color: #f44336 !important;
-        }
-
-        .eco-toggle input:checked + .eco-toggle-slider:before {
-            transform: translateX(26px);
-        }
-
-        .eco-toggle .toggle-text {
-            color: #4caf50;
-            font-weight: 600;
-            font-size: 14px;
-            min-width: 60px;
-            display: inline-block;
-            text-align: left;
-        }
-        
-        .eco-toggle.inactive .toggle-text {
-            color: #f44336;
-        }
-
-        .eco-points {
-            margin-top: 0.3rem;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #15803d;
-            letter-spacing: 0.02em;
-            background-color: #d9f7e4; /* light green badge background */
-            padding: 0.25rem 0.6rem;
-            border-radius: 12px;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            box-shadow: 0 2px 6px rgba(34, 197, 94, 0.2);
-            user-select: none;
-            transition: background-color 0.3s ease, color 0.3s ease;
         }
     </style>
     <div id="footer-container"></div>
