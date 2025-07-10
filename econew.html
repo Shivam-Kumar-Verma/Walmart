@@ -1791,6 +1791,23 @@
             renderProducts(sampleProducts.values, 'values-section');
         }
 
+        function performSearch() {
+            const searchInput = document.querySelector('.search-input');
+            const query = searchInput.value;
+            
+            if (query) {
+                localStorage.setItem("search_query",query);
+                window.location.href="tes2.html";
+                
+                // console.log('Searching for:', query);
+                // In a real application, redirect to search results page
+                // window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+                // showNotification(`Searching for "${query}"...`);
+            }
+        }
+
+
+
         // Event listeners
         function setupEventListeners() {
             // Star rating functionality

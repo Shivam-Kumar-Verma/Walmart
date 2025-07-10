@@ -1302,7 +1302,29 @@
                 else if(item=='television'){
                     img='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS73g--k2FJdDcqf_eZ3g90kzOyEiafiJJe_w&s'
                 }
+                else if(item=='water purifier'){
+                    img='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRP4u9nGG_32Hf9Ot_NohFMzTmNzsuBCyCSHQ&s'
+                }
+                else if(item=='geyser'){
+                    img='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYLjAsjeCRIgnU8RtMtWJIULLqnH_2-dFLUA&s'
+                }
+                else if(item=='cooler'){
+                    img='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeKR5QK-UxQexSPoJWdOxyq2ulE6LlzkqzrA&s'
+                }
+                else if(item=='gas stove'){
+                    img='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNXbPIW6SRUiqYvaAeKTyCEHAMwZM0a5-mBA&s'
+                }
+                else if(item=='mixer grinder'){
+                    img='https://5.imimg.com/data5/SELLER/Default/2023/4/300980029/XM/HQ/ZS/8429216/1-1-.jpg'
+                }
+                else if(item=='washing machine'){
+                    img='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfl8oQX0Sh9pJiGk3ab2CYnYJMinKap7z1kg&s'
+                }
+                else if(item=='fans'){
+                    img='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgbHBVp8oqYEVK_EnRmq6kNn3AvMMw3i1X0A&s'
+                }
                 else img='https://i5.walmartimages.com/asr/d40772a4-e87d-4385-a712-b27f1b793697.e046de405bd3e603be4fe45ccce98d5a.jpeg?odnHeight=112&odnWidth=112&odnBg=FFFFFF'
+                sampleProducts.continueShopping=[];
                 for(let i=0;i<products.length;i++){
                     sampleProducts.continueShopping.push({
                         title: products[i].Product,
@@ -1334,6 +1356,21 @@
             }
         }
 
+
+        function performSearch() {
+            const searchInput = document.querySelector('.search-input');
+            const query = searchInput.value;
+            
+            if (query) {
+                localStorage.setItem("search_query",query);
+                window.location.href="tes2.html";
+                
+                // console.log('Searching for:', query);
+                // In a real application, redirect to search results page
+                // window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+                // showNotification(`Searching for "${query}"...`);
+            }
+        }
 
 
         async function loader(){
