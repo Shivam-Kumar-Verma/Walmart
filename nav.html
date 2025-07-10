@@ -687,9 +687,12 @@
                             class="search-input" 
                             placeholder="Search everything at Walmart online and in store"
                             aria-label="Search products"
-                            onkeyup="handleSearch(this.value)"
+                             />
+
+                            <!-- onkeyup="handleSearch(this.value)"
                             onfocus="showSearchSuggestions()"
-                            onblur="hideSearchSuggestions()" />
+                            onblur="hideSearchSuggestions()" -->
+
                         <button class="search-btn" onclick="performSearch()" aria-label="Search">
                             <i class="fas fa-search"></i>
                         </button>
@@ -935,17 +938,7 @@
             performSearch();
         }
 
-        function performSearch() {
-            const searchInput = document.querySelector('.search-input');
-            const query = searchInput.value.trim();
-            
-            if (query) {
-                console.log('Searching for:', query);
-                // In a real application, redirect to search results page
-                // window.location.href = `search.html?q=${encodeURIComponent(query)}`;
-                showNotification(`Searching for "${query}"...`);
-            }
-        }
+        
 
         // Navigation actions
         function showDepartments() {
