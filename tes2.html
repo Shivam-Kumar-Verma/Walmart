@@ -1243,7 +1243,9 @@
 
     
 
-    <script>
+    <script type="module">
+        import productImages from './product_images.js';
+
         // Global variables
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slider');
@@ -1336,12 +1338,12 @@
                 for(let i=0;i<products.length;i++){
                     console.log(products[i].Product+" "+products[i].Brand);
                     sampleProducts.continueShopping.push({
-                        title: products[i].Product,
-                        description: products[i].Brand+" "+products[i]['Variety/Size'],
+                        title: product.Product,
+                        description: product.Brand + " " + product['Variety/Size'],
                         image: obj[products[i].Product.split(' ')[0]][products[i].Brand],
-                        price: "From $"+((products[i].price)/80).toFixed(),
-                        id: products[i].itemID
-                    })
+                        price: "From $" + (product.price / 80).toFixed(),
+                        id: product.itemID
+                    });
                 }
 
                 // let htmlContent = '';
