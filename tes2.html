@@ -1292,44 +1292,53 @@
                     return;
                 }
                 let img="";
-                // console.log(products[0]['price']);
-                if(item=='air conditioner'){
-                    img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbZWhdEyp4mWcIGOieM0GnXU0bS2_2OMrs4w&s"
+
+                let obj={
+                    Television :{
+                        'Samsung': './product-images/Television/1.png',
+                        'LG': './product-images/Television/2.png',
+                        'Sony': './product-images/Television/3.png',
+                        'Xiaomi': './product-images/Television/4.png',
+                        'OnePlus': './product-images/Television/5.png',
+                        'Vu': './product-images/Television/6.png',
+                        'TCL': './product-images/Television/7.png'
+                    },
+                    Air :{
+                        'Daikin': './product-images/Air/1.png',
+                        'Blue Star': './product-images/Air/4.png',
+                        'Voltas': './product-images/Air/3.png',
+                        'LG': './product-images/Air/2.png',
+                        'Samsung': './product-images/Air/6.png',
+                        'Hitachi': './product-images/Air/5.png'
+                    },
+                    Cooler: {
+                        'Kenstar': './product-images/Cooler/4.png',
+                        'Havells': '',
+                        'Voltas': '',
+                        'Crompton': '',
+                        'Bajaj': './product-images/Cooler/3.png',
+                        'Symphony': './product-images/Cooler/1.png'
+                    },
+                    Fans: {
+                        'Crompton': './product-images/Fans/1.png',
+                        'Bajaj': './product-images/Fans/4.png',
+                        'Usha': './product-images/Fans/5.png',
+                        
+                    }
+
+
+                    
+
                 }
-                else if(item=='refrigerator'){
-                    img='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUZY_XY3y-zPgmfdOoi2Sh6LbU8rbmh5c7hQ&s'
-                }
-                else if(item=='television'){
-                    img='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS73g--k2FJdDcqf_eZ3g90kzOyEiafiJJe_w&s'
-                }
-                else if(item=='water purifier'){
-                    img='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRP4u9nGG_32Hf9Ot_NohFMzTmNzsuBCyCSHQ&s'
-                }
-                else if(item=='geyser'){
-                    img='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYLjAsjeCRIgnU8RtMtWJIULLqnH_2-dFLUA&s'
-                }
-                else if(item=='cooler'){
-                    img='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeKR5QK-UxQexSPoJWdOxyq2ulE6LlzkqzrA&s'
-                }
-                else if(item=='gas stove'){
-                    img='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNXbPIW6SRUiqYvaAeKTyCEHAMwZM0a5-mBA&s'
-                }
-                else if(item=='mixer grinder'){
-                    img='https://5.imimg.com/data5/SELLER/Default/2023/4/300980029/XM/HQ/ZS/8429216/1-1-.jpg'
-                }
-                else if(item=='washing machine'){
-                    img='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfl8oQX0Sh9pJiGk3ab2CYnYJMinKap7z1kg&s'
-                }
-                else if(item=='fans'){
-                    img='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgbHBVp8oqYEVK_EnRmq6kNn3AvMMw3i1X0A&s'
-                }
-                else img='https://i5.walmartimages.com/asr/d40772a4-e87d-4385-a712-b27f1b793697.e046de405bd3e603be4fe45ccce98d5a.jpeg?odnHeight=112&odnWidth=112&odnBg=FFFFFF'
+                
+
                 sampleProducts.continueShopping=[];
                 for(let i=0;i<products.length;i++){
+                    console.log(products[i].Product+" "+products[i].Brand);
                     sampleProducts.continueShopping.push({
                         title: products[i].Product,
                         description: products[i].Brand+" "+products[i]['Variety/Size'],
-                        image: img,
+                        image: obj[products[i].Product.split(' ')[0]][products[i].Brand],
                         price: "From $"+((products[i].price)/80).toFixed(),
                         id: products[i].itemID
                     })
