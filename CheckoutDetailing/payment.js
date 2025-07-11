@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     calculateTotals();
     setupFormValidation();
     setupEcoFeatures(); // Initialize eco features
+    updateEcoPoints(); // Make sure to update the display initially
 });
 
 // Initialize page functionality
@@ -363,23 +364,36 @@ function setupEcoFeatures() {
     updateEcoPoints();
 }
 
+// Calculate total logistics CO2e from cart items
+function calculateTotalLogisticsCO2e() {
+    const cart = JSON.parse(localStorage.getItem("walmartCart")) || [];
+    return cart.reduce((total, item) => {
+        const itemLogistics = Number(item.logistics) || 0;
+        const itemCount = item.count || 1;
+        return total + (itemLogistics * itemCount);
+    }, 0);
+}
+
 // Calculate total EcoPoints from cart items
 function calculateCartEcoPoints() {
     const cart = JSON.parse(localStorage.getItem("walmartCart")) || [];
     let totalEcoPoints = 0;
     
-    // Calculate max and min CO2 values for normalization
-    const co2Values = cart.map(item => Number(item.total) || 0).filter(val => !isNaN(val));
+    // Calculate max and min CO2 values for normalization (include both product and logistics)
+    const co2Values = cart.map(item => (Number(item.total) || 0) + (Number(item.logistics) || 0)).filter(val => !isNaN(val));
     const maxCO2 = Math.max(...co2Values, 1); // Ensure we don't divide by zero
-    const minCO2 = Math.min(...co2Values);
+    const minCO2 = co2Values.length > 0 ? Math.min(...co2Values) : 0;
     
     cart.forEach(item => {
-        const co2Value = Number(item.total) || 0;
+        // Calculate total CO2 impact including logistics
+        const productCO2 = Number(item.total) || 0;
+        const logisticsCO2 = Number(item.logistics) || 0;
+        const totalCO2 = productCO2 + logisticsCO2;
         let itemEcoPoints = 0;
         
         // Calculate eco points using the same formula as in cart.html
         if (maxCO2 !== minCO2) {
-            itemEcoPoints = 20 + Math.round(((maxCO2 - co2Value) / (maxCO2 - minCO2)) * (50 - 20));
+            itemEcoPoints = 20 + Math.round(((maxCO2 - totalCO2) / (maxCO2 - minCO2)) * (50 - 20));
         } else {
             itemEcoPoints = 50; // If all emissions are same, assign max points
         }
@@ -393,6 +407,13 @@ function calculateCartEcoPoints() {
 
 // Update EcoPoints display
 function updateEcoPoints() {
+    // Update logistics CO2e display
+    const totalLogisticsCO2e = calculateTotalLogisticsCO2e();
+    const logisticsImpactElement = document.getElementById('total-logistics-impact');
+    if (logisticsImpactElement) {
+        logisticsImpactElement.textContent = totalLogisticsCO2e.toFixed(2) + ' kg';
+    }
+    
     const ecoDelivery = document.getElementById('eco');
     const treeDonation = document.getElementById('treeDonation');
     const batchDelivery = document.getElementById('batchDelivery');
@@ -419,13 +440,21 @@ function updateEcoPoints() {
     if (totalEl) totalEl.textContent = `${totalPoints} EcoPoints`;
     
     // Show/hide points rows based on selection
-    const ecoRow = document.querySelector('.ecopoints-row:nth-child(1)');
-    const donationRow = document.querySelector('.ecopoints-row:nth-child(2)');
-    const batchRow = document.getElementById('batch-row');
-    
-    if (ecoRow) ecoRow.style.display = ecoDeliveryPoints > 0 ? 'flex' : 'none';
-    if (donationRow) donationRow.style.display = donationPoints > 0 ? 'flex' : 'none';
-    if (batchRow) batchRow.style.display = batchPoints > 0 ? 'flex' : 'none';
+    const ecoRows = document.querySelectorAll('.ecopoints-row');
+    ecoRows.forEach(row => {
+        const label = row.querySelector('span:first-child');
+        if (!label) return;
+        const text = label.textContent.trim();
+        if (text === 'Eco Product Choice:') {
+            row.style.display = productPoints > 0 ? 'flex' : 'none';
+        } else if (text === 'Eco-Delivery:') {
+            row.style.display = ecoDeliveryPoints > 0 ? 'flex' : 'none';
+        } else if (text === 'Tree Donation:') {
+            row.style.display = donationPoints > 0 ? 'flex' : 'none';
+        } else if (text === 'Batch Delivery:') {
+            row.style.display = batchPoints > 0 ? 'flex' : 'none';
+        }
+    });
     
     // Show notification for points earned
     if (ecoDelivery && ecoDelivery.checked) {

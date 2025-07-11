@@ -319,17 +319,20 @@
                             </div>
                           
                             <div class="batch-benefits">
-                              <div class="batch-benefit-item">
+                            <div class="batch-benefit-item">
                                 <i class="fas fa-leaf"></i>
-                                <div>Reduces packaging waste by up to 30%</div>
-                              </div>
-                              <div class="batch-benefit-item">
+                                <div>Your Total CO2e by logistics is: <span id="total-logistics-impact">0</span></div>
+                            </div>
+                            <div class="batch-benefit-item">
+                                <i class="fas fa-leaf"></i>
+                                <div>If you opt for combining future orders together you will reduce Logistics CO2e by 60%</div>
+                            </div>
+                            <div class="batch-benefit-item">
                                 <i class="fas fa-coins"></i>
                                 <div>Earn <span class="ecopoints-badge"><i class="fas fa-award"></i> 25 EcoPoints</span></div>
-                              </div>
                             </div>
-                          </div>
-                                                 
+                        </div>
+                        </div>
                         <!-- EcoPoints Summary -->
                         <div class="ecopoints-summary">
                             <div class="ecopoints-header">
@@ -389,6 +392,10 @@
                         </div>
                     </div>
                     
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="saveInfo" checked>
+                        <label for="saveInfo">Save my information for a faster checkout</label>
+                    </div>
                     <div class="checkbox-group">
                         <input type="checkbox" id="smsUpdates" checked>
                         <label for="smsUpdates">
@@ -508,7 +515,7 @@
                 orderItemsContainer.appendChild(emptyCart);
             } else {
                 // Add each cart item to the order summary
-                cart.forEach(item => {
+                    cart.forEach(item => {
                     // Calculate price (handle both price and Sale_Price properties)
                     let price = 0;
                     if (item.price) {

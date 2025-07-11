@@ -1437,7 +1437,6 @@
                 for(let i=0;i<products.length;i++){
                     const product=products[i];
                     // console.log(products[i].Product+" "+products[i].Brand);
-                    console.log(product['Production(kg CO2e)']);
                     sampleProducts.continueShopping.push({
                         title: product.Product,
                         description: product.Brand + " " + product['Variety/Size'],
@@ -1574,7 +1573,6 @@
 
             container.innerHTML = products.map(product => {
                 let ecoPoints = 0;
-                
                 if (maxCO2 !== minCO2) {
                     ecoPoints = 20 + Math.round(((maxCO2 - product.total) / (maxCO2 - minCO2)) * (50 - 20));
                 } else {
