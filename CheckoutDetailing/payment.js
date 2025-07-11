@@ -363,28 +363,59 @@ function setupEcoFeatures() {
     updateEcoPoints();
 }
 
+// Calculate total EcoPoints from cart items
+function calculateCartEcoPoints() {
+    const cart = JSON.parse(localStorage.getItem("walmartCart")) || [];
+    let totalEcoPoints = 0;
+    
+    // Calculate max and min CO2 values for normalization
+    const co2Values = cart.map(item => Number(item.total) || 0).filter(val => !isNaN(val));
+    const maxCO2 = Math.max(...co2Values, 1); // Ensure we don't divide by zero
+    const minCO2 = Math.min(...co2Values);
+    
+    cart.forEach(item => {
+        const co2Value = Number(item.total) || 0;
+        let itemEcoPoints = 0;
+        
+        // Calculate eco points using the same formula as in cart.html
+        if (maxCO2 !== minCO2) {
+            itemEcoPoints = 20 + Math.round(((maxCO2 - co2Value) / (maxCO2 - minCO2)) * (50 - 20));
+        } else {
+            itemEcoPoints = 50; // If all emissions are same, assign max points
+        }
+        // Ensure minimum is 20 and multiply by quantity
+        itemEcoPoints = Math.max(20, itemEcoPoints) * (item.count || 1);
+        totalEcoPoints += itemEcoPoints;
+    });
+    
+    return totalEcoPoints;
+}
+
 // Update EcoPoints display
 function updateEcoPoints() {
     const ecoDelivery = document.getElementById('eco');
     const treeDonation = document.getElementById('treeDonation');
     const batchDelivery = document.getElementById('batchDelivery');
     
-    // Only add EcoPoints if Eco-Delivery is selected
+    // Calculate points from different sources
     const ecoDeliveryPoints = ecoDelivery && ecoDelivery.checked ? 50 : 0;
     const donationPoints = treeDonation && treeDonation.checked ? 30 : 0;
     const batchPoints = batchDelivery && batchDelivery.checked ? 25 : 0;
+    const productPoints = calculateCartEcoPoints();
     
-    const totalPoints = ecoDeliveryPoints + donationPoints + batchPoints;
+    const totalPoints = ecoDeliveryPoints + donationPoints + batchPoints + productPoints;
 
     // Update points display
     const ecoDeliveryEl = document.getElementById('ecodelivery-points');
     const donationEl = document.getElementById('donation-points');
     const batchEl = document.getElementById('batch-points');
+    const productEl = document.getElementById('ecoproducts-points');
     const totalEl = document.getElementById('total-ecopoints');
     
     if (ecoDeliveryEl) ecoDeliveryEl.textContent = `+${ecoDeliveryPoints}`;
     if (donationEl) donationEl.textContent = `+${donationPoints}`;
     if (batchEl) batchEl.textContent = `+${batchPoints}`;
+    if (productEl) productEl.textContent = `+${productPoints}`;
     if (totalEl) totalEl.textContent = `${totalPoints} EcoPoints`;
     
     // Show/hide points rows based on selection

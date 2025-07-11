@@ -289,8 +289,8 @@
         itemEcoPoints = Math.max(20, itemEcoPoints) * item.count; // Ensure minimum is 20 and multiply by quantity
         totalEcoPoints += itemEcoPoints;
         
-        // Calculate packaging impact (default to 25 if not set)
-        const itemPackagingImpact = (Number(item.packaging) >5 ? Number(item.packaging) : 25) * item.count;
+        // Calculate packaging impact
+        const itemPackagingImpact = Number(item.total) * item.count* 0.23;
         totalPackagingImpact += itemPackagingImpact;
 
         const div = document.createElement('div');
