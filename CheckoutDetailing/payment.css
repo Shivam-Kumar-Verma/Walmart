@@ -1,3 +1,98 @@
+/* CO2 Impact Section */
+.co2-impact {
+    background: white;
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    border: 1px solid #e5e7eb;
+    transition: all 0.3s ease;
+}
+
+.co2-impact:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transform: translateY(-1px);
+}
+
+/* CO2 Meter */
+.co2-meter {
+    height: 8px;
+    background: #f0f0f0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 8px 0 16px;
+    position: relative;
+}
+
+.co2-meter-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #3b82f6, #10b981);
+    border-radius: 10px;
+    transition: width 1s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.co2-meter-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, 
+        rgba(255,255,255,0.1) 0%, 
+        rgba(255,255,255,0.4) 50%, 
+        rgba(255,255,255,0.1) 100%);
+    animation: shine 2s infinite;
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* CO2 Detail Items */
+.co2-detail-item {
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.co2-detail-item:last-child {
+    border-bottom: none;
+}
+
+.co2-progress {
+    height: 4px;
+    background: #f5f5f5;
+    border-radius: 2px;
+    margin-top: 4px;
+    overflow: hidden;
+}
+
+.co2-progress-bar {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.8s ease-out;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .co2-impact {
+        padding: 10px;
+    }
+    
+    .co2-detail-item {
+        padding: 6px 0;
+    }
+}
+
 /* Eco Cash Toggle */
 .eco-cash-row {
     flex-direction: column;

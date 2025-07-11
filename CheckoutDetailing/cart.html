@@ -306,9 +306,63 @@
           </div>
           <div class="flex-grow">
             <h4 class="font-semibold text-gray-800">${name}</h4>
-            <h6>Production(co2):${production}</h4>
-            <h6>Logistic(co2):${logistic}</h4>
-            <h6>Packaging(co2):${packaging}</h4>
+            <div class="co2-impact mt-3">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs font-medium text-gray-600">CARBON FOOTPRINT</span>
+                <span class="text-xs text-gray-500">${(parseFloat(production) + parseFloat(logistic) + parseFloat(packaging)).toFixed(1)} CO₂e total</span>
+              </div>
+              
+              <div class="co2-meter mb-3">
+                <div class="co2-meter-fill" style="width: ${Math.min(100, (parseFloat(production) + parseFloat(logistic) + parseFloat(packaging)) / 2)}%"></div>
+              </div>
+              
+              <div class="space-y-2">
+                <div class="co2-detail-item" data-value="${production}">
+                  <div class="flex items-center justify-between text-sm">
+                    <div class="flex items-center gap-2">
+                      <i class="fas fa-industry text-blue-500 w-4 text-center"></i>
+                      <span>Production</span>
+                    </div>
+                    <span class="font-medium">${production} CO₂e</span>
+                  </div>
+                  <div class="co2-progress">
+                    <div class="co2-progress-bar bg-blue-100" style="width: ${(production / 100) * 100}%"></div>
+                  </div>
+                </div>
+                
+                <div class="co2-detail-item" data-value="${logistic}">
+                  <div class="flex items-center justify-between text-sm">
+                    <div class="flex items-center gap-2">
+                      <i class="fas fa-truck text-green-500 w-4 text-center"></i>
+                      <span>Logistics</span>
+                    </div>
+                    <span class="font-medium">${logistic} CO₂e</span>
+                  </div>
+                  <div class="co2-progress">
+                    <div class="co2-progress-bar bg-green-100" style="width: ${(logistic / 50) * 100}%"></div>
+                  </div>
+                </div>
+                
+                <div class="co2-detail-item" data-value="${packaging}">
+                  <div class="flex items-center justify-between text-sm">
+                    <div class="flex items-center gap-2">
+                      <i class="fas fa-box text-yellow-500 w-4 text-center"></i>
+                      <span>Packaging</span>
+                    </div>
+                    <span class="font-medium">${packaging} CO₂e</span>
+                  </div>
+                  <div class="co2-progress">
+                    <div class="co2-progress-bar bg-yellow-100" style="width: ${(packaging / 20) * 100}%"></div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="mt-3 text-xs text-center text-gray-500 bg-green-50 p-2 rounded border border-green-100">
+                <i class="fas fa-tree text-green-500 mr-1"></i>
+                This is equivalent to the CO₂ absorbed by ${((parseFloat(production) + parseFloat(logistic) + parseFloat(packaging)) / 21.8).toFixed(2)} trees in a year
+                <div class="text-xxs mt-1 text-green-400">(1 tree absorbs ~21.8kg CO₂/year)</div>
+              </div>
+            </div>
             ${brand ? `<p class="text-sm text-gray-600">${brand}</p>` : ''}
             <p class="text-sm text-green-600">Free shipping on orders over $35</p>
             <div class="flex justify-between items-center mt-2">
