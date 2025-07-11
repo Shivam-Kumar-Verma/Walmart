@@ -127,7 +127,7 @@ class EcoCartRecommender:
             else:
                 top_items = filtered_products.sort_values('score', ascending=False).head(top_n)
 
-        return top_items[['itemID', 'Product', 'Variety/Size', 'Brand', 'price', 'Total(kg CO2e)', 'refurbished_available']]
+        return top_items[['itemID', 'Product', 'Variety/Size', 'Brand', 'price', 'Total(kg CO2e)', 'refurbished_available','Production(kg CO2e)','Packaging(kg CO2e)','Logistics(kg CO2e)']]
 
 
 class RewardEngine:

@@ -278,6 +278,11 @@
         
         // Calculate environmental impacts
         let itemEcoPoints = 0;
+        
+        const production= Number(item.production);
+        const packaging=Number(item.packaging);
+        const logistic=Number(item.logistics);
+
         const co2Value = Number(item.total) || 0;
         
         // Calculate eco points using the same formula as in tes2.html
@@ -301,6 +306,9 @@
           </div>
           <div class="flex-grow">
             <h4 class="font-semibold text-gray-800">${name}</h4>
+            <h6>Production(co2):${production}</h4>
+            <h6>Logistic(co2):${logistic}</h4>
+            <h6>Packaging(co2):${packaging}</h4>
             ${brand ? `<p class="text-sm text-gray-600">${brand}</p>` : ''}
             <p class="text-sm text-green-600">Free shipping on orders over $35</p>
             <div class="flex justify-between items-center mt-2">
