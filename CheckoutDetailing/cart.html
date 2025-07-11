@@ -20,7 +20,15 @@
 
       <!-- Cart Section -->
       <section class="md:col-span-2 bg-white p-6 rounded-lg shadow">
-        <h2 class="text-2xl font-bold mb-6">Cart (<span id="item-count">0</span> items)</h2>
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-2xl font-bold">Cart (<span id="item-count">0</span> items)</h2>
+          <div id="total-eco-points-badge" class="flex items-center bg-green-50 text-green-700 px-3 py-1 rounded-full text-sm font-medium">
+            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+            </svg>
+            <span>Eco Points Earned: <span id="total-eco-points-value">0</span></span>
+          </div>
+        </div>
 
         <!-- Pickup Options -->
         <div class="bg-blue-50 p-4 rounded-lg flex items-start space-x-3 mb-6">
@@ -229,7 +237,19 @@
       const checkoutBtn = document.getElementById('checkout-btn');
 
       container.innerHTML = '';
-      let subtotal = 0, count = 0, totalEcoPoints = 0, totalPackagingImpact = 0;
+      let subtotal = 0, count = 0, totalEcoPoints = 0, totalPackagingImpact = 0, maxCO2 = -Infinity, minCO2 = Infinity;
+      
+      // First pass to find min and max CO2 values
+      cart.forEach(item => {
+        const co2Value = Number(item.total) || 0;
+        if (co2Value > maxCO2) maxCO2 = co2Value;
+        if (co2Value < minCO2) minCO2 = co2Value;
+      });
+      
+      // If all values are the same, adjust to avoid division by zero
+      if (minCO2 === maxCO2) {
+        maxCO2 = minCO2 + 1; // Add 1 to create a range
+      }
 
       cart.forEach(item => {
         // Get price from either price or Sale_Price property
@@ -257,7 +277,16 @@
         count += item.count;
         
         // Calculate environmental impacts
-        const itemEcoPoints = (Number(item.total) || 0) * item.count;
+        let itemEcoPoints = 0;
+        const co2Value = Number(item.total) || 0;
+        
+        // Calculate eco points using the same formula as in tes2.html
+        if (maxCO2 !== minCO2) {
+          itemEcoPoints = 20 + Math.round(((maxCO2 - co2Value) / (maxCO2 - minCO2)) * (50 - 20));
+        } else {
+          itemEcoPoints = 50; // If all emissions are same, assign max points
+        }
+        itemEcoPoints = Math.max(20, itemEcoPoints) * item.count; // Ensure minimum is 20 and multiply by quantity
         totalEcoPoints += itemEcoPoints;
         
         // Calculate packaging impact (default to 25 if not set)
@@ -318,11 +347,24 @@
       itemCount.textContent = count;
       summaryItemCount.textContent = count;
       subtotalElem.textContent = `$${subtotal.toFixed(2)}`;
+      
+      // Update the eco points display
+      const ecoPointsValueElem = document.getElementById('total-eco-points-value');
+      if (ecoPointsValueElem) {
+        ecoPointsValueElem.textContent = totalEcoPoints;
+      }
       const shipping = subtotal >= 35 ? 0 : 6.99;
       shippingElem.textContent = `$${shipping.toFixed(2)}`;
       totalElem.textContent = `$${(subtotal + shipping).toFixed(2)}`;
+      // Calculate total CO2 impact (sum of all item totals * quantities)
+      let totalCO2Impact = 0;
+      cart.forEach(item => {
+        const co2Value = Number(item.total) || 0;
+        totalCO2Impact += co2Value * (item.count || 1);
+      });
+      
       // Store values for later use and update UI
-      window.currentEcoImpact = totalEcoPoints;
+      window.currentEcoImpact = totalCO2Impact;
       window.packagingSavings = totalPackagingImpact * 0.4;
       updateEcoImpact(); // Update the displayed impact
       checkoutBtn.disabled = count === 0;
