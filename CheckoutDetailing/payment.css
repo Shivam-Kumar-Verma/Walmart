@@ -1,3 +1,155 @@
+/* Eco Cash Toggle */
+.eco-cash-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 16px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin: 12px 0;
+    border: 1px solid #e0e0e0;
+}
+
+.eco-cash-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.eco-cash-toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.eco-cash-toggle {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.eco-cash-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: all 0.3s ease;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: all 0.3s ease;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+input:checked + .slider {
+    background-color: #4caf50;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.3);
+}
+
+input:checked + .slider:before {
+    transform: translateX(20px);
+}
+
+.summary-label {
+    font-weight: 500;
+    color: #1a1a1a;
+    font-size: 0.95rem;
+}
+
+.eco-cash-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 56px; /* Align with the text next to toggle */
+    font-size: 0.9rem;
+}
+
+.eco-cash-available {
+    color: #0277bd;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.eco-cash-available .amount {
+    font-weight: 600;
+}
+
+.eco-cash-available i {
+    color: #ffc107;
+}
+
+.eco-cash-discount {
+    color: #2e7d32;
+    font-weight: 600;
+    display: none; /* Initially hidden */
+}
+
+.eco-cash-discount .amount {
+    font-weight: 700;
+}
+
+.eco-cash-note {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 4px;
+    text-align: right;
+}
+
+/* Show discount when toggle is checked */
+#useEcoCash:checked ~ .eco-cash-info .eco-cash-discount {
+    display: inline-block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(10px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Hover effects */
+.eco-cash-toggle-container:hover .slider {
+    background-color: #bdbdbd;
+}
+
+#useEcoCash:checked ~ .slider {
+    background-color: #43a047;
+}
+
+/* Focus states for accessibility */
+.eco-cash-toggle:focus-within {
+    outline: 2px solid #4caf50;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
 /* Reset and Base Styles */
 * {
     margin: 0;

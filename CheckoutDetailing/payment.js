@@ -13,7 +13,41 @@ document.addEventListener('DOMContentLoaded', function() {
     setupFormValidation();
     setupEcoFeatures(); // Initialize eco features
     updateEcoPoints(); // Make sure to update the display initially
+    
+    // Initialize EcoCash toggle
+    const ecoCashToggle = document.getElementById('useEcoCash');
+    if (ecoCashToggle) {
+        ecoCashToggle.addEventListener('change', updateEstimatedTotalWithEcoCash);
+    }
 });
+
+// Update estimated total with EcoCash discount
+function updateEstimatedTotalWithEcoCash() {
+    const ecoCashToggle = document.getElementById('useEcoCash');
+    const availableEcoPoints = document.getElementById('available-ecopoints-amount');
+    const estimatedTotalEl = document.getElementById('estimated-total');
+    
+    if (!ecoCashToggle || !availableEcoPoints || !estimatedTotalEl) return;
+    
+    // Get current total (remove $ and convert to number)
+    let currentTotal = parseFloat(estimatedTotalEl.textContent.replace(/[^0-9.-]+/g, ''));
+    
+    // Get available EcoPoints
+    const ecoPoints = parseInt(availableEcoPoints.getAttribute('data-points') || '0');
+    
+    // Calculate discount (30 points = $1)
+    const discount = ecoPoints / 30;
+    
+    // Update total based on toggle state
+    if (ecoCashToggle.checked) {
+        // Apply discount
+        const newTotal = Math.max(0, currentTotal - discount).toFixed(2);
+        estimatedTotalEl.textContent = `$${newTotal}`;
+    } else {
+        // Recalculate original total without discount
+        calculateTotals();
+    }
+}
 
 // Initialize page functionality
 function initializePage() {
@@ -432,12 +466,26 @@ function updateEcoPoints() {
     const batchEl = document.getElementById('batch-points');
     const productEl = document.getElementById('ecoproducts-points');
     const totalEl = document.getElementById('total-ecopoints');
+    const availableEcoPointsEl = document.getElementById('available-ecopoints-amount');
     
     if (ecoDeliveryEl) ecoDeliveryEl.textContent = `+${ecoDeliveryPoints}`;
     if (donationEl) donationEl.textContent = `+${donationPoints}`;
     if (batchEl) batchEl.textContent = `+${batchPoints}`;
     if (productEl) productEl.textContent = `+${productPoints}`;
     if (totalEl) totalEl.textContent = `${totalPoints} EcoPoints`;
+    
+    // Update available EcoPoints in the Eco Cash section
+    if (availableEcoPointsEl) {
+        availableEcoPointsEl.textContent = `${totalPoints} EcoPoints`;
+        availableEcoPointsEl.setAttribute('data-points', totalPoints);
+        
+        // Calculate dollar value (30 points = $1.00)
+        const dollarValue = (totalPoints / 30).toFixed(2);
+        const discountAmountEl = document.querySelector('.eco-cash-discount .amount');
+        if (discountAmountEl) {
+            discountAmountEl.textContent = `$${dollarValue}`;
+        }
+    }
     
     // Show/hide points rows based on selection
     const ecoRows = document.querySelectorAll('.ecopoints-row');

@@ -355,8 +355,7 @@
                                 <div class="ecopoints-row">
                                     <span>Batch Delivery:</span>
                                     <span class="ecopoints-amount" id="batch-points">+25</span>
-                                  </div>
-
+                                </div>
                                 <div class="ecopoints-total">
                                     <span>Total:</span>
                                     <span class="ecopoints-amount" id="total-ecopoints">80 EcoPoints</span>
@@ -455,7 +454,28 @@
                     </div>
                     
                     <div class="summary-divider"></div>
-                    
+                    <!-- Eco Cash Toggle -->
+                    <div class="order-summary-row eco-cash-row">
+                        <div class="eco-cash-content">
+                            <div class="eco-cash-toggle-container">
+                                <label class="eco-cash-toggle">
+                                    <input type="checkbox" id="useEcoCash" aria-label="Use Eco Cash">
+                                    <span class="slider round"></span>
+                                </label>
+                                <span class="summary-label">Use EcoPoints</span>
+                            </div>
+                            <div class="eco-cash-info">
+                                <span class="eco-cash-available" id="available-eco-cash">
+                                    <i class="fas fa-coins"></i> Available: <span class="ecopoints-amount" id="available-ecopoints-amount" data-points="80">80 EcoCash</span>
+                                </span>
+                                <!-- <span class="eco-cash-discount" id="eco-cash-discount">
+                                    -<span class="amount">$0.00</span>
+                                </span> -->
+                            </div>
+                        </div>
+                        <div class="eco-cash-note">30 Eco Points = $1.00 discount</div>
+                    </div>
+
                     <div class="order-summary-row total-row">
                         <span class="summary-label">Estimated Total</span>
                         <span class="summary-value" id="estimated-total">$0.00</span>
