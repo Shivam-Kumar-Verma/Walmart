@@ -1152,9 +1152,9 @@
             </div>
         </div>
         <label class="eco-toggle">
-            <input type="checkbox" id="eco-mode-toggle" checked>
+            <input type="checkbox" id="eco-mode-toggle" unchecked>
             <span class="eco-toggle-slider" onclick="counter()"></span>
-            <span class="toggle-text">Active</span>
+            <span class="toggle-text">inactive</span>
         </label>
     </div>
     
@@ -1321,13 +1321,13 @@
             a++;
             if(a%2==0){
                 fetchRecommendations(window.localStorage.getItem('search_query'),false);
-                renderProducts(sampleProducts.continueShopping, 'continue-shopping')
+                
                 a=0;
                 
             }
             else{
                 fetchRecommendations(window.localStorage.getItem('search_query'),true);
-                renderProducts(sampleProducts.continueShopping, 'continue-shopping')
+                
                 a=1;
             }
         }
@@ -1377,7 +1377,7 @@
         const USER_ID = 101; // Example user ID
 
         // Function to fetch and display recommendations
-        async function fetchRecommendations(item,flag='true') {
+        async function fetchRecommendations(item,flag) {
             // const container = document.getElementById('recommendations-container');
             // container.innerHTML = '<p>Loading recommendations...</p>'; // Show loading message
 
@@ -1432,12 +1432,19 @@
 
                 }
                 
-
+                if(flag===true){
+                    products.sort((a,b)=>{
+                        return parseInt(a['Total(kg CO2e)'])-parseInt(b['Total(kg CO2e)'])
+                    });
+                }
+                console.log(flag);
                 sampleProducts.continueShopping=[];
                 for(let i=0;i<products.length;i++){
+                    // if(flag===true){
+                    //     console.log(products[i]['Total(kg CO2e)']);
+                    // }
                     const product=products[i];
                     // console.log(products[i].Product+" "+products[i].Brand);
-                    console.log(product['Production(kg CO2e)']);
                     sampleProducts.continueShopping.push({
                         title: product.Product,
                         description: product.Brand + " " + product['Variety/Size'],
@@ -1450,6 +1457,9 @@
                         total: product['Total(kg CO2e)']
                     });
                 }
+
+                renderProducts(sampleProducts.continueShopping, 'continue-shopping');
+                for(let i=0;i<sampleProducts.continueShopping.length;i++) console.log(sampleProducts.continueShopping[i].total);
 
                 // let htmlContent = '';
                 // products.forEach(product => {
@@ -1492,7 +1502,7 @@
         async function loader(){
             const dep=localStorage.getItem("search_query");
             console.log(dep);
-            await fetchRecommendations(dep);
+            await fetchRecommendations(dep,false);
             renderProducts(sampleProducts.continueShopping,'continue-shopping');
             setupHoverCardListeners();  // Attach hover event listeners after rendering products
         }
@@ -1574,14 +1584,13 @@
 
             container.innerHTML = products.map(product => {
                 let ecoPoints = 0;
-                
                 if (maxCO2 !== minCO2) {
                     ecoPoints = 20 + Math.round(((maxCO2 - product.total) / (maxCO2 - minCO2)) * (50 - 20));
                 } else {
                     ecoPoints = 50; // If all emissions are same, assign max points
                 }
                 ecoPoints = Math.max(20, ecoPoints); // Ensure minimum is 20
-
+                // console.log(product.total);
                 return `
                 <div class="product-card" tabindex="0" role="button" aria-label="View ${product.title}" data-product-id="${product.id}">
                     <div class="product-image">
