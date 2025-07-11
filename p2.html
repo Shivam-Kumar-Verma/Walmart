@@ -1731,10 +1731,13 @@
             if (existingItem) {
                 existingItem.count += 1;
             } else {
-                cart.push({
+                // Add packaging property with a default value if not present
+                const productWithPackaging = {
                     ...product,
-                    count: 1
-                });
+                    count: 1,
+                    packaging: typeof product.packaging !== 'undefined' ? product.packaging : 0.5 // Default to 0.5 if not set
+                };
+                cart.push(productWithPackaging);
             }
             
             // Save updated cart

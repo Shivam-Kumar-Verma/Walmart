@@ -74,6 +74,15 @@
           <span>Estimated total</span>
           <span id="estimated-total">$0.00</span>
         </div>
+        
+        <!-- Eco Points Summary -->
+        <div class="mt-4 p-4 bg-green-50 rounded-lg border border-green-200">
+          <div class="flex justify-between items-center mb-2">
+            <span class="font-semibold text-green-800">Total Eco Impact</span>
+            <span id="total-eco-points" class="text-green-600 font-bold">0 pts</span>
+          </div>
+          <p class="text-xs text-green-600">Lower is better for the environment</p>
+        </div>
 
         <!-- Promo Offer -->
         <div class="bg-blue-50 border border-blue-200 mt-6 p-4 rounded-lg">
@@ -191,7 +200,22 @@
       const newCart = cart.filter(item => item.id != id);
       localStorage.setItem('walmartCart', JSON.stringify(newCart));
       updateNavbarCartCount();
-      fetchCartItems();
+      fetchCartItems(); // This will re-render the cart
+    }
+
+    function updateEcoImpact() {
+      const ecoPointsElem = document.getElementById('total-eco-points');
+      const packagingSavingsElem = document.getElementById('packaging-savings');
+      const sustainablePackaging = document.getElementById('sustainable-packaging');
+      
+      if (sustainablePackaging && sustainablePackaging.checked) {
+        const newImpact = window.currentEcoImpact - window.packagingSavings;
+        ecoPointsElem.textContent = `${newImpact.toFixed(2)} kg CO₂e`;
+        if (packagingSavingsElem) packagingSavingsElem.classList.remove('hidden');
+      } else {
+        ecoPointsElem.textContent = `${window.currentEcoImpact.toFixed(2)} kg CO₂e`;
+        if (packagingSavingsElem) packagingSavingsElem.classList.add('hidden');
+      }
     }
 
     function renderCart(cart) {
@@ -201,35 +225,51 @@
       const subtotalElem = document.getElementById('subtotal-amount');
       const shippingElem = document.getElementById('shipping-amount');
       const totalElem = document.getElementById('estimated-total');
+      const ecoPointsElem = document.getElementById('total-eco-points');
       const checkoutBtn = document.getElementById('checkout-btn');
 
       container.innerHTML = '';
-      let subtotal = 0, count = 0;
+      let subtotal = 0, count = 0, totalEcoPoints = 0, totalPackagingImpact = 0;
 
       cart.forEach(item => {
-        // Handle both old and new property names
-        let price = 0;
-        if (item.price) {
-            price = typeof item.price === 'string' 
-                ? parseFloat(item.price.replace(/[^0-9.-]+/g, '')) 
-                : item.price;
-        } else if (item.Sale_Price) {
-            price = typeof item.Sale_Price === 'string'
-                ? parseFloat(item.Sale_Price.replace(/[^0-9.-]+/g, ''))
-                : item.Sale_Price;
-        }
+        // Get price from either price or Sale_Price property
+        const priceSource = item.price || item.Sale_Price || 0;
+        const price = typeof priceSource === 'string' 
+            ? parseFloat(priceSource.replace(/[^0-9.-]+/g, ''))
+            : Number(priceSource);
         
         const name = item.title || item.Product_Name || 'Product';
-        const image = item.image || item.Product_imgUrl || 'https://via.placeholder.com/100';
+        // Handle relative image paths by adding the correct base path
+        let image = item.image || item.Product_imgUrl || '';
+        if (image && !image.startsWith('http') && !image.startsWith('data:')) {
+            // If the path is relative, add the correct base path
+            if (!image.startsWith('../')) {
+                image = '../' + image;
+            }
+        }
+        // Fallback to placeholder if no image is available
+        if (!image) {
+            image = 'https://via.placeholder.com/100';
+        }
         const brand = item.brand || item.Brand || '';
         
         subtotal += item.count * price;
         count += item.count;
+        
+        // Calculate environmental impacts
+        const itemEcoPoints = (Number(item.total) || 0) * item.count;
+        totalEcoPoints += itemEcoPoints;
+        
+        // Calculate packaging impact (default to 25 if not set)
+        const itemPackagingImpact = (Number(item.packaging) >5 ? Number(item.packaging) : 25) * item.count;
+        totalPackagingImpact += itemPackagingImpact;
 
         const div = document.createElement('div');
         div.className = 'flex gap-4 bg-gray-50 rounded p-4 shadow';
         div.innerHTML = `
-          <img src="${image}" alt="${name}" class="w-24 h-24 object-cover rounded">
+          <div class="w-24 h-24 flex items-center justify-center bg-white rounded overflow-hidden">
+            <img src="${image}" alt="${name}" class="max-w-full max-h-full object-contain p-1">
+          </div>
           <div class="flex-grow">
             <h4 class="font-semibold text-gray-800">${name}</h4>
             ${brand ? `<p class="text-sm text-gray-600">${brand}</p>` : ''}
@@ -248,12 +288,43 @@
         container.appendChild(div);
       });
 
+      // Add sustainable packaging option
+      if (count > 0) {
+        const packagingDiv = document.createElement('div');
+        packagingDiv.className = 'mt-6 p-4 bg-blue-50 rounded-lg border border-blue-100';
+        packagingDiv.innerHTML = `
+          <div class="flex items-start">
+            <div class="flex-1">
+              <h3 class="font-semibold text-blue-800">🍁 Reduce Your Environmental Impact</h3>
+              <p class="text-sm text-blue-700 mt-1">
+                Your current packaging CO₂e: <span id="total-packaging-impact">${totalPackagingImpact.toFixed(2)} kg</span>
+              </p>
+              <p class="text-xs text-blue-600 mt-2">
+                Choose sustainable packaging (corrugated boxes, biodegradable materials) to reduce your packaging impact by 40%
+              </p>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer ml-4">
+              <input type="checkbox" id="sustainable-packaging" class="sr-only peer" onchange="updateEcoImpact()">
+              <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
+            </label>
+          </div>
+          <p id="packaging-savings" class="text-xs text-green-600 font-medium mt-2 hidden">
+            ♻️ You'll save ${(totalPackagingImpact * 0.4).toFixed(2)} kg CO₂e with sustainable packaging!
+          </p>
+        `;
+        container.appendChild(packagingDiv);
+      }
+
       itemCount.textContent = count;
       summaryItemCount.textContent = count;
       subtotalElem.textContent = `$${subtotal.toFixed(2)}`;
       const shipping = subtotal >= 35 ? 0 : 6.99;
       shippingElem.textContent = `$${shipping.toFixed(2)}`;
       totalElem.textContent = `$${(subtotal + shipping).toFixed(2)}`;
+      // Store values for later use and update UI
+      window.currentEcoImpact = totalEcoPoints;
+      window.packagingSavings = totalPackagingImpact * 0.4;
+      updateEcoImpact(); // Update the displayed impact
       checkoutBtn.disabled = count === 0;
     }
   </script>
