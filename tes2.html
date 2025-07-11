@@ -1443,6 +1443,9 @@
                         image: obj[products[i].Product.split(' ')[0]][products[i].Brand],
                         price: "From $" + (product.price / 80).toFixed(),
                         id: product.itemID,
+                        production: product['Production(kg CO2e)'],
+                        packaging: product['Packaging(kg CO2e)'],
+                        logistics: product['Logistics(kg CO2e)'],
                         total: product['Total(kg CO2e)']
                     });
                 }

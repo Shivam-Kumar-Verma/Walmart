@@ -150,27 +150,45 @@ function displayCartItems() {
 
 // Create cart item element
 function createCartItemElement(item, index, itemTotal) {
-    const div = document.createElement('div');
-    div.className = 'cart-item';
     const price = item.price ? parseFloat(item.price.replace(/[^0-9.-]+/g, '')) : 
                  (item.Sale_Price ? parseFloat(item.Sale_Price.replace(/[^0-9.-]+/g, '')) : 0);
     
+    // Handle image path
+    let image = item.image || item.Product_imgUrl || '';
+    if (image && !image.startsWith('http') && !image.startsWith('data:')) {
+        // If the path is relative, add the correct base path
+        if (!image.startsWith('../')) {
+            image = '../' + image;
+        }
+    }
+    // Fallback to placeholder if no image is available
+    if (!image) {
+        image = 'https://via.placeholder.com/100';
+    }
+    
+    const name = item.title || item.Product_Name || 'Product';
+    const brand = item.brand || item.Brand || '';
+    const count = item.count || 1;
+    
+    const div = document.createElement('div');
+    div.className = 'flex gap-4 bg-gray-50 rounded p-4 shadow mb-4';
     div.innerHTML = `
-        <div class="flex items-center space-x-4">
-            <img src="${item.image || item.Product_imgUrl || 'https://via.placeholder.com/80x80'}" 
-                 alt="${item.title || item.Product_Name || 'Product'}" 
-                 class="w-20 h-20 object-cover rounded"
-                 onerror="this.src='https://via.placeholder.com/80x80'">
-            <div class="flex-1">
-                <h4 class="font-medium text-gray-900">${item.title || item.Product_Name || 'Product Name'}</h4>
-                <p class="text-sm text-gray-500">${item.brand || ''}</p>
-                <div class="flex items-center mt-1">
-                    <span class="text-sm text-gray-600">Qty: ${item.count || 1}</span>
-                    <span class="mx-2 text-gray-300">|</span>
-                    <span class="text-sm font-medium">$${price.toFixed(2)} each</span>
+        <div class="w-24 h-24 flex items-center justify-center bg-white rounded overflow-hidden">
+            <img src="${image}" 
+                 alt="${name}" 
+                 class="max-w-full max-h-full object-contain p-1"
+                 onerror="this.src='https://via.placeholder.com/100'">
+        </div>
+        <div class="flex-grow">
+            <h4 class="font-semibold text-gray-800">${name}</h4>
+            ${brand ? `<p class="text-sm text-gray-600">${brand}</p>` : ''}
+            <p class="text-sm text-green-600">Free shipping on orders over $35</p>
+            <div class="flex justify-between items-center mt-2">
+                <div class="flex items-center gap-2 text-sm">
+                    <span class="text-gray-600">Qty: ${count}</span>
                 </div>
+                <span class="text-lg font-semibold text-gray-900">$${itemTotal.toFixed(2)}</span>
             </div>
-            <div class="font-medium">$${itemTotal.toFixed(2)}</div>
         </div>
     `;
     return div;

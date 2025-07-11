@@ -161,6 +161,12 @@ function display(data) {
     let name = document.createElement('div');
     name.setAttribute('class', 'name');
     name.innerText = ele.Product_Name;
+
+    // Add description paragraph
+    let description = document.createElement('p');
+    description.setAttribute('class', 'description');
+    description.innerText = ele.description || 'No description available';
+    
     let star = document.createElement('div');
     star.setAttribute('class', 'star');
     let img2 = document.createElement('img');
@@ -173,7 +179,7 @@ function display(data) {
     let img3 = document.createElement('img');
     img3.src = 'imgs/as.png';
     last.append(img3);
-    ma.append(div1, add, price, name, star, last);
+    ma.append(div1, add, price, name, description, star, last);
     main.append(ma);
   });
 }

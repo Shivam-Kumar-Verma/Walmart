@@ -13,6 +13,8 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="payment.css">
 </head>
 <body>
@@ -23,7 +25,7 @@
     <header class="checkout-header">
         <div class="header-content">
             <div class="header-left">
-                <a href="../econew.html" class="back-link">
+                <a href="../CheckoutDetailing/cart.html" class="back-link">
                     <i class="fas fa-arrow-left"></i>
                     <span>Back to Cart</span>
                 </a>
@@ -124,8 +126,8 @@
                         <span id="totalItems">0</span> items
                     </div>
                 </div>
-                <div class="section-content">
-                    <div id="cartDetails" class="cart-items">
+                <div class="section-content p-0">
+                    <div id="cartDetails" class="space-y-4 p-4">
                         <!-- Cart items will be populated here -->
                     </div>
                 </div>
@@ -531,6 +533,7 @@
                         </div>
                         <div class="order-item-details">
                             <h4>${name}</h4>
+                            <p>${item.description}</p>
                             <div class="item-price">$${price.toFixed(2)} × ${quantity}</div>
                         </div>
                         <div class="order-item-total">$${itemTotal.toFixed(2)}</div>
