@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - Walmart Green Mode</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #00a651;
+            --secondary-green: #4caf50;
+            --accent-green: #81c784;
+            --light-green: #e8f5e8;
+            --dark-green: #2e7d32;
+            --platinum: #e5e4e2;
+            --gold: #ffd700;
+            --silver: #c0c0c0;
+            --bronze: #cd7f32;
+            --gray-900: #1a1a1a;
+            --gray-800: #2d2d2d;
+            --gray-700: #404040;
+            --gray-600: #666666;
+            --gray-500: #808080;
+            --gray-400: #999999;
+            --gray-300: #cccccc;
+            --gray-200: #e6e6e6;
+            --gray-100: #f5f5f5;
+            --gray-50: #fafafa;
+            --white: #ffffff;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --border-radius-sm: 6px;
+            --border-radius-md: 12px;
+            --border-radius-lg: 16px;
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: linear-gradient(135deg, var(--gray-50) 0%, var(--light-green) 100%);
+            color: var(--gray-800);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        header {
+            background: var(--white);
+            box-shadow: var(--shadow-sm);
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-green);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .back-btn {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background: var(--dark-green);
+            transform: translateY(-1px);
+        }
+
+        h1 {
+            text-align: center;
+            margin: 2rem 0;
+            color: var(--gray-800);
+            font-size: 2.5rem;
+        }
+
+        .profile-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+
+        .tier-badge {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: var(--platinum);
+            color: #333;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tier-badge.gold {
+            background: linear-gradient(135deg, var(--gold), #d4af37);
+        }
+
+        .tier-badge.silver {
+            background: linear-gradient(135deg, var(--silver), #a8a9ad);
+        }
+
+        .tier-badge.bronze {
+            background: linear-gradient(135deg, var(--bronze), #8b4513);
+            color: white;
+        }
+
+        .profile-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--gray-800);
+        }
+
+        .profile-email {
+            color: var(--gray-600);
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: var(--border-radius-md);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-card i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-green);
+        }
+
+        .stat-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--gray-800);
+        }
+
+        .stat-card p {
+            color: var(--gray-600);
+            font-size: 0.9rem;
+        }
+
+        .badges-section {
+            background: var(--white);
+            border-radius: var(--border-radius-md);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--gray-800);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title i {
+            color: var(--primary-green);
+        }
+
+        .badges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .badge-card {
+            background: var(--gray-50);
+            border-radius: var(--border-radius-md);
+            padding: 1.5rem 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid var(--gray-200);
+        }
+
+        .badge-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-green);
+        }
+
+        .badge-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: white;
+            font-size: 2rem;
+        }
+
+        .badge-icon.locked {
+            background: var(--gray-300);
+            color: var(--gray-500);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .badge-icon.locked::after {
+            content: '🔒';
+            position: absolute;
+            top: 0;
+            right: 5px;
+            font-size: 1.2rem;
+        }
+
+        .badge-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--gray-800);
+        }
+
+        .badge-desc {
+            font-size: 0.85rem;
+            color: var(--gray-600);
+            margin-bottom: 0.5rem;
+        }
+
+        .badge-date {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            font-style: italic;
+        }
+
+        .progress-section {
+            margin-top: 3rem;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: var(--gray-200);
+            border-radius: 5px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-green), var(--secondary-green));
+            border-radius: 5px;
+            width: 75%;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray-600);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .badges-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .profile-name {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .badges-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 2.5rem;
+            }
+            
+            .tier-badge {
+                font-size: 0.7rem;
+                padding: 0.2rem 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <i class="fas fa-leaf"></i>
+                <span>Walmart Green</span>
+            </a>
+            <a href="orderHistory.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Dashboard
+            </a>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="profile-section">
+            <div class="profile-avatar">
+                JD
+                <div class="tier-badge gold">
+                    <i class="fas fa-crown"></i>
+                    Gold Member
+                </div>
+            </div>
+            <h1 class="profile-name">John Doe</h1>
+            <p class="profile-email">john.doe@example.com</p>
+            
+            <div class="progress-section">
+                <div class="progress-text">
+                    <span>Eco Warrior Progress</span>
+                    <span>75% to Platinum</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+        </section>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <i class="fas fa-leaf"></i>
+                <h3>24</h3>
+                <p>Eco Certified Orders</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-tree"></i>
+                <h3>12</h3>
+                <p>Trees Planted</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-recycle"></i>
+                <h3>47 kg</h3>
+                <p>CO₂ Reduced</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-trophy"></i>
+                <h3>Gold</h3>
+                <p>Current Tier</p>
+            </div>
+        </div>
+
+        <div class="badges-section">
+            <h2 class="section-title">
+                <i class="fas fa-award"></i>
+                Your Badges
+            </h2>
+            <div class="badges-grid">
+                <!-- Earned Badges -->
+                <div class="badge-card">
+                    <div class="badge-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h4 class="badge-name">Green Starter</h4>
+                    <p class="badge-desc">Completed first eco-friendly purchase</p>
+                    <p class="badge-date">Earned: Jan 15, 2024</p>
+                </div>
+                
+                <div class="badge-card">
+                    <div class="badge-icon">
+                        <i class="fas fa-recycle"></i>
+                    </div>
+                    <h4 class="badge-name">Recycling Hero</h4>
+                    <p class="badge-desc">Recycled 10+ items</p>
+                    <p class="badge-date">Earned: Feb 3, 2024</p>
+                </div>
+                
+                <div class="badge-card">
+                    <div class="badge-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h4 class="badge-name">Energy Saver</h4>
+                    <p class="badge-desc">Saved 100+ kWh of energy</p>
+                    <p class="badge-date">Earned: Mar 10, 2024</p>
+                </div>
+                
+                <!-- Locked Badges -->
+                <div class="badge-card">
+                    <div class="badge-icon locked">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <h4 class="badge-name">Eco Champion</h4>
+                    <p class="badge-desc">Reach Platinum tier</p>
+                    <p class="badge-date">Locked</p>
+                </div>
+                
+                <div class="badge-card">
+                    <div class="badge-icon locked">
+                        <i class="fas fa-infinity"></i>
+                    </div>
+                    <h4 class="badge-name">Zero Waste Hero</h4>
+                    <p class="badge-desc">30 days of zero waste</p>
+                    <p class="badge-date">Locked</p>
+                </div>
+                
+                <div class="badge-card">
+                    <div class="badge-icon locked">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <h4 class="badge-name">Global Protector</h4>
+                    <p class="badge-desc">Offset 1 ton of CO₂</p>
+                    <p class="badge-date">Locked</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add animation to progress bar on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const progressFill = document.querySelector('.progress-fill');
+            // Trigger reflow
+            void progressFill.offsetWidth;
+            // Set final width with animation
+            progressFill.style.width = '75%';
+            
+            // Add subtle animation to stat cards
+            const statCards = document.querySelectorAll('.stat-card');
+            statCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+        });
+    </script>
+</body>
+</html>

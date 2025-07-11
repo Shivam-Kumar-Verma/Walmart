@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco Leaderboard - Walmart Green Mode</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #00a651;
+            --secondary-green: #4caf50;
+            --accent-green: #81c784;
+            --light-green: #e8f5e8;
+            --dark-green: #2e7d32;
+            --platinum: #e5e4e2;
+            --gold: #ffd700;
+            --silver: #c0c0c0;
+            --bronze: #cd7f32;
+            --gray-900: #1a1a1a;
+            --gray-800: #2d2d2d;
+            --gray-700: #404040;
+            --gray-600: #666666;
+            --gray-500: #808080;
+            --gray-400: #999999;
+            --gray-300: #cccccc;
+            --gray-200: #e6e6e6;
+            --gray-100: #f5f5f5;
+            --gray-50: #fafafa;
+            --white: #ffffff;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --border-radius-sm: 6px;
+            --border-radius-md: 12px;
+            --border-radius-lg: 16px;
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: linear-gradient(135deg, var(--gray-50) 0%, var(--light-green) 100%);
+            color: var(--gray-800);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        header {
+            background: var(--white);
+            box-shadow: var(--shadow-sm);
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-green);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .back-btn {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--dark-green);
+            transform: translateY(-1px);
+        }
+
+        h1 {
+            text-align: center;
+            margin: 2rem 0;
+            color: var(--gray-800);
+            font-size: 2.5rem;
+        }
+
+        .impact-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: var(--border-radius-md);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-card i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-green);
+        }
+
+        .stat-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--gray-800);
+        }
+
+        .stat-card p {
+            color: var(--gray-600);
+            font-size: 0.9rem;
+        }
+
+        .leaderboard-container {
+            background: var(--white);
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            margin-top: 2rem;
+        }
+
+        .leaderboard-header {
+            display: grid;
+            grid-template-columns: 50px 2fr 1fr 1fr 1fr 1fr;
+            padding: 1rem 1.5rem;
+            background: var(--primary-green);
+            color: white;
+            font-weight: 600;
+        }
+
+        .leaderboard-row {
+            display: grid;
+            grid-template-columns: 50px 2fr 1fr 1fr 1fr 1fr;
+            padding: 1rem 1.5rem;
+            align-items: center;
+            border-bottom: 1px solid var(--gray-200);
+            transition: background-color 0.2s ease;
+        }
+
+        .leaderboard-row:hover {
+            background-color: var(--gray-50);
+        }
+
+        .rank {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--gray-700);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--gray-200);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-platinum {
+            background: linear-gradient(135deg, var(--platinum), #b4b2b0);
+            color: #333;
+        }
+
+        .badge-gold {
+            background: linear-gradient(135deg, var(--gold), #d4af37);
+            color: #333;
+        }
+
+        .badge-silver {
+            background: linear-gradient(135deg, var(--silver), #a8a9ad);
+            color: #333;
+        }
+
+        .badge-bronze {
+            background: linear-gradient(135deg, var(--bronze), #8b4513);
+            color: white;
+        }
+
+        .medal {
+            font-size: 1.5rem;
+        }
+
+        .medal-gold {
+            color: var(--gold);
+        }
+
+        .medal-silver {
+            color: var(--silver);
+        }
+
+        .medal-bronze {
+            color: var(--bronze);
+        }
+
+        .eco-score {
+            font-weight: 600;
+            color: var(--primary-green);
+        }
+
+        .trees-planted {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--dark-green);
+            font-weight: 500;
+        }
+
+        .trees-planted i {
+            color: var(--secondary-green);
+        }
+
+        .impact-value {
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        @media (max-width: 768px) {
+            .leaderboard-header,
+            .leaderboard-row {
+                grid-template-columns: 30px 1fr 1fr 1fr;
+                font-size: 0.9rem;
+            }
+            
+            .leaderboard-header span:nth-child(4),
+            .leaderboard-row span:nth-child(4) {
+                display: none;
+            }
+            
+            .impact-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="orderHistory.html" class="logo">
+                <i class="fas fa-leaf"></i>
+                <span>Walmart Green</span>
+            </a>
+            <button class="back-btn" onclick="window.location.href='orderHistory.html'">
+                <i class="fas fa-arrow-left"></i>
+                Back to Dashboard
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>Eco Impact Leaderboard</h1>
+        
+        <div class="impact-stats">
+            <div class="stat-card">
+                <i class="fas fa-tree"></i>
+                <h3>2,457</h3>
+                <p>Trees Planted</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-cloud"></i>
+                <h3>1,234 kg</h3>
+                <p>CO₂ Emissions Reduced</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-recycle"></i>
+                <h3>5,678</h3>
+                <p>Green Actions Taken</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-users"></i>
+                <h3>1,234</h3>
+                <p>Active Eco Warriors</p>
+            </div>
+        </div>
+
+        <div class="leaderboard-container">
+            <div class="leaderboard-header">
+                <span>#</span>
+                <span>User</span>
+                <span>Tier</span>
+                <span>Eco Score</span>
+                <span>Trees Planted</span>
+                <span>Impact</span>
+            </div>
+            
+            <div id="leaderboard-rows">
+                <!-- Leaderboard rows will be inserted here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample data - in a real app, this would come from your backend
+        const users = [
+            // Platinum (10)
+            { id: 1, name: 'Alex Johnson', tier: 'Platinum', ecoScore: 984, treesPlanted: 24, impact: 47.5 },
+            { id: 2, name: 'Jamie Smith', tier: 'Platinum', ecoScore: 956, treesPlanted: 23, impact: 45.8 },
+            { id: 3, name: 'Taylor Wilson', tier: 'Platinum', ecoScore: 932, treesPlanted: 22, impact: 44.1 },
+            { id: 4, name: 'Morgan Lee', tier: 'Platinum', ecoScore: 915, treesPlanted: 21, impact: 42.3 },
+            { id: 5, name: 'Casey Kim', tier: 'Platinum', ecoScore: 898, treesPlanted: 20, impact: 40.6 },
+            { id: 6, name: 'Jordan Chen', tier: 'Platinum', ecoScore: 876, treesPlanted: 19, impact: 38.9 },
+            { id: 7, name: 'Riley Patel', tier: 'Platinum', ecoScore: 854, treesPlanted: 18, impact: 37.2 },
+            { id: 8, name: 'Avery Garcia', tier: 'Platinum', ecoScore: 832, treesPlanted: 17, impact: 35.5 },
+            { id: 9, name: 'Quinn Martinez', tier: 'Platinum', ecoScore: 815, treesPlanted: 16, impact: 33.8 },
+            { id: 10, name: 'Skylar Brown', tier: 'Platinum', ecoScore: 798, treesPlanted: 15, impact: 32.1 },
+            
+            // Gold (5)
+            { id: 11, name: 'Parker Davis', tier: 'Gold', ecoScore: 765, treesPlanted: 14, impact: 30.4 },
+            { id: 12, name: 'Drew Wilson', tier: 'Gold', ecoScore: 742, treesPlanted: 13, impact: 28.7 },
+            { id: 13, name: 'Blake Taylor', tier: 'Gold', ecoScore: 721, treesPlanted: 12, impact: 27.0 },
+            { id: 14, name: 'Cameron Lee', tier: 'Gold', ecoScore: 698, treesPlanted: 11, impact: 25.3 },
+            { id: 15, name: 'Casey Johnson', tier: 'Gold', ecoScore: 679, treesPlanted: 10, impact: 23.6 },
+            
+            // Silver (5)
+            { id: 16, name: 'Riley Smith', tier: 'Silver', ecoScore: 654, treesPlanted: 9, impact: 21.9 },
+            { id: 17, name: 'Morgan Wilson', tier: 'Silver', ecoScore: 632, treesPlanted: 8, impact: 20.2 },
+            { id: 18, name: 'Jordan Brown', tier: 'Silver', ecoScore: 615, treesPlanted: 7, impact: 18.5 },
+            { id: 19, name: 'Taylor Davis', tier: 'Silver', ecoScore: 598, treesPlanted: 6, impact: 16.8 },
+            { id: 20, name: 'Alex Kim', tier: 'Silver', ecoScore: 576, treesPlanted: 5, impact: 15.1 },
+            
+            // Bronze (7)
+            { id: 21, name: 'Jamie Chen', tier: 'Bronze', ecoScore: 543, treesPlanted: 4, impact: 13.4 },
+            { id: 22, name: 'Skylar Patel', tier: 'Bronze', ecoScore: 521, treesPlanted: 4, impact: 12.7 },
+            { id: 23, name: 'Parker Garcia', tier: 'Bronze', ecoScore: 498, treesPlanted: 3, impact: 11.0 },
+            { id: 24, name: 'Drew Martinez', tier: 'Bronze', ecoScore: 476, treesPlanted: 3, impact: 9.3 },
+            { id: 25, name: 'Blake Taylor', tier: 'Bronze', ecoScore: 453, treesPlanted: 2, impact: 7.6 },
+            { id: 26, name: 'Cameron Lee', tier: 'Bronze', ecoScore: 432, treesPlanted: 2, impact: 5.9 },
+            { id: 27, name: 'Casey Johnson', tier: 'Bronze', ecoScore: 410, treesPlanted: 1, impact: 4.2 }
+        ];
+
+        // Function to get badge HTML based on tier
+        function getBadgeHTML(tier) {
+            const tierClass = tier.toLowerCase();
+            return `<span class="badge badge-${tierClass}">${tier}</span>`;
+        }
+
+        // Function to get medal icon for top 3
+        function getMedalHTML(rank) {
+            if (rank === 1) return '<i class="fas fa-trophy medal medal-gold"></i>';
+            if (rank === 2) return '<i class="fas fa-medal medal medal-silver"></i>';
+            if (rank === 3) return '<i class="fas fa-medal medal medal-bronze"></i>';
+            return '';
+        }
+
+        // Function to render leaderboard rows
+        function renderLeaderboard() {
+            const container = document.getElementById('leaderboard-rows');
+            container.innerHTML = '';
+
+            users.forEach((user, index) => {
+                const rank = index + 1;
+                const row = document.createElement('div');
+                row.className = 'leaderboard-row';
+                
+                // Add highlight for current user (you can set this dynamically)
+                const isCurrentUser = user.id === 1; // Example: user with ID 1 is current user
+                if (isCurrentUser) {
+                    row.style.backgroundColor = 'rgba(0, 166, 81, 0.1)';
+                    row.style.borderLeft = '4px solid var(--primary-green)';
+                }
+
+                row.innerHTML = `
+                    <span class="rank">${rank}</span>
+                    <div class="user-info">
+                        <div class="avatar">${user.name.charAt(0)}</div>
+                        <div>
+                            <div>${user.name} ${isCurrentUser ? '<span style="color: var(--primary-green);">(You)</span>' : ''}</div>
+                            <div>${getMedalHTML(rank)}</div>
+                        </div>
+                    </div>
+                    <span>${getBadgeHTML(user.tier)}</span>
+                    <span class="eco-score">${user.ecoScore}</span>
+                    <span class="trees-planted">
+                        <i class="fas fa-tree"></i> ${user.treesPlanted}
+                    </span>
+                    <span class="impact-value">${user.impact} kg CO₂</span>
+                `;
+                
+                container.appendChild(row);
+            });
+        }
+
+        // Initialize the leaderboard when the page loads
+        document.addEventListener('DOMContentLoaded', renderLeaderboard);
+    </script>
+</body>
+</html>
