@@ -721,7 +721,7 @@ body {
 
 .department-item p {
     font-size: 0.95rem;
-    color: var(--text-primary);
+    color: white;
     font-weight: 600;
     margin: 0;
     position: relative;
@@ -798,14 +798,14 @@ body {
 .value-card-title {
     font-size: 1.25rem;
     font-weight: 700;
-    color: var(--text-primary);
+    color: white;
     margin-bottom: 0.75rem;
     line-height: 1.3;
 }
 
 .value-card-description {
     font-size: 0.95rem;
-    color: var(--text-secondary);
+    color:whitesmoke;
     line-height: 1.5;
     margin-bottom: 1rem;
 }
