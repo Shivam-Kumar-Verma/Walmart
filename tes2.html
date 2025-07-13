@@ -11,7 +11,7 @@
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link rel="stylesheet" href="econew.css">
     <title>Walmart - Save Money. Live Better.</title>
     
     <style>
@@ -588,7 +588,7 @@
         }
 
         .product-price {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: var(--walmart-blue);
             margin-bottom: 0.75rem;
@@ -1372,11 +1372,10 @@
             hideLoading();
         });
 
-        // Inside your renderProducts function, before mapping:
-                const API_BASE_URL = 'http://127.0.0.1:8000'; // Make sure this matches your FastAPI server address
-        const USER_ID = 101; // Example user ID
+        const API_BASE_URL = 'http://127.0.0.1:8000'; 
+        const USER_ID = 101; 
 
-        // Function to fetch and display recommendations
+        
         async function fetchRecommendations(item,flag) {
             // const container = document.getElementById('recommendations-container');
             // container.innerHTML = '<p>Loading recommendations...</p>'; // Show loading message
@@ -1437,7 +1436,6 @@
                         return parseInt(a['Total(kg CO2e)'])-parseInt(b['Total(kg CO2e)'])
                     });
                 }
-                console.log(flag);
                 sampleProducts.continueShopping=[];
                 for(let i=0;i<products.length;i++){
                     // if(flag===true){
@@ -1449,7 +1447,7 @@
                         title: product.Product,
                         description: product.Brand + " " + product['Variety/Size'],
                         image: obj[products[i].Product.split(' ')[0]][products[i].Brand],
-                        price: "From $" + (product.price / 80).toFixed(),
+                        price: "Only at $" + (product.price / 80).toFixed(),
                         id: product.itemID,
                         production: product['Production(kg CO2e)'],
                         packaging: product['Packaging(kg CO2e)'],
@@ -1459,26 +1457,9 @@
                 }
 
                 renderProducts(sampleProducts.continueShopping, 'continue-shopping');
-                for(let i=0;i<sampleProducts.continueShopping.length;i++) console.log(sampleProducts.continueShopping[i].total);
-
-                // let htmlContent = '';
-                // products.forEach(product => {
-                //     htmlContent += `
-                //         <div class="product-card">
-                //             <h3>${product.Product} - ${product['Variety/Size']}</h3>
-                //             <p><strong>Brand:</strong> ${product.Brand}</p>
-                //             <p class="price"><strong>Price:</strong> $${product.price.toFixed(2)}</p>
-                //             <p class="eco-score"><strong>Eco Score (kg CO2e):</strong> ${product['Total(kg CO2e)'].toFixed(2)}</p>
-                //             <p><strong>Refurbished Available:</strong> ${product.refurbished_available ? 'Yes' : 'No'}</p>
-                //             <p><strong>Item ID:</strong> ${product.itemID}</p>
-                //         </div>
-                //     `;
-                // });
-                // container.innerHTML = htmlContent;
 
             } catch (error) {
                 console.error('Error fetching recommendations:', error);
-                // container.innerHTML = `<p style="color: red;">Failed to load recommendations: ${error.message}</p>`;
             }
         }
 
@@ -1489,22 +1470,14 @@
             
             if (query) {
                 localStorage.setItem("search_query",query);
-                window.location.href="tes2.html";
-                
-                // console.log('Searching for:', query);
-                // In a real application, redirect to search results page
-                // window.location.href = `search.html?q=${encodeURIComponent(query)}`;
-                // showNotification(`Searching for "${query}"...`);
+                window.location.href="tes2.html";                
             }
         }
 
-
         async function loader(){
             const dep=localStorage.getItem("search_query");
-            console.log(dep);
             await fetchRecommendations(dep,false);
-            renderProducts(sampleProducts.continueShopping,'continue-shopping');
-            setupHoverCardListeners();  // Attach hover event listeners after rendering products
+            setupHoverCardListeners();  
         }
         loader();
 
@@ -1581,6 +1554,12 @@
                 if (p.total < minCO2) minCO2 = p.total;
                 if (p.total > maxCO2) maxCO2 = p.total;
             });
+            let maxc=0,minc=1000;
+            for(let i=0;i<products.length;i++){
+                if(products[i].total>maxc) maxc=products[i].total;
+                if(products[i].total<minc) minc=products[i].total;    
+            }
+            maxc+=50;
 
             container.innerHTML = products.map(product => {
                 let ecoPoints = 0;
@@ -1589,58 +1568,113 @@
                 } else {
                     ecoPoints = 50; // If all emissions are same, assign max points
                 }
+                // console.log(product.total);
+                let carbonScore=product.total;
+                let carbonPercentage = ((maxc - carbonScore) / (maxc-50)) * 100;
                 ecoPoints = Math.max(20, ecoPoints); // Ensure minimum is 20
                 // console.log(product.total);
                 return `
-                <div class="product-card" tabindex="0" role="button" aria-label="View ${product.title}" data-product-id="${product.id}">
-                    <div class="product-image">
-                        <img src="${product.image}" alt="${product.title}" loading="lazy" />
-                        ${product.discount ? `<div class="discount-badge">${product.discount}</div>` : ''}
-                        <div class="carbon-badge" title="Carbon Emission">
-                            <i class="fas fa-leaf"></i> CO₂: ${product.total.toFixed(0)}kg
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">${product.title}</h3>
-                        <p class="product-description">${product.description}</p>
-                        <div class="product-price">${product.price}</div>
-                        <div class="eco-points"><i class="fas fa-seedling"></i> Earn ${ecoPoints} Eco Points</div>
-                        <button class="btn-primary" onclick="addToCart(${product.id}); event.stopPropagation();">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
-                    </div>
-                    <div class="hover-card" aria-hidden="true">
-                        <img class="hover-card-image" src="${product.image}" alt="${product.title}" />
-                        <div class="hover-card-title">${product.title}</div>
-                        <div class="hover-card-description">${product.description}</div>
-                        <div class="hover-card-price">${product.price}</div>
-                        <div class="review-badges">
-                            <div class="badge" title="Quality">✅ Quality</div>
-                            <div class="badge" title="Eco-Friendly">🍃 Eco-Friendly</div>
-                            <div class="badge" title="Best Seller">🔥 Best Seller</div>
-                            <div class="badge" title="Health">❌ Health</div>
-                        </div>
-                        <div class="carbon-chart">
-                            <div class="carbon-labels">
-                                <span>Fast Delivery</span>
-                                <span>Eco Mode</span>
-                            </div>
-                            <div class="carbon-bar-container">
-                                <div class="carbon-bar fast-delivery"></div>
-                            </div>
-                            <div class="carbon-bar-container">
-                                <div class="carbon-bar eco-mode"></div>
+                    <div class="product-card" tabindex="0" role="button" aria-label="View ${product.title}" data-product-id="${product.id}" data-carbon-percentage="${carbonPercentage}">
+                        <div class="product-image-container">
+                            <img src="${product.image}" alt="${product.title}" loading="lazy" class="product-image" />
+                            ${product.discount ? `<div class="discount-badge">${product.discount}</div>` : ''}
+                            <div class="image-overlay">
+                                <div class="quick-actions">
+                                    <button class="quick-action-btn wishlist" title="Add to Wishlist" aria-label="Add to Wishlist">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                    <button class="quick-action-btn share" title="Share" aria-label="Share">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                    <button class="quick-action-btn quick-view" title="Quick View" aria-label="Quick View">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        <div class="action-icons" role="group" aria-label="Product actions">
-                            <span class="action-icon wishlist" title="Add to Wishlist" tabindex="0" role="button" aria-pressed="false" aria-label="Add to Wishlist"><i class="fas fa-heart"></i></span>
-                            <span class="action-icon share" title="Share" tabindex="0" role="button" aria-label="Share"><i class="fas fa-share-alt"></i></span>
-                            <span class="action-icon add-cart" title="Add to Cart" tabindex="0" role="button" aria-label="Add to Cart" onclick="event.stopPropagation(); addToCart(${product.id})"><i class="fas fa-cart-plus"></i></span>
+                        
+                        <div class="product-content">
+                            <div class="product-header">
+                                <h3 class="product-title">${product.title}</h3>
+                                <div class="product-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span class="rating-count">(4.5)</span>
+                                </div>
+                            </div>
+                            
+                            <p class="product-description">${product.description}</p>
+                            
+                            <div class="product-badges">
+                                <span class="badge quality"><i class="fas fa-check-circle"></i> Quality</span>
+                                <span class="badge eco-friendly"><i class="fas fa-leaf"></i> Eco-Friendly</span>
+                                <span class="badge best-seller"><i class="fas fa-fire"></i> Best Seller</span>
+                            </div>
+                            
+                            <div class="eco-metrics">
+                                <div class="carbon-footprint">
+                                    <div class="carbon-header">
+                                        <span class="carbon-label"><i class="fas fa-leaf"></i> Carbon Impact</span>
+                                        <span class="carbon-score">${carbonScore}kg CO₂</span>
+                                    </div>
+                                    <div class="carbon-bar-wrapper">
+                                        <div class="carbon-bar-track">
+                                            <div class="carbon-bar-fill"></div>
+                                            <div class="carbon-indicator"></div>
+                                        </div>
+                                    </div>
+                                    <div class="carbon-labels">
+                                        <span class="label-low">Low Impact</span>
+                                        <span class="label-high">High Impact</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="product-footer">
+                                <div class="price-section">
+                                    <span class="current-price">${product.price}</span>
+                                    ${product.originalPrice ? `<span class="original-price">${product.originalPrice}</span>` : ''}
+                                </div>
+                                <button class="add-to-cart-btn" onclick="addToCart(${product.id}); event.stopPropagation();">
+                                    <span class="btn-text">Add to Cart</span>
+                                    <i class="fas fa-cart-plus btn-icon"></i>
+                                </button>
+                            </div>
                         </div>
+                        
+                        <div class="product-glow"></div>
                     </div>
-                </div>
                 `;
             }).join('');
+
+            setupCarbonBarAnimations();
+        }
+
+        function setupCarbonBarAnimations() {
+            const productCards = document.querySelectorAll('.product-card');
+            
+            productCards.forEach(card => {
+                const carbonBarFill = card.querySelector('.carbon-bar-fill');
+                const carbonIndicator = card.querySelector('.carbon-indicator');
+                const carbonPercentage = card.getAttribute('data-carbon-percentage');
+                console.log(carbonPercentage);
+                card.addEventListener('mouseenter', () => {
+                    // Animate carbon bar on hover
+                    carbonBarFill.style.width = carbonPercentage + '%';
+                    carbonIndicator.style.left = carbonPercentage + '%';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    // Reset carbon bar when not hovering
+                    carbonBarFill.style.width = '0%';
+                    carbonIndicator.style.left = '0%';
+                });
+            });
         }
 
         function renderDepartments(departments, containerId) {
@@ -1658,7 +1692,7 @@
     
         // Load all sections
         function loadAllSections() {
-            renderProducts(sampleProducts.continueShopping, 'continue-shopping');
+            // renderProducts(sampleProducts.continueShopping, 'continue-shopping');
             // renderProducts(sampleProducts.spookySavings, 'spooky-savings');
             // renderProducts(sampleProducts.continueShopping, 'cart-recommendations');
             // renderProducts(sampleProducts.gifting, 'gifting-section');
@@ -2291,6 +2325,7 @@
             user-select: none;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
+
     </style>
     <div id="footer-container"></div>
     <script>
